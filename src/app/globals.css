@@ -35,7 +35,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .welcome-text,

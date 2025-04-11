@@ -1,14 +1,13 @@
-import Hero from '@/components/Hero';
+import EventSection from '@/components/Events/EventSection';
 import Sponsors from '@/components/Sponsors/Sponsors';
-import React from 'react'
+import Hero from '@/components/Hero';
 
-const page = () => {
+export default function Home() {
   return (
     <>
    <Hero/>
+   <EventSection/>
    <Sponsors/>
    </>
   )
 }
-
-export default page;

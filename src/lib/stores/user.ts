@@ -6,7 +6,7 @@ const userState: userStateType = {
   userData: null,
   userLoading: false,
 };
-export const useUser = create<userActionsType | userStateType>((set) => ({
+export const useUser = create<userActionsType & userStateType>((set) => ({
   ...userState,
   setUserData: () => populateUserDetails(set),
   // Write other reducers with proper actions like above.

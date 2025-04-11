@@ -124,8 +124,8 @@ export default function Hero() {
               transition={{ duration: 0.8 }}
             >
               <motion.h2
-                className="welcome-text mb-2 font-medium leading-none md:mb-4 text-[2.5rem] xs:text-[3rem] sm:text-[4rem] md:text-[5rem] lg:text-[6rem] xl:text-8xl"
-                style={{ fontFamily: "'bits indian calligra', serif" }}
+                className="welcome-text mb-2 font-medium font-calligra leading-none md:mb-4 text-[2.5rem] xs:text-[3rem] sm:text-[4rem] md:text-[5rem] lg:text-[6rem] xl:text-8xl"
+                // style={{ fontFamily: "'bits indian calligra', serif" }}
               >
                 WELCOME TO
               </motion.h2>
@@ -175,8 +175,8 @@ export default function Hero() {
             <motion.div className="relative z-10 flex flex-col items-center justify-center text-center text-[#FFF9E5]">
               {/* Welcome text is already shown by the component above */}
               <motion.h1
-                className="regalia-text font-medium leading-none text-[3.5rem] xs:text-[4.5rem] sm:text-[5.5rem] md:text-[6.5rem] lg:text-[7.5rem] xl:text-9xl"
-                style={{ fontFamily: "'Antolia Buchery', serif" }}
+                className="regalia-text font-antolia font-semibold leading-none text-[3.5rem] xs:text-[4.5rem] sm:text-[5.5rem] md:text-[6.5rem] lg:text-[7.5rem] xl:text-9xl"
+                // style={{ fontFamily: "'Antolia Buchery', serif" }}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{
                   opacity: animationComplete ? 1 : 0,
