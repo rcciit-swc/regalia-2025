@@ -43,7 +43,9 @@ const GlassNavigation = () => {
       const top = offsetY + "px";
       const left = offsetX + "px";
 
-      animate(scope.current, { top, left }, { duration: 0 });
+      if (scope.current) {
+        animate(scope.current, { top, left }, { duration: 0 });
+      }
     } else {
       setHovered(false);
     }
