@@ -20,12 +20,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { FiMenu } from "react-icons/fi"
 import { useEffect } from "react"
 import { navRoutes } from "@/utils/constraints/constants"
+import Image from "next/image"
 
 const Logo = () => (
   <span className="relative flex items-center justify-center">
-    <img
-      src="logo.svg"
+    <Image
+      src="/logo.svg"
       alt="Guitar"
+      width={56}
+      height={56}
       className="h-8 w-auto sm:h-10 md:h-12 lg:h-14 xl:h-16"
     />
   </span>
