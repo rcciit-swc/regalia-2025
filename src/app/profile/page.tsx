@@ -1,12 +1,12 @@
-import React from 'react'
-import ProfilePage from './ProfilePageContent'
+import { Suspense } from 'react';
+import ProfileContent from './ProfilePageContent';
+import ProfileSkeleton from './ProfileSkeleton';
 
-const Profile = () => {
+export default function ProfilePage() {
   return (
-    <>
-    <ProfilePage/>
-    </>
-  )
+    // do not remove this Suspense component ( yes i am talking to you and i am not ai )
+    <Suspense fallback={<ProfileSkeleton />}>
+      <ProfileContent />
+    </Suspense>
+  );
 }
-
-export default Profile
