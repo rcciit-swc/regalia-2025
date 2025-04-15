@@ -242,7 +242,7 @@ export function TeamEventRegistration({
         }
       }}
     >
-      <DialogContent className="sm:max-w-[500px] bg-black border border-[#8B5CF6] rounded-xl p-6">
+      <DialogContent className="sm:max-w-[500px] bg-[#210000] border  rounded-xl p-6">
         <DialogHeader>
           <DialogTitle className="text-white text-2xl">
             Registration for {eventName}
@@ -277,7 +277,7 @@ export function TeamEventRegistration({
                   id="teamName"
                   {...registerTeamLead('teamName')}
                   defaultValue={teamLeadData?.teamName}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md"
                   placeholder="Enter your team name"
                 />
                 {teamLeadErrors.teamName && (
@@ -294,7 +294,7 @@ export function TeamEventRegistration({
                   id="name"
                   readOnly
                   {...registerTeamLead('name')}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md"
                   placeholder="Enter team lead name"
                   defaultValue={userData?.name}
                 />
@@ -314,7 +314,7 @@ export function TeamEventRegistration({
                   readOnly
                   defaultValue={userData?.phone}
                   {...registerTeamLead('phone')}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md"
                   placeholder="Enter team lead phone number"
                 />
                 {teamLeadErrors.phone && (
@@ -332,7 +332,7 @@ export function TeamEventRegistration({
                   type="email"
                   defaultValue={userData?.email}
                   {...registerTeamLead('email')}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md"
                   placeholder="Enter team lead email"
                   readOnly
                 />
@@ -350,7 +350,7 @@ export function TeamEventRegistration({
                   id="collegeName"
                   {...registerTeamLead('collegeName')}
                   defaultValue={teamLeadData?.collegeName}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md"
                   placeholder="Enter college name"
                 />
                 {teamLeadErrors.collegeName && (
@@ -370,10 +370,7 @@ export function TeamEventRegistration({
               >
                 Close
               </Button>
-              <Button
-                type="submit"
-                className="bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/90 border-0"
-              >
+              <Button type="submit" className="bg-[#F5E1DA] text-black hover:bg-[#F5E1DA]/90 border-0">
                 Next
               </Button>
             </div>
@@ -417,7 +414,7 @@ export function TeamEventRegistration({
                   <Input
                     id="memberName"
                     {...registerTeamMember('name')}
-                    className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                    className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md"
                     placeholder="Enter team member name"
                   />
                   {teamMemberErrors.name && (
@@ -434,7 +431,7 @@ export function TeamEventRegistration({
                     id="memberPhone"
                     type="tel"
                     {...registerTeamMember('phone')}
-                    className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                    className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md"
                     placeholder="Enter team member phone number"
                   />
                   {teamMemberErrors.phone && (
@@ -451,7 +448,7 @@ export function TeamEventRegistration({
                     id="memberEmail"
                     type="email"
                     {...registerTeamMember('email')}
-                    className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                    className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md"
                     placeholder="Enter team member email"
                   />
                   {teamMemberErrors.email && (
@@ -472,41 +469,36 @@ export function TeamEventRegistration({
                   >
                     Cancel
                   </Button>
-                  <Button
-                    type="submit"
-                    className="bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/90 border-0"
-                  >
-                    {editingMemberIndex !== null ? 'Update' : 'Save'}
+                  <Button type="submit" className="bg-[#F5E1DA] text-black hover:bg-[#F5E1DA]/90 border-0">
+                    {editingMemberIndex !== null ? "Update" : "Save"}
                   </Button>
                 </div>
               </form>
             ) : (
               <div className="flex flex-col sm:flex-row gap-4 mt-4">
-                <Button
-                  type="button"
-                  onClick={() => setIsAddingMember(true)}
-                  className="bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/90 border-0"
-                >
-                  Add New Member
-                </Button>
-                <Button
-                  type="button"
-                  onClick={handleProceedToPayment}
-                  className="bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/90 border-0"
-                  disabled={
-                    totalTeamCount < minTeamSize || totalTeamCount > maxTeamSize
-                  }
-                >
-                  Make Payment
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setStep(1)}
-                  className="bg-white text-black hover:bg-white/90 border-0"
-                >
-                  Back
-                </Button>
+                  <Button
+                    type="button"
+                    onClick={() => setIsAddingMember(true)}
+                    className="bg-[#F5E1DA] text-black hover:bg-[#F5E1DA]/90 border-0"
+                  >
+                    Add New Member
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={handleProceedToPayment}
+                    className="bg-[#F5E1DA] text-black hover:bg-[#F5E1DA]/90 border-0"
+                    disabled={totalTeamCount < minTeamSize || totalTeamCount > maxTeamSize}
+                  >
+                    Make Payment
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setStep(1)}
+                    className="bg-white text-black hover:bg-white/90 border-0"
+                  >
+                    Back
+                  </Button>
               </div>
             )}
           </div>
@@ -526,7 +518,7 @@ export function TeamEventRegistration({
                 <Input
                   id="transactionId"
                   {...registerPayment('transactionId')}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md"
                   placeholder="Enter transaction ID"
                 />
                 {paymentErrors.transactionId && (
@@ -543,7 +535,7 @@ export function TeamEventRegistration({
                   id="paymentScreenshot"
                   type="file"
                   {...registerPayment('paymentScreenshot')}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md"
                   accept="image/*"
                 />
                 {paymentErrors.paymentScreenshot && (
@@ -573,10 +565,10 @@ export function TeamEventRegistration({
               </Button>
               <Button
                 type="submit"
-                className="bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/90 border-0"
+                className="bg-[#F5E1DA] text-black hover:bg-[#F5E1DA]/90 border-0"
                 disabled={isRegistering}
               >
-                {isRegistering ? 'Registering...' : 'Register'}
+                {isRegistering ? "Registering..." : "Register"}
               </Button>
             </div>
           </form>

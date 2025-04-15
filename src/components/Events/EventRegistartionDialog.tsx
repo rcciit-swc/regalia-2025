@@ -1,4 +1,4 @@
-'use client';
+"use client"
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -71,7 +71,7 @@ export function SoloEventRegistration({
       phone: userData?.phone,
       email: userData?.email,
     },
-  });
+  })
 
   const onSoloLeadSubmit = (data: SoloLeadFormValues) => {
     setSoloLeadData(data);
@@ -117,20 +117,20 @@ export function SoloEventRegistration({
     try {
       const result = await registerSoloEvent(registrationParams);
       // console.log('Solo registration result:', result);
-      markEventAsRegistered(eventID);
-      onClose();
-      setSoloLeadData(null);
-      setStep(1);
-      resetPayment();
+      markEventAsRegistered(eventID)
+      onClose()
+      setSoloLeadData(null)
+      setStep(1)
+      resetPayment()
     } catch (error) {
       console.error('Failed to register for solo event:', error);
       toast.error('Failed to register for solo event. Please try again.');
     }
-  };
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] bg-black border border-[#8B5CF6] rounded-xl p-6">
+      <DialogContent className="sm:max-w-[500px] bg-[#210000] border  rounded-xl p-6">
         <DialogHeader>
           <DialogTitle className="text-white text-2xl">
             Registration for {eventName}
@@ -150,16 +150,12 @@ export function SoloEventRegistration({
                 <input
                   id="name"
                   readOnly
-                  {...registerSoloLead('name')}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  {...registerSoloLead("name")}
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
                   placeholder="Enter your name"
                   defaultValue={userData?.name}
                 />
-                {soloLeadErrors.name && (
-                  <p className="text-red-500 text-sm">
-                    {soloLeadErrors.name.message}
-                  </p>
-                )}
+                {soloLeadErrors.name && <p className="text-red-500 text-sm">{soloLeadErrors.name.message}</p>}
               </div>
               <div className="grid gap-2">
                 <label htmlFor="phone" className="text-white">
@@ -169,16 +165,12 @@ export function SoloEventRegistration({
                   id="phone"
                   type="tel"
                   readOnly
-                  {...registerSoloLead('phone')}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  {...registerSoloLead("phone")}
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
                   placeholder="Enter your phone number"
                   defaultValue={userData?.phone}
                 />
-                {soloLeadErrors.phone && (
-                  <p className="text-red-500 text-sm">
-                    {soloLeadErrors.phone.message}
-                  </p>
-                )}
+                {soloLeadErrors.phone && <p className="text-red-500 text-sm">{soloLeadErrors.phone.message}</p>}
               </div>
               <div className="grid gap-2">
                 <label htmlFor="email" className="text-white">
@@ -187,17 +179,13 @@ export function SoloEventRegistration({
                 <input
                   id="email"
                   type="email"
-                  {...registerSoloLead('email')}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  {...registerSoloLead("email")}
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
                   placeholder="Enter your email"
                   defaultValue={userData?.email}
                   readOnly
                 />
-                {soloLeadErrors.email && (
-                  <p className="text-red-500 text-sm">
-                    {soloLeadErrors.email.message}
-                  </p>
-                )}
+                {soloLeadErrors.email && <p className="text-red-500 text-sm">{soloLeadErrors.email.message}</p>}
               </div>
               <div className="grid gap-2">
                 <label htmlFor="college" className="text-white">
@@ -206,15 +194,11 @@ export function SoloEventRegistration({
                 <input
                   id="college"
                   autoFocus
-                  {...registerSoloLead('college')}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  {...registerSoloLead("college")}
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
                   placeholder="Enter your college name"
                 />
-                {soloLeadErrors.college && (
-                  <p className="text-red-500 text-sm">
-                    {soloLeadErrors.college.message}
-                  </p>
-                )}
+                {soloLeadErrors.college && <p className="text-red-500 text-sm">{soloLeadErrors.college.message}</p>}
               </div>
             </div>
             <div className="flex justify-end gap-4">
@@ -222,14 +206,11 @@ export function SoloEventRegistration({
                 type="button"
                 variant="outline"
                 onClick={onClose}
-                className="bg-white text-black hover:bg-white/90 border-0"
+                className="bg-white text-black hover:bg-white/90 hover:text-black border-0"
               >
                 Close
               </Button>
-              <Button
-                type="submit"
-                className="bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/90 border-0"
-              >
+              <Button type="submit" className="bg-[#F5E1DA] text-black hover:bg-[#F5E1DA]/90 border-0">
                 Next
               </Button>
             </div>
@@ -237,10 +218,7 @@ export function SoloEventRegistration({
         )}
 
         {step === 2 && (
-          <form
-            onSubmit={handlePaymentSubmit(onPaymentSubmit)}
-            className="overflow-y-auto max-h-[65vh]"
-          >
+          <form onSubmit={handlePaymentSubmit(onPaymentSubmit)} className="overflow-y-auto max-h-[65vh]">
             <div className="grid gap-6 py-4">
               <div className="grid gap-2">
                 <label htmlFor="transactionId" className="text-white">
@@ -248,14 +226,12 @@ export function SoloEventRegistration({
                 </label>
                 <input
                   id="transactionId"
-                  {...registerPayment('transactionId')}
-                  className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                  {...registerPayment("transactionId")}
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
                   placeholder="Enter transaction ID"
                 />
                 {paymentErrors.transactionId && (
-                  <p className="text-red-500 text-sm">
-                    {paymentErrors.transactionId.message}
-                  </p>
+                  <p className="text-red-500 text-sm">{paymentErrors.transactionId.message}</p>
                 )}
               </div>
               <div className="grid gap-2 text-white">
@@ -265,14 +241,12 @@ export function SoloEventRegistration({
                 <input
                   id="paymentScreenshot"
                   type="file"
-                  {...registerPayment('paymentScreenshot')}
-                  className="bg-black border text-white border-gray-500 focus:border-[#8B5CF6] focus:outline-none rounded-md"
+                  {...registerPayment("paymentScreenshot")}
+                  className="bg-[#210000] border file:text-black border-gray-500 focus:border-[#F5E1DA] focus:outline-none rounded-md p-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#F5E1DA]  hover:file:bg-[#F5E1DA]/90 "
                   accept="image/*"
                 />
                 {paymentErrors.paymentScreenshot && (
-                  <p className="text-red-500 text-sm">
-                    {String(paymentErrors.paymentScreenshot.message)}
-                  </p>
+                  <p className="text-red-500 text-sm">{String(paymentErrors.paymentScreenshot.message)}</p>
                 )}
               </div>
             </div>
@@ -280,13 +254,7 @@ export function SoloEventRegistration({
               Pay <span className="text-green-500">₹ {eventFees}</span>
             </h1>
             <div className="mt-6 flex items-center justify-center">
-              <Image
-                src="/images/qr.jpg"
-                alt="Payment QR Code"
-                width={200}
-                height={200}
-                className="rounded-lg"
-              />
+              <Image src="/images/qr.jpg" alt="Payment QR Code" width={200} height={200} className="rounded-lg" />
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <Button
@@ -297,10 +265,7 @@ export function SoloEventRegistration({
               >
                 Back
               </Button>
-              <Button
-                type="submit"
-                className="bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/90 border-0"
-              >
+              <Button type="submit" className="bg-[#F5E1DA] text-black hover:bg-[#F5E1DA]/90  border-0">
                 Register
               </Button>
             </div>
