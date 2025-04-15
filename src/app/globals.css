@@ -27,6 +27,12 @@
   font-display: swap;
 }
 
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
 :root {
   --foreground: #ffffff;
   --background: #220000;
@@ -49,6 +55,7 @@ html {
 }
 
 @media (max-width: 1536px) {
+
   .welcome-text,
   .regalia-text {
     font-size: 180px;
@@ -56,6 +63,7 @@ html {
 }
 
 @media (max-width: 1280px) {
+
   .welcome-text,
   .regalia-text {
     font-size: 140px;
@@ -63,6 +71,7 @@ html {
 }
 
 @media (max-width: 1024px) {
+
   .welcome-text,
   .regalia-text {
     font-size: 100px;
@@ -70,6 +79,7 @@ html {
 }
 
 @media (max-width: 768px) {
+
   .welcome-text,
   .regalia-text {
     font-size: 70px;
@@ -77,6 +87,7 @@ html {
 }
 
 @media (max-width: 640px) {
+
   .welcome-text,
   .regalia-text {
     font-size: 50px;

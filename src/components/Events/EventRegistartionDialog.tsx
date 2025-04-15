@@ -166,7 +166,7 @@ export function SoloEventRegistration({
                   type="tel"
                   readOnly
                   {...registerSoloLead("phone")}
-                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
+                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-lg p-2"
                   placeholder="Enter your phone number"
                   defaultValue={userData?.phone}
                 />
