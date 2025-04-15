@@ -1,47 +1,62 @@
-"use client"
-import { useEvents } from "@/lib/stores"
-import { useEffect } from "react"
 import Image from "next/image"
 
-const EventsCard = () => {
-  const { eventsData, eventsLoading, setEventsData } = useEvents()
+interface EventCardProps {
+    name: string;
+    image_url: string;
+    registration_fees: number;
+    registered?: boolean;
+}
 
-  useEffect(() => {
-    setEventsData()
-  }, [setEventsData])
-
-  if (eventsLoading) {
-    return <div className="min-h-screen w-full flex justify-center items-center pt-24 md:pt-32">Loading events...</div>
-  }
-
+const EventsCard = ({ name, image_url, registration_fees, registered }: EventCardProps) => {
   return (
-    // Add padding-top to create space for the fixed navbar
     <div className="pt-24 md:pt-32 px-4 md:px-6 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        {eventsData?.map((event, index) => (
-          <div key={index} className="p-4 border rounded-lg shadow-md backdrop-blur">
-            <div className="relative w-full h-48 mb-3 overflow-hidden rounded">
-              <Image
-                src={event.image_url || "/placeholder.svg"}
-                alt={event.name || "Event image"}
-                fill
-                className="object-cover"
-              />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+        {/* Individual Card - Now with better width */}
+        <div className="group relative p-6 w-full min-w-[280px] rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/20 backdrop-blur-lg shadow-lg overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1">
+          
+          {/* Image container */}
+          <div className="relative w-full aspect-video mb-4 rounded-lg overflow-hidden">
+            <Image
+              src={image_url || "/placeholder.svg"}
+              alt={name || "Event image"}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+              priority={false}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          </div>
+
+          {/* Content */}
+          <div className="flex flex-col space-y-3">
+            <h3 className="text-xl font-bold text-white line-clamp-2 min-h-[56px]">
+              {name}
+            </h3>
+            
+            <div className="flex items-center justify-between">
+              <span className="text-lg font-semibold text-white">
+                ₹{registration_fees}
+              </span>
+              {registered && (
+                <span className="px-3 py-1 text-sm font-medium bg-green-500/20 text-green-400 rounded-full">
+                  Registered
+                </span>
+              )}
             </div>
-            <h3 className="text-lg font-semibold mb-2">{event.name}</h3>
-            <p className="text-sm text-gray-500 mb-4">Registration Fees: {event.registration_fees}</p>
+
+            {/* Button */}
             <button
-              disabled={event.registered}
-              className={`w-full px-4 py-2 rounded ${
-                event.registered
-                  ? "bg-gray-400 text-white cursor-not-allowed"
-                  : "bg-blue-500 text-white hover:bg-blue-600"
-              } transition-colors`}
+              disabled={registered}
+              className={`w-full py-3 rounded-lg font-medium text-lg transition-all ${
+                registered
+                  ? "bg-gray-600/30 text-gray-400 cursor-not-allowed"
+                  : "bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 active:scale-[0.98]"
+              }`}
             >
-              {event.registered ? "Registered" : "Register"}
+              {registered ? "Registered" : "Register Now"}
             </button>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   )
