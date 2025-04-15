@@ -254,7 +254,7 @@ export function TeamEventRegistration({
         </p>
         {teamMembers.length > 0 && (
           <span
-            className="text-[#8B5CF6] cursor-pointer hover:underline"
+            className="text-white cursor-pointer hover:underline"
             onClick={() => setIsSheetOpen(true)}
           >
             View & Edit Added Members

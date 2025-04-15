@@ -261,7 +261,7 @@ export function SoloEventRegistration({
                 type="button"
                 variant="outline"
                 onClick={() => setStep(1)}
-                className="bg-white text-black hover:bg-white/90 border-0"
+                className="bg-white text-black hover:text-black hover:bg-white/90 border-0"
               >
                 Back
               </Button>

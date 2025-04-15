@@ -48,13 +48,13 @@ export function ViewTeamMembers({
   const Content = () => (
     <div className="mt-6">
       {teamMembers.map((member, index) => (
-        <div key={index} className="mb-4 p-4 bg-gray-900 rounded-lg">
+        <div key={index} className="mb-4 p-4 bg-[#310000] rounded-lg">
           <p className="text-white font-semibold">Name: {member.name}</p>
           <p className="text-gray-400">Email: {member.email}</p>
           <p className="text-gray-400">Phone: {member.phone}</p>
           <Button
             onClick={() => onEditMember(index)}
-            className="mt-2 bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/90 border-0"
+            className="mt-2 bg-[#F5E1DA] text-black hover:bg-[#F5E1DA]/90 border-0"
           >
             Edit
           </Button>
@@ -66,7 +66,7 @@ export function ViewTeamMembers({
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={onOpenChange}>
-        <DrawerContent className="bg-black border-t border-[#8B5CF6]">
+        <DrawerContent className="bg-[#210000] border-t border-[#F5E1DA]">
           <DrawerHeader>
             <DrawerTitle className="text-white">Added Team Members</DrawerTitle>
             <DrawerDescription className="text-gray-400">
@@ -85,7 +85,7 @@ export function ViewTeamMembers({
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
-        className="bg-black border-l border-[#8B5CF6] w-[400px] sm:w-[540px]"
+        className="bg-[#210000] border-l border-[#F5E1DA] w-[400px] sm:w-[540px]"
       >
         <SheetHeader>
           <SheetTitle className="text-white">Added Team Members</SheetTitle>
