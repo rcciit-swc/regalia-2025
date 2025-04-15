@@ -1,8 +1,10 @@
-import EventSection from "@/components/Events/EventSection"
 
+import EventsCard from "@/components/Events/EventsCard"
 const Events = () => {
   return (
-   <EventSection/>
+    <>
+    <EventsCard/>
+    </>
   )
 }
 
