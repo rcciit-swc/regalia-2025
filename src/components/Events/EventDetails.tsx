@@ -13,7 +13,7 @@ interface EventDetailsProps {
 }
 // TODO:
 const EventDetails = ({ eventName }: EventDetailsProps) => {
-  const { eventsData, eventsLoading, setEventsData } = useEvents();
+  const { eventsData, eventsLoading } = useEvents();
   const [isSoloOpen, setIsSoloOpen] = useState(false);
   const [isTeamOpen, setIsTeamOpen] = useState(false);
   const { userData, userLoading } = useUser();
@@ -23,9 +23,6 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
     (e) => e.name.toLowerCase() === eventName.toLowerCase()
   );
 
-useEffect(() => {
-  setEventsData();
-}, [setEventsData]);
 
   if (eventsLoading) {
     return (

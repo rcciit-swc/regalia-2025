@@ -2,15 +2,10 @@
 import React from 'react'
 import EventCard from './EventsCard'
 import { useEvents } from "@/lib/stores"
-import { useEffect } from "react"
 import Link from 'next/link'
 
 const EventPage = () => {
-    const { eventsData, eventsLoading, setEventsData } = useEvents()
-
-    useEffect(() => {
-        setEventsData()
-    }, [setEventsData])
+    const { eventsData, eventsLoading } = useEvents()
 
     if (eventsLoading) {
         return <div className="min-h-screen w-full flex justify-center items-center pt-24 md:pt-32">Loading events...</div>
