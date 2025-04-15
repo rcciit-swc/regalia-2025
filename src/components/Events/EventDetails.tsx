@@ -1,17 +1,19 @@
 "use client"
 import { useEvents, useUser } from '@/lib/stores';
 import { login } from '@/utils/functions/auth/login';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { SoloEventRegistration } from './EventRegistartionDialog';
+import { TeamEventRegistration } from './TeamEventRegistration';
 
 interface EventDetailsProps {
   eventName: string;
 }
 // TODO:
 const EventDetails = ({ eventName }: EventDetailsProps) => {
-  const { eventsData, eventsLoading } = useEvents();
+  const { eventsData, eventsLoading, setEventsData } = useEvents();
   const [isSoloOpen, setIsSoloOpen] = useState(false);
   const [isTeamOpen, setIsTeamOpen] = useState(false);
   const { userData, userLoading } = useUser();
@@ -21,6 +23,10 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
     (e) => e.name.toLowerCase() === eventName.toLowerCase()
   );
 
+useEffect(() => {
+  setEventsData();
+}, [setEventsData]);
+
   if (eventsLoading) {
     return (
       <div className="pt-24 md:pt-32 px-4 md:px-6 max-w-7xl mx-auto">
@@ -28,6 +34,8 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
       </div>
     );
   }
+
+
 
   if (!eventData) {
     return (
@@ -88,6 +96,23 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
             </button>
           )}
         </div>
+
+        <SoloEventRegistration
+          isOpen={isSoloOpen}
+          eventID={eventData.id}
+          onClose={() => setIsSoloOpen(false)}
+          eventName={eventData.name}
+          eventFees={eventData.registration_fees}
+        />
+        <TeamEventRegistration
+          isOpen={isTeamOpen}
+          onClose={() => setIsTeamOpen(false)}
+          eventID={eventData.id}
+          eventName={eventData.name}
+          minTeamSize={Number(eventData.min_team_size)}
+          maxTeamSize={Number(eventData.max_team_size)}
+        />
+        
       </div>
     </div>
   );

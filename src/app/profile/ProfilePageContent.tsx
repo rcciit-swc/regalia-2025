@@ -11,7 +11,6 @@ import { logout } from '@/utils/functions/auth/logout';
 import { useEvents } from '@/lib/stores';
 import EventsCard from '@/components/Events/EventsCard';
 import  {EditProfileDialog}  from './EditProfileDialog';
-// import { EventDetailsDialog } from '@/components/profile';
 import type { events } from '@/lib/types';
 import { toast } from 'sonner';
 import { handleSaveChanges } from '@/utils/functions/profile/functions';
@@ -170,13 +169,6 @@ export default function ProfilePage() {
         onSave={handleProfileSave}
         name={name}
       />
-
-      {/* <EventDetailsDialog
-        event={selectedEvent}
-        open={isEventDialogOpen}
-        onOpenChange={setIsEventDialogOpen}
-        userId={userData?.id!}
-      /> */}
     </div>
   );
 }

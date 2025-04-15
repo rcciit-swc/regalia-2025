@@ -1,14 +1,19 @@
-import React from 'react'
-import EventDetails from '@/components/Events/EventDetails'
+import { Metadata } from 'next';
+import EventDetails from '@/components/Events/EventDetails';
+import { notFound } from 'next/navigation';
 
- const Page = async ({ params }: { params: { eventId: string } }) => {
-    const eventId = decodeURIComponent(params.eventId)
+const Page = async ({ params }: { params: { eventId: string } }) => {
+  const eventId = decodeURIComponent(params.eventId);
 
-    return (
-        <div>
-            <EventDetails eventName={eventId} />
-        </div>
-    )
-}
+  if (!eventId) {
+    notFound();
+  }
+  
+  return (
+    <div>
+      <EventDetails eventName={eventId} />
+    </div>
+  );
+};
 
-export default Page
+export default Page;

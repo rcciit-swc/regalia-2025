@@ -11,6 +11,9 @@ importers:
       '@edge-runtime/cookies':
         specifier: ^6.0.0
         version: 6.0.0
+      '@hookform/resolvers':
+        specifier: ^5.0.1
+        version: 5.0.1(react-hook-form@7.55.0(react@18.3.1))
       '@radix-ui/react-avatar':
         specifier: ^1.1.4
         version: 1.1.4(@types/react-dom@18.3.6(@types/react@18.3.20))(@types/react@18.3.20)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -56,6 +59,9 @@ importers:
       react-dom:
         specifier: ^18
         version: 18.3.1(react@18.3.1)
+      react-hook-form:
+        specifier: ^7.55.0
+        version: 7.55.0(react@18.3.1)
       react-icons:
         specifier: ^5.5.0
         version: 5.5.0(react@18.3.1)
@@ -80,6 +86,12 @@ importers:
       tone:
         specifier: ^15.0.4
         version: 15.0.4
+      vaul:
+        specifier: ^1.1.2
+        version: 1.1.2(@types/react-dom@18.3.6(@types/react@18.3.20))(@types/react@18.3.20)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
       zustand:
         specifier: ^5.0.3
         version: 5.0.3(@types/react@18.3.20)(react@18.3.1)
@@ -137,6 +149,11 @@ packages:
 
   '@floating-ui/utils@0.2.9':
     resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
+
+  '@hookform/resolvers@5.0.1':
+    resolution: {integrity: sha512-u/+Jp83luQNx9AdyW2fIPGY6Y7NG68eN2ZW8FOJYL+M0i4s49+refdJdOp/A9n9HFQtQs3HIDHQvX3ZET2o7YA==}
+    peerDependencies:
+      react-hook-form: ^7.55.0
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -553,6 +570,9 @@ packages:
 
   '@radix-ui/rect@1.1.1':
     resolution: {integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==}
+
+  '@standard-schema/utils@0.3.0':
+    resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
 
   '@supabase/auth-helpers-nextjs@0.9.0':
     resolution: {integrity: sha512-V+UKFngSCkzAucX3Zi5D4TRiJZUUx0RDme7W217nIkwhCTvJY7Ih2L1cgnAMihQost2YYgTzJ7DrUzz4mm8i8A==}
@@ -1187,6 +1207,12 @@ packages:
     peerDependencies:
       react: ^18.3.1
 
+  react-hook-form@7.55.0:
+    resolution: {integrity: sha512-XRnjsH3GVMQz1moZTW53MxfoWN7aDpUg/GpVNc4A3eXRVNdGXfbzJ4vM4aLQ8g6XCUh1nIbx70aaNCl7kxnjog==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+
   react-icons@5.5.0:
     resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
     peerDependencies:
@@ -1495,6 +1521,12 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  vaul@1.1.2:
+    resolution: {integrity: sha512-ZFkClGpWyI2WUQjdLJ/BaGuV6AVQiJ3uELGk3OYtP+B6yCO7Cmn9vPFXVJkRaGkOJu3m8bQMgtyzNHixULceQA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc
+
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
 
@@ -1537,6 +1569,9 @@ packages:
 
   youtube-player@5.5.2:
     resolution: {integrity: sha512-ZGtsemSpXnDky2AUYWgxjaopgB+shFHgXVpiJFeNB5nWEugpW1KWYDaHKuLqh2b67r24GtP6HoSW5swvf0fFIQ==}
+
+  zod@3.24.2:
+    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
   zustand@5.0.3:
     resolution: {integrity: sha512-14fwWQtU3pH4dE0dOpdMiWjddcH+QzKIgk1cl8epwSE7yag43k/AD/m4L6+K7DytAOr9gGBe3/EXj9g7cdostg==}
@@ -1582,6 +1617,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
 
   '@floating-ui/utils@0.2.9': {}
+
+  '@hookform/resolvers@5.0.1(react-hook-form@7.55.0(react@18.3.1))':
+    dependencies:
+      '@standard-schema/utils': 0.3.0
+      react-hook-form: 7.55.0(react@18.3.1)
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -1964,6 +2004,8 @@ snapshots:
       '@types/react-dom': 18.3.6(@types/react@18.3.20)
 
   '@radix-ui/rect@1.1.1': {}
+
+  '@standard-schema/utils@0.3.0': {}
 
   '@supabase/auth-helpers-nextjs@0.9.0(@supabase/supabase-js@2.49.4)':
     dependencies:
@@ -2565,6 +2607,10 @@ snapshots:
       react: 18.3.1
       scheduler: 0.23.2
 
+  react-hook-form@7.55.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+
   react-icons@5.5.0(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -2874,6 +2920,15 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
+  vaul@1.1.2(@types/react-dom@18.3.6(@types/react@18.3.20))(@types/react@18.3.20)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@radix-ui/react-dialog': 1.1.7(@types/react-dom@18.3.6(@types/react@18.3.20))(@types/react@18.3.20)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
+
   webidl-conversions@3.0.1: {}
 
   whatwg-url@5.0.0:
@@ -2914,6 +2969,8 @@ snapshots:
       sister: 3.0.2
     transitivePeerDependencies:
       - supports-color
+
+  zod@3.24.2: {}
 
   zustand@5.0.3(@types/react@18.3.20)(react@18.3.1):
     optionalDependencies:

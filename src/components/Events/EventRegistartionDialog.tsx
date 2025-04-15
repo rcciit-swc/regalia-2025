@@ -11,6 +11,8 @@ import { toast } from 'sonner';
 import { registerSoloEvent } from '@/utils/functions/events/registerSolo';
 import { useUser } from '@/lib/stores';
 import { useEvents } from '@/lib/stores';
+import { Button } from '../ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 
 interface SoloEventRegistrationDialogProps {
   isOpen: boolean;
@@ -102,7 +104,7 @@ export function SoloEventRegistration({
 
     // Combine the registration data.
     const registrationParams = {
-      userId: userData?.id!, // non-null assertion; adjust if necessary
+      userId: String(userData?.id), // Ensure userId is a string
       eventId: eventID,
       transactionId: data.transactionId,
       college: soloLeadData!.college,
@@ -114,7 +116,7 @@ export function SoloEventRegistration({
 
     try {
       const result = await registerSoloEvent(registrationParams);
-      console.log('Solo registration result:', result);
+      // console.log('Solo registration result:', result);
       markEventAsRegistered(eventID);
       onClose();
       setSoloLeadData(null);
