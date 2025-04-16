@@ -1,8 +1,9 @@
-import EventSection from "@/components/Events/EventSection"
+import AnimatedEventDetails from "@/components/Events/EventPage/EventCard"
+
 
 const Events = () => {
   return (
-   <EventSection/>
+   <AnimatedEventDetails eventname="events" />
   )
 }
 
