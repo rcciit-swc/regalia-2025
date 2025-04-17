@@ -16,3 +16,25 @@ const getUserData = async () => {
 };
 
 export { getUserData };
+
+const updateUserData = async (data: any) => {
+  try {
+    const { error } = await supabase
+      .from('users')
+      .update({
+        name: data.full_name,
+        phone: data.phone,
+        gender: data.gender,
+      })
+      .eq('id', data.id);
+    if (error) {
+      throw error;
+    }
+    return;
+  } catch (error) {
+    console.log('error is ', error);
+    throw error;
+  }
+};
+
+export { updateUserData };

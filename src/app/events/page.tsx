@@ -1,8 +1,9 @@
-import EventSection from "@/components/Events/EventSection"
-
+import EventPage from "@/components/Events/EventPage"
 const Events = () => {
   return (
-   <EventSection/>
+    <>
+    <EventPage/>
+    </>
   )
 }
 

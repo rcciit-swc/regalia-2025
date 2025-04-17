@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { userActionsType, userStateType } from '../types';
-import { populateUserDetails } from '../actions';
+import { populateUserDetails, update_and_populate } from '../actions';
 
 const userState: userStateType = {
   userData: null,
@@ -9,5 +9,7 @@ const userState: userStateType = {
 export const useUser = create<userActionsType & userStateType>((set) => ({
   ...userState,
   setUserData: () => populateUserDetails(set),
+  clearUserData: () => set({ userData: null, userLoading: false }),
+  updateUserData: (data: any) => update_and_populate(set, data),
   // Write other reducers with proper actions like above.
 }));

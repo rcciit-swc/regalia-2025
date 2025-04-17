@@ -1,5 +1,5 @@
 export interface userDataType {
-  id: number;
+  id: string;
   name: string;
   email: string;
   phone: string;
@@ -17,4 +17,6 @@ export interface userStateType {
 
 export interface userActionsType {
   setUserData: () => void;
+  updateUserData: (data: any) => void;
+  clearUserData: () => void;
 }
