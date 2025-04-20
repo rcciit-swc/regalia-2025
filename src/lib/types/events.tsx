@@ -9,7 +9,6 @@ export interface Link {
   }
   
   export interface events {
-    title: string;
     id: string;
     name: string;
     reg_status: boolean;
