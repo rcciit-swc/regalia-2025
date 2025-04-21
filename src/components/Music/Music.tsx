@@ -91,7 +91,7 @@ export default function Music() {
         >
           <VinylPlayer
             size={playerSize}
-            youtubeVideoLink="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            youtubeVideoLink="https://youtu.be/xRbIU4ZD1Tk?si=yG3DqQNup_tzOEyR"
             volume={80}
             className="md:transform md:scale-110 lg:scale-125"
           />

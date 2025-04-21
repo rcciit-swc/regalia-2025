@@ -300,7 +300,7 @@ export default function VinylPlayer({
           >
             <svg className="w-full h-full" viewBox="0 0 800 800">
               <path style={{ fill: '#220000' }} d="M354.5,761.6l11.9,6.2c0,0,37.1-91.5,42.4-123.7c2.7-16.4-1.1-103.9-1.1-103.9V307.5h-14.7l-0.1,232.7c0,0,3.7,87.5,1.1,103.9C389,674.6,354.5,761.6,354.5,761.6z"></path>
-              <rect x="379.7" y="239.7" style={{ fill: '#220000' }} width="40.7" height="67.8"></rect>
+              <rect x="379.7" y="239.7" style={{ fill: '#fff' }} width="40.7" height="67.8"></rect>
               <circle style={{ fill: '#fff' }} cx="400" cy="400" r="22.6"></circle>
               <path style={{ fill: '#fff' }} className="grabbable" d="M353,738.9l18.3-22.9l13.2,6.4l-6.2,28.7l-22.8,47.1c0,0-1.2,3.3-15.4-3.6c-11.2-5.4-10-8.7-10-8.7L353,738.9z"></path>
             </svg>
