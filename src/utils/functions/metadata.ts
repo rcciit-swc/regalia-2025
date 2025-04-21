@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export function constructMetaData({
-  title = 'Techtrix 2025',
+  title = 'Regalia 2025',
   description = 'Techtrix is the Official Techno-Management Fest of RCCIIT.',
   authors = {
     name: 'TECHTRIX RCCIIT Team 2025',

@@ -8,8 +8,8 @@ import Footer from '@/components/common/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = constructMetaData({
-  title: 'Techtrix 2025',
-  description: 'The Official Techno-Management Fest of RCCIIT.',
+  title: 'Regalia 2025',
+  description: 'The Official Cultural Fest of RCCIIT.',
 });
 
 export default function RootLayout({
