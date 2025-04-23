@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useMemo } from "react"
 import { motion } from "framer-motion"
 import { useEvents } from "@/lib/stores"
+import { useRouter } from "next/navigation"
 
 const EventSection = () => {
   const [isScattered, setIsScattered] = useState(false)
@@ -12,6 +13,7 @@ const EventSection = () => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const { eventsData } = useEvents()
+  const router = useRouter()
 
   const randomRotations = useMemo(
     () => eventsData.map(() => Math.random() * 30 - 15),
@@ -193,8 +195,10 @@ const EventSection = () => {
                   backgroundPosition: "center",
                   width: `${cardSize}px`,
                   height: `${cardSize}px`,
+                  cursor: "pointer",
                 }}
                 className="absolute rounded-sm shadow-lg border border-white/10"
+                onClick={() => router.push(`/events/${event.name}`)}
               />
             )
           })}

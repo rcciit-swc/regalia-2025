@@ -43,7 +43,7 @@ export default function Sponsors() {
         className="z-10 absolute top-0 right-0 h-full flex items-center"
       >
         <img
-          src="Sponsors/guitar.svg"
+          src="Sponsors/guitar.webp"
           alt="Guitar"
           className="w-80 lg:w-[32rem]"
           height={200}

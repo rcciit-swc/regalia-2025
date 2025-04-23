@@ -9,7 +9,7 @@ import { login } from "@/utils/functions/auth/login"
 import { logout } from "@/utils/functions/auth/logout"
 import { supabase } from "@/utils/functions/supabase-client"
 import { Skeleton } from "../ui/skeleton"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,8 +38,23 @@ const GlassNavigation = () => {
   const navRef = useRef(null)
   const [hovered, setHovered] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [showNav, setShowNav] = useState(true)
+  const pathname = usePathname()
 
-  return (
+  // Hide navbar for 5s on "/" then show and open menu
+  useEffect(() => {
+    if (pathname === "/") {
+      setShowNav(false)
+      const timer = setTimeout(() => {
+        setShowNav(true)
+      }, 9000)
+      return () => clearTimeout(timer)
+    } else {
+      setShowNav(true)
+    }
+  }, [pathname])
+
+  if (showNav) return (
     <nav
       ref={navRef}
       onMouseLeave={() => setHovered(false)}
@@ -65,6 +80,8 @@ const GlassNavigation = () => {
       <MobileMenu menuOpen={menuOpen} />
     </nav>
   )
+  
+  return null
 }
 
 const Links = () => (
