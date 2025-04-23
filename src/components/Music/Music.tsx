@@ -87,7 +87,7 @@ export default function Music() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.5 }}
-          className="flex flex-row items-center justify-between relative gap-4 p-8"
+          className="flex flex-row items-center justify-between relative gap-4 p-16"
         >
           <VinylPlayer
             size={playerSize}

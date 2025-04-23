@@ -195,6 +195,21 @@ export default function Hero() {
               >
                 REGALIA 2025
               </motion.h1>
+              {/* Animate the button in sync with the heading */}
+              <motion.button
+                className="text-[#FFF6D6] font-antolia px-10 py-4 text-2xl rounded-xl border-2 border-[#FFF6D5] shadow-[6px_6px_12px_#d1c79b] hover:shadow-[8px_8px_14px_#e9deaa] transition-all duration-300
+                sm:px-8 sm:py-4 sm:text-3xl sm:ml-2
+                md:px-8 md:py-4 md:text-4xl
+                lg:px-12 lg:py- lg:text-5xl"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{
+                  opacity: animationComplete ? 1 : 0,
+                  y: animationComplete ? 0 : 50,
+                }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              >
+                Register Now
+              </motion.button>
             </motion.div>
           </motion.div>
         )}
