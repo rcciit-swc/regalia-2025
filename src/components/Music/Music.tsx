@@ -14,12 +14,8 @@ export default function Music() {
     const handleResize = () => {
       const width = window.innerWidth;
       if (width < 640) { // mobile
-        setPlayerSize(150);
-      } else if (width < 768) { // small tablet
-        setPlayerSize(250);
-      } else if (width < 1024) { // tablet
-        setPlayerSize(250);
-      } else { // desktop
+        setPlayerSize(200);
+      } else {
         setPlayerSize(250);
       }
     };
@@ -67,14 +63,14 @@ export default function Music() {
 
           {/* Guitar on right */}
           <motion.div 
-            className="relative pr-4"
+            className="relative pr-0 sm:pr-4"
           >
             <Image
               src="/music/guitar.svg"
               alt="Decorative guitar"
               width={200}
               height={200}
-              className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-[250px] lg:h-[250px]"
+              className="w-32 h-32  sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-[250px] lg:h-[250px]"
             />
           </motion.div>
         </div>
@@ -87,13 +83,13 @@ export default function Music() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.5 }}
-          className="flex flex-row items-center justify-between relative gap-4 p-16"
+          className="flex flex-row items-center justify-between relative gap-4 p-8 sm:p-16"
         >
           <VinylPlayer
             size={playerSize}
-            youtubeVideoLink="https://youtu.be/xRbIU4ZD1Tk?si=yG3DqQNup_tzOEyR"
+            youtubeVideoLink="xRbIU4ZD1Tk?si=yG3DqQNup_tzOEyR"
             volume={80}
-            className="md:transform md:scale-110 lg:scale-125"
+            className="transform scale-110 sm:scale-115 lg:scale-125"
           />
           <div className="flex flex-col items-center justify-center text-center">
           <h2 className="font-['Cogley'] font-normal text-xl sm:text-2xl md:text-4xl lg:text-[60px] leading-none text-center flex-1">

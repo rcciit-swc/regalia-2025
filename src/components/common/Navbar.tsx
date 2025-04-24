@@ -38,7 +38,7 @@ const GlassNavigation = () => {
   const navRef = useRef(null)
   const [hovered, setHovered] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [showNav, setShowNav] = useState(true)
+  const [showNav, setShowNav] = useState(false)
   const pathname = usePathname()
 
   // Hide navbar for 5s on "/" then show and open menu

@@ -49,7 +49,7 @@ export default function MusicSheet() {
   const [isInitialized, setIsInitialized] = useState(false);
 
   const visibleNotes = useMemo(() => {
-    const visibleCount = 12;
+    const visibleCount = 16;
     return Array.from({ length: visibleCount }, (_, i) => {
       const index = (visibleStartIndex + i) % allNotes.length;
       return allNotes[index];
@@ -105,11 +105,11 @@ export default function MusicSheet() {
   };
 
   return (
-    <div className="music-container w-full p-4">
-      <div className="bg-[#f5f0e1] p-4 flex items-center relative h-[180px] w-full rounded-lg shadow-xl overflow-hidden">
-        <div className="text-[120px] text-black mr-8" style={{ marginTop: '-10px' }}>&#119070;</div>
+    <div className="music-container w-full">
+      <div className="bg-[#f5f0e1] flex items-center relative h-[130px] sm:h-[180px] w-full shadow-xl overflow-hidden">
+        <div className="text-[100px] sm:text-[120px] text-black mr-8" style={{ marginTop: '-10px' }}>&#119070;</div>
 
-        <div className="flex-1 flex flex-col justify-between h-[100px] relative">
+        <div className="flex-1 flex flex-col justify-between h-[80px] sm:text-[100px] relative">
           {[0, 1, 2, 3, 4].map((index) => (
             <div
               key={index}

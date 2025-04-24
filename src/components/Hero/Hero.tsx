@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { supabase } from '@/utils/functions/supabase-client';
 
 export default function Hero() {
   const [currentState, setCurrentState] = useState('grid');
@@ -88,6 +89,25 @@ export default function Hero() {
       document.body.style.overflow = 'auto';
     };
   }, []);
+
+  const handleRegisterClick = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      window.location.href = '/events';
+    } else {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: location.origin + '/auth/callback?next=/events',
+        },
+      });
+      if (error) {
+        console.log('some error ocurred ');
+        console.error('Login Error:', error);
+        return null;
+      }
+    }
+  };
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
@@ -197,8 +217,9 @@ export default function Hero() {
               </motion.h1>
               {/* Animate the button in sync with the heading */}
               <motion.button
-                className="text-[#FFF6D6] font-antolia px-10 py-4 text-2xl rounded-xl border-2 border-[#FFF6D5] shadow-[6px_6px_12px_#d1c79b] hover:shadow-[8px_8px_14px_#e9deaa] transition-all duration-300
-                sm:px-8 sm:py-4 sm:text-3xl sm:ml-2
+                className="mt-8 text-white font-bold font-antolia rounded-xl border-4 border-[#FFF] shadow-[6px_6px_12px_#d1c79b] hover:shadow-[8px_8px_14px_#e9deaa] transition-all duration-300
+                px-6 py-3 text-2xl 
+                sm:px-8 sm:py-4 sm:text-3xl
                 md:px-8 md:py-4 md:text-4xl
                 lg:px-12 lg:py- lg:text-5xl"
                 initial={{ opacity: 0, y: 50 }}
@@ -207,6 +228,7 @@ export default function Hero() {
                   y: animationComplete ? 0 : 50,
                 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
+                onClick={handleRegisterClick}
               >
                 Register Now
               </motion.button>

@@ -290,7 +290,7 @@ export default function VinylPlayer({
           
           {/* Tonearm (Needle arm) */}
           <motion.div 
-            className="absolute -top-8 -right-16 md:-right-28 w-full h-full z-10 cursor-grab active:cursor-grabbing"
+            className="absolute -top-4 -right-12 min-[420px]:-right-14 min-[520px]:-right-16 sm:-top-8 sm:-right-24 md:-right-28 w-full h-full z-10 cursor-grab active:cursor-grabbing"
             style={{ 
               rotate: needleRotation,
               originX: 0.5,
