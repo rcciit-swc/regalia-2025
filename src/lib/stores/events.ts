@@ -1,29 +1,41 @@
 import { create } from 'zustand';
-import { populateEventDetails } from '../actions';
-import { EventsActionsType, EventsStateType } from '../types';
+import { events, EventsActionsType, EventsStateType } from '../types/events';
 import {
-  update_and_populate_events,
+  addEvent,
+  populateApprovalDashboard,
+  populateCategories,
+  populateEventDetails,
+  populateEventDetailsByID,
+  updatePopulateEvents,
   updateRegisterStatus,
-} from '../actions/events';
+} from '../actions';
 
-type EventsStore = EventsStateType & EventsActionsType;
-
-const initialState: EventsStateType = {
+type EventsStoreType = EventsStateType & EventsActionsType;
+const eventState: EventsStateType = {
+  eventCategories: [],
   eventsData: [],
-  eventsLoading: true,
+  eventData: {},
+  eventCategoriesLoading: false,
+  eventsLoading: false,
+  eventDetailsLoading: false,
+  approvalDashboardData: [],
+  approvalDashboardLoading: false,
 };
-
-export const useEvents = create<EventsStore>((set) => ({
-  ...initialState,
-  setEventsData: () => populateEventDetails(set),
+export const useEvents = create<EventsStoreType>((set) => ({
+  ...eventState,
+  setEventsData: (all: boolean = true) => populateEventDetails(set, all),
+  getEventByID: (id: string) => populateEventDetailsByID(set, id),
+  getEventCategories: () => populateCategories(set),
+  postEvent: (eventData: events) => addEvent(set, eventData),
+  updateRegisterStatus: (id: string, status: boolean) =>
+    updateRegisterStatus(set, id, status),
+  updateEventsData: () => (id: string, data: any) =>
+    updatePopulateEvents(set, id, data),
+  getApprovalDashboardData: (rangeStart:number, rangeEnd: number) => populateApprovalDashboard(set, rangeStart, rangeEnd),
   markEventAsRegistered: (eventId: string) =>
     set((state) => ({
       eventsData: state.eventsData.map((event) =>
         event.id === eventId ? { ...event, registered: true } : event
       ),
     })),
-  updateEventsData: (id: string, data: any) =>
-    update_and_populate_events(set, id, data),
-  updateRegisterStatus: (id: string, status: boolean) =>
-    updateRegisterStatus(set, id, status),
 }));

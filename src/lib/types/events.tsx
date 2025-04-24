@@ -7,6 +7,28 @@ export interface Link {
     name: string;
     phone: string;
   }
+
+  export interface TeamMember {
+    name: string;
+    email: string;
+    phone: string;
+  }
+  
+  export interface EventData {
+    serial_no: number;
+    paymentstatus: 'Verified' | 'Not Verified';
+    eventname: string;
+    type: string;
+    teamname: string;
+    college: string;
+    teamlead: string;
+    teamleadphone: string;
+    teamleademail: string;
+    transactionid: string;
+    transaction_screenshot: string;
+    registeredat: string;
+    teammembers: TeamMember[];
+  }
   
   export interface events {
     id: string;
@@ -31,17 +53,36 @@ export interface Link {
     registered?: boolean;
   }
   
+  export interface eventCategories {
+    id: string;
+    fest_id: string;
+    name: string;
+    tagline: string;
+    convenors: string;
+  }
+
   // The state interface for events.
   export interface EventsStateType {
+    eventCategories: eventCategories[];
+    eventCategoriesLoading: boolean;
     eventsData: events[];
+    eventData: any;
+    eventDetailsLoading: boolean;
     eventsLoading: boolean;
+    approvalDashboardData: any[];
+    approvalDashboardLoading: boolean;
   }
+  
   
   // The actions interface for events.
   export interface EventsActionsType {
-    setEventsData: () => void;
+    setEventsData: (all: boolean) => void;
+    postEvent: (eventsData: events) => void;
+    getEventCategories: () => void;
+    getEventByID: (id: string) => void;
     markEventAsRegistered: (eventId: string) => void;
-    updateEventsData: (id: string, data: any) => void;
     updateRegisterStatus: (id: string, status: boolean) => void;
+    updateEventsData: (id: string, data: any) => void;
+    getApprovalDashboardData: (rangeStart:number, rangeEnd:number) => void;
   }
   
