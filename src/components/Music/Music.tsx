@@ -87,8 +87,8 @@ export default function Music() {
         >
           <VinylPlayer
             size={playerSize}
-            youtubeVideoLink="xRbIU4ZD1Tk?si=yG3DqQNup_tzOEyR"
-            volume={80}
+            volume={90}
+            youtubeVideoLink="https://www.youtube.com/watch?v=xRbIU4ZD1Tk"
             className="transform scale-110 sm:scale-115 lg:scale-125"
           />
           <div className="flex flex-col items-center justify-center text-center">
