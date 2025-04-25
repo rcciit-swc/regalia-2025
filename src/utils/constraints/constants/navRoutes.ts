@@ -7,18 +7,18 @@ const navRoutes = [
         title: 'Events',
         route: '/events',
     },
-    {
-        title: 'Team',
-        route: '/team',
-    },
+    // {
+    //     title: 'Team',
+    //     route: '/team',
+    // },
     {
         title: 'Gallery',
         route: '/gallery',
     },
-    {
-        title: 'Contact Us',
-        route: '/contact',
-    },
+    // {
+    //     title: 'Contact Us',
+    //     route: '/contact',
+    // },
 ]
 
 export default navRoutes;
