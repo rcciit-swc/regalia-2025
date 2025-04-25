@@ -227,3 +227,28 @@ body {
 .modal-title {
   @apply font-cogley tracking-widest text-yellow-200 text-glow-orange  uppercase text-xl;
 }
+
+@layer utilities {
+  .text-glow-orange {
+    text-shadow: 0 0 5px #f97316, 0 0 10px #f97316, 0 0 20px #f97316;
+  }
+
+  .fancy-hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: radial-gradient(circle at center, #f97316 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+  }
+
+  .fancy-hover:hover::before {
+    opacity: 0.4;
+  }
+
+  .glow-border {
+    box-shadow: 0 0 15px 3px rgba(255, 246, 213, 0.4);
+  }
+}

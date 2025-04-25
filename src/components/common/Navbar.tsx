@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, Dispatch, SetStateAction } from "react"
+import { useRef, useState, Dispatch, SetStateAction, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useMeasure } from "react-use"
@@ -18,7 +18,6 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { FiMenu } from "react-icons/fi"
-import { useEffect } from "react"
 import { navRoutes } from "@/utils/constraints/constants"
 import Image from "next/image"
 
@@ -26,10 +25,10 @@ const Logo = () => (
   <span className="relative flex items-center justify-center">
     <Image
       src="/logo.svg"
-      alt="Guitar"
+      alt="Fest Logo"
       width={56}
       height={56}
-      className="h-8 w-auto sm:h-10 md:h-12 lg:h-14 xl:h-16"
+      className="h-10 w-auto sm:h-12 md:h-14 lg:h-16 drop-shadow-glow"
     />
   </span>
 )
@@ -41,7 +40,6 @@ const GlassNavigation = () => {
   const [showNav, setShowNav] = useState(false)
   const pathname = usePathname()
 
-  // Hide navbar for 5s on "/" then show and open menu
   useEffect(() => {
     if (pathname === "/") {
       setShowNav(false)
@@ -54,24 +52,22 @@ const GlassNavigation = () => {
     }
   }, [pathname])
 
-  if (showNav) return (
+  if (!showNav) return null
+
+  return (
     <nav
       ref={navRef}
       onMouseLeave={() => setHovered(false)}
-      style={{
-        cursor: hovered ? "none" : "auto",
-      }}
-      className="glass-nav fixed left-0 right-0 top-0 z-50 mx-auto max-w-7xl overflow-hidden border border-[#FFF6D5] bg-gradient-to-br from-white/20 to-[#FFF6D5;] backdrop-blur md:left-6 md:right-6 md:top-6 md:rounded-b-2xl"
+      style={{ cursor: hovered ? "none" : "auto" }}
+      className="glass-nav fixed left-0 right-0 top-0 z-50 mx-auto max-w-7xl border border-pink-200/30 bg-gradient-to-br from-pink-100/10 via-pink-300/10 to-yellow-100/5 backdrop-blur-xl shadow-lg md:left-6 md:right-6 md:top-6 md:rounded-b-2xl"
     >
-      <div className="glass-nav flex items-center justify-between px-5 py-4 relative">
+      <div className="flex items-center justify-between px-5 py-4 relative">
         <div className="hidden md:flex md:flex-1 justify-start">
           <Links />
         </div>
-
         <div className="flex justify-center md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
           <Logo />
         </div>
-
         <div className="flex items-center gap-4 md:flex-1 justify-end">
           <Buttons setMenuOpen={setMenuOpen} />
         </div>
@@ -80,12 +76,10 @@ const GlassNavigation = () => {
       <MobileMenu menuOpen={menuOpen} />
     </nav>
   )
-  
-  return null
 }
 
 const Links = () => (
-  <div className="hidden items-center gap-2 md:gap-3 lg:gap-6 xl:gap-8 md:flex">
+  <div className="hidden items-center gap-3 md:gap-5 lg:gap-7 xl:gap-9 md:flex">
     {navRoutes.map((nav, index) => (
       <GlassLink key={index} text={nav.title} route={nav.route} />
     ))}
@@ -95,30 +89,21 @@ const Links = () => (
 const GlassLink = ({ text, route }: { text: string; route: string }) => (
   <Link
     href={route}
-    className="font-antolia group relative scale-100 overflow-hidden rounded-lg px-2 py-1 sm:px-3 md:px-2 lg:px-3 text-sm md:text-sm lg:text-base xl:text-lg font-bold transition-transform hover:scale-105 active:scale-95"
+    className="group relative overflow-hidden rounded-lg px-3 py-1 sm:px-4 text-base md:text-lg font-bold text-white/90 transition-all duration-200 hover:scale-105 active:scale-95"
   >
-    <span className="relative z-10 text-white/90 transition-colors group-hover:text-white">{text}</span>
-    <span className="absolute inset-0 z-0 bg-gradient-to-br from-white/20 to-white/5 opacity-0 transition-opacity group-hover:opacity-100" />
+    <span className="relative z-10 group-hover:text-white">{text}</span>
+    <span className="absolute inset-0 bg-gradient-to-tr from-pink-300/20 via-yellow-100/10 to-pink-100/10 opacity-0 transition-opacity group-hover:opacity-100 blur-sm rounded-lg" />
   </Link>
 )
 
-const Buttons = ({
-  setMenuOpen,
-}: {
-  setMenuOpen: Dispatch<SetStateAction<boolean>>;
-}) => (
+const Buttons = ({ setMenuOpen }: { setMenuOpen: Dispatch<SetStateAction<boolean>> }) => (
   <div className="flex items-center gap-4">
-    <div className="block md:hidden">
-      <SignInButton />
-    </div>
-    <div className="hidden md:block">
-      <SignInButton />
-    </div>
+    <SignInButton />
     <button
-      onClick={() => setMenuOpen((prev) => !prev)}
-      className="ml-2 block scale-100 text-3xl text-white/90 transition-all hover:scale-105 hover:text-white active:scale-95 md:hidden"
+      onClick={() => setMenuOpen(prev => !prev)}
+      className="ml-2 block text-3xl text-white/90 transition-all hover:scale-110 active:scale-95 md:hidden"
     >
-      <FiMenu className="text-[#FFF6D5] font-extrabold rounded-[11px] " />
+      <FiMenu className="text-pink-200 drop-shadow-glow" />
     </button>
   </div>
 )
@@ -148,19 +133,15 @@ const SignInButton = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button className="group relative focus:outline-none">
-            <Avatar className="relative h-10 w-10 transition-all group-hover:ring-2 group-hover:ring-[#FFF6D5]/50 group-focus:ring-2 group-focus:ring-[#FFF6D5]">
-              {!imageLoaded && (
-                <Skeleton className="absolute inset-0 h-10 w-10 rounded-full bg-white/20" />
-              )}
+            <Avatar className="relative h-10 w-10 transition-all ring-2 ring-pink-300/50 group-hover:ring-yellow-100/50">
+              {!imageLoaded && <Skeleton className="absolute inset-0 h-10 w-10 rounded-full bg-white/20" />}
               <AvatarImage
                 src={profileImage}
                 alt="Profile"
                 onLoad={() => setImageLoaded(true)}
-                className={`h-full w-full object-cover transition-opacity duration-300 ${
-                  imageLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
+                className={`h-full w-full object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
               />
-              <AvatarFallback className="bg-gradient-to-br from-white/20 to-[#FFF6D5]/30 text-white font-bold">
+              <AvatarFallback className="bg-gradient-to-br from-pink-200/40 to-yellow-100/30 text-white font-bold">
                 {!userLoading && userData?.name ? userData.name.charAt(0).toUpperCase() : ''}
               </AvatarFallback>
             </Avatar>
@@ -168,19 +149,19 @@ const SignInButton = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          className="mt-2 w-48 overflow-hidden rounded-lg border border-[#FFF6D5]/30 bg-gradient-to-b from-white/20 to-[#FFF6D5]/10 backdrop-blur-lg shadow-lg"
+          className="mt-2 w-48 rounded-lg border border-pink-200/20 bg-gradient-to-b from-pink-100/20 to-yellow-100/10 backdrop-blur-md shadow-xl"
         >
           <DropdownMenuItem
-            className="focus:bg-white/10 focus:text-white cursor-pointer px-4 py-2 text-white/90 transition-colors hover:bg-white/5 hover:text-white"
+            className="cursor-pointer px-4 py-2 text-white/90 transition-colors hover:bg-pink-200/10"
             onSelect={() => router.push('/profile')}
           >
-            <span className="font-antolia">Profile</span>
+            Profile
           </DropdownMenuItem>
           <DropdownMenuItem
-            className="focus:bg-white/10 focus:text-white cursor-pointer px-4 py-2 text-white/90 transition-colors hover:bg-white/5 hover:text-white"
+            className="cursor-pointer px-4 py-2 text-white/90 transition-colors hover:bg-pink-200/10"
             onSelect={logout}
           >
-            <span className="font-antolia">Logout</span>
+            Logout
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -188,9 +169,12 @@ const SignInButton = () => {
   }
 
   return (
-    <button onClick={login} className="group relative scale-100 overflow-visible rounded-full px-5 py-2 sm:px-6 sm:py-3 text-base sm:text-lg font-semibold text-[#FFF6D5] transition-transform hover:scale-105 active:scale-95 border border-[#FFF6D5] shadow-[3px_1px_5px_0px_rgba(255,246,213,0.6)] bg-transparent">
-      <span className="relative z-10">Sign in</span>
-      <div className="absolute -inset-[1px] rounded-full blur-[1px] bg-transparent border border-[#FFF6D5] opacity-50"></div>
+    <button
+      onClick={login}
+      className="relative rounded-full px-5 py-2 text-base font-semibold text-pink-100 border border-pink-200/50 bg-white/10 hover:bg-pink-100/10 transition-all hover:scale-105 active:scale-95 shadow-lg"
+    >
+      Sign In
+      <span className="absolute -inset-[2px] rounded-full blur-md bg-pink-200/20 opacity-40"></span>
     </button>
   )
 }
@@ -200,26 +184,25 @@ const MobileMenu = ({ menuOpen }: { menuOpen: boolean }) => {
   return (
     <motion.div
       initial={false}
-      animate={{
-        height: menuOpen ? height : "0px",
-      }}
-      className="block overflow-hidden md:hidden shadow-lg rounded-b-lg"
+      animate={{ height: menuOpen ? 'fit-content' : "0px" }}
+      className="block overflow-hidden md:hidden rounded-b-xl border-t border-pink-200/30 bg-gradient-to-b from-pink-100/10 to-yellow-100/10 backdrop-blur-xl"
     >
-      <div ref={ref as React.LegacyRef<HTMLDivElement>} className="flex flex-col items-start justify-between px-4 pb-4">
-        <div className="flex flex-col items-center gap-6 w-full">
-          {navRoutes.map((nav, index) => (
-            <TextLink key={index} text={nav.title} route={nav.route} />
-          ))}
-        </div>
+      <div ref={ref as React.LegacyRef<HTMLDivElement>} className="flex flex-col items-center justify-between px-4 py-4 gap-4">
+        {navRoutes.map((nav, index) => (
+          <TextLink key={index} text={nav.title} route={nav.route} />
+        ))}
       </div>
     </motion.div>
   )
 }
 
 const TextLink = ({ text, route }: { text: string; route: string }) => (
-  <a href={route} className="text-white/90 font-antolia text-lg md:text-xl font-bold transition-colors">
+  <Link
+    href={route}
+    className="text-white/90 font-semibold text-lg transition-colors hover:text-white"
+  >
     {text}
-  </a>
+  </Link>
 )
 
 export default GlassNavigation
