@@ -102,7 +102,9 @@ export const getEventsData = async (all: boolean = true) => {
       throw new Error(error.message);
     }
 
-    return data;
+    // Limit to only 9 events
+    const limitedData = data.slice(0, 9);
+    return limitedData;
   } catch (err) {
     console.error('Unexpected error:', err);
     return null;

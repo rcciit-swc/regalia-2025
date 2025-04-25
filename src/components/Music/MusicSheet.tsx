@@ -1,19 +1,38 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import * as Tone from 'tone';
 
-const INITIAL_NOTES = ['C4', 'D4', 'E4', "F4", 'G4', 'A4', 'B4', 'C5'];
+const INITIAL_NOTES = ['G4','B4','G4','A4','G4','B4','A4','G4','B4','G4','A4','G4','B4',
+                      'B4','C5','D5','G5','F#5','E5','D5',
+                      'B4','C5','D5','G5','F#5','E5','D5',
+                      'A4','B4','C5','C5','C5','E5','D5','D5'];
 
-// Musical note positions on staff (in pixels from the bottom line)
 const NOTE_POSITIONS: Record<string, number> = {
-  'C4': 64,  
-  'D4': 54,  
-  'E4': 45,  
-  'F4': 31,  
-  'G4': 20,
-  'A4': 7,  
-  'B4': -5,  
-  'C5': -18,  
+  'C4': 80,
+  'C#4': 76,
+  'D4': 72,
+  'D#4': 68,
+  'E4': 64,
+  'F4': 60,
+  'F#4': 56,
+  'G4': 52,
+  'G#4': 48,
+  'A4': 44,
+  'A#4': 40,
+  'B4': 36,
+  'C5': 32,
+  'C#5': 28,
+  'D5': 24,
+  'D#5': 20,
+  'E5': 16,
+  'F5': 12,
+  'F#5': 8,
+  'G5': 4,
+  'G#5': 0,
+  'A5': -4,
+  'A#5': -8,
+  'B5': -12,
+  'C6': -16
 };
 
 // Musical note HTML entities for different note types
@@ -23,21 +42,44 @@ const NOTE_SYMBOLS = {
   WHOLE_NOTE: '𝅝',     // Unicode: U+1D15D
 };
 
-// CSS to prevent selection and focus effects
-const noSelectStyle = {
-  WebkitUserSelect: 'none' as const,
-  MozUserSelect: 'none' as const,
-  msUserSelect: 'none' as const,
-  userSelect: 'none' as const,
-  outline: 'none',
-};
-
 export default function MusicSheet() {
   const synthRef = useRef<Tone.Synth | null>(null);
-  const [notes, setNotes] = useState(INITIAL_NOTES);
+  const [allNotes, setAllNotes] = useState(INITIAL_NOTES);
+  const [visibleStartIndex, setVisibleStartIndex] = useState(0);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const visibleNotes = useMemo(() => {
+    const visibleCount = 16;
+    return Array.from({ length: visibleCount }, (_, i) => {
+      const index = (visibleStartIndex + i) % allNotes.length;
+      return allNotes[index];
+    });
+  }, [allNotes, visibleStartIndex]);
+
+  const initSynth = async () => {
+    if (!isInitialized) {
+      try {
+        await Tone.start();
+        synthRef.current = new Tone.Synth({
+          oscillator: {
+            type: 'sine'
+          },
+          envelope: {
+            attack: 0.02,
+            decay: 0.1,
+            sustain: 0.5,
+            release: 0.08
+          }
+        }).toDestination();
+        synthRef.current.volume.value = -12; 
+        setIsInitialized(true);
+      } catch (error) {
+        console.error('Failed to initialize audio:', error);
+      }
+    }
+  };
 
   useEffect(() => {
-    synthRef.current = new Tone.Synth().toDestination();
     return () => {
       if (synthRef.current) {
         synthRef.current.dispose();
@@ -46,32 +88,28 @@ export default function MusicSheet() {
   }, []);
 
   const handleNoteClick = async (index: number) => {
-    event?.preventDefault();
-    await Tone.start();
-    if (index >= 0 && index < notes.length && synthRef.current) {
-      synthRef.current.triggerAttackRelease(notes[index], '8n');
-      console.log('Playing note:', notes[index]);
-      // Move the played note to the end using state update
-      setNotes(prevNotes => {
-        const newNotes = [...prevNotes];
-        const note = newNotes[index];
-        newNotes.splice(index, 1);
-        newNotes.push(note);
-        return newNotes;
-      });
+    if (!isInitialized) {
+      await initSynth();
+    }
+    
+    if (synthRef.current && index >= 0 && index < visibleNotes.length) {
+      const playedNote = visibleNotes[index];
+      try {
+        synthRef.current.triggerAttackRelease(playedNote, '8n');
+        setVisibleStartIndex(prev => (prev + 1) % allNotes.length);
+
+      } catch (error) {
+        console.error('Failed to play note:', error);
+      }
     }
   };
 
   return (
-    <div className="music-container w-full items-center justify-center flex flex-col" style={noSelectStyle}>
-      {/* Music Staff */}
-      <div className="bg-[#f5f0e1] flex items-center relative h-[180px] w-full rounded-lg shadow-xl">
-        {/* Treble Clef */}
-        <div className="text-[120px] text-black mr-8" style={{ marginTop: '-10px', ...noSelectStyle }}>&#119070;</div>
+    <div className="music-container w-full">
+      <div className="bg-[#f5f0e1] flex items-center relative h-[130px] sm:h-[180px] w-full shadow-xl overflow-hidden">
+        <div className="text-[100px] sm:text-[120px] text-black mr-8" style={{ marginTop: '-10px' }}>&#119070;</div>
 
-        {/* Staff Lines Container */}
-        <div className="flex-1 flex flex-col justify-between h-[100px] relative">
-          {/* Staff Lines */}
+        <div className="flex-1 flex flex-col justify-between h-[80px] sm:text-[100px] relative">
           {[0, 1, 2, 3, 4].map((index) => (
             <div
               key={index}
@@ -79,28 +117,20 @@ export default function MusicSheet() {
             />
           ))}
 
-          {/* Notes */}
           <div className="absolute w-full flex justify-around items-end h-full">
-            {notes.map((note, idx) => (
+            {visibleNotes.map((note, idx) => (
               <div
-                key={`${note}-${idx}`}
+                key={`${note}-${idx}-${visibleStartIndex}`}
                 className="group relative cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNoteClick(idx);
-                }}
-                style={noSelectStyle}
+                onClick={() => handleNoteClick(idx)}
               >
-                {/* Musical Note Symbol */}
                 <div 
-                  className="text-[100px] text-black transition-colors"
+                  className="text-[100px] text-black hover:text-gray-700 transition-colors"
                   style={{
                     position: 'relative',
                     top: `${NOTE_POSITIONS[note]}px`,
                     transform: 'translateY(+5%)',
-                    fontFamily: 'serif',
-                    ...noSelectStyle,
-                    WebkitTapHighlightColor: 'transparent', // Remove tap highlight on mobile
+                    fontFamily: 'serif'
                   }}
                 >
                   {NOTE_SYMBOLS.QUARTER_NOTE}

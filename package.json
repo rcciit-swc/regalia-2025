@@ -22,11 +22,14 @@
     "@supabase/auth-helpers-nextjs": "^0.9.0",
     "@supabase/ssr": "^0.2.0",
     "@supabase/supabase-js": "^2.42.0",
+    "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "framer-motion": "^12.6.3",
+    "cobe": "^0.6.3",
+    "framer-motion": "^12.9.1",
     "html-react-parser": "^5.2.3",
     "lucide-react": "^0.487.0",
+    "motion": "^12.9.1",
     "next": "14.2.21",
     "react": "^18",
     "react-dom": "^18",
@@ -44,6 +47,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

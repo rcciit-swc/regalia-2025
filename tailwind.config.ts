@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      dropShadow: {
+        glow: '0 0 10px rgba(255, 182, 193, 0.7)',
+      },
       fontFamily: {
         cogley: ['Cogley', 'serif'],
         antolia: ['Antolia Buchery', 'serif'],
