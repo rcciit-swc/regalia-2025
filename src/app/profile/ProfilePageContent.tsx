@@ -10,10 +10,12 @@ import { supabase } from '@/utils/functions/supabase-client';
 import { logout } from '@/utils/functions/auth/logout';
 import { useEvents } from '@/lib/stores';
 import EventsCard from '@/components/Events/EventsCard';
-import  {EditProfileDialog}  from './EditProfileDialog';
+import { EditProfileDialog } from './EditProfileDialog';
 import type { events } from '@/lib/types';
 import { toast } from 'sonner';
 import { handleSaveChanges } from '@/utils/functions/profile/functions';
+import ProfileSkeleton from './ProfileSkeleton';
+import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 
 export default function ProfilePage() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -64,6 +66,7 @@ export default function ProfilePage() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     localStorage.removeItem('sb-session'); // Adjust based on storage mechanism
+    router.push('/');
     clearUserData();
   };
 
@@ -75,20 +78,17 @@ export default function ProfilePage() {
   const handleProfileSave = async (formData: FormData) => {
     await handleSaveChanges(formData, userData, updateUserData, () => {
       setIsEditModalOpen(false);
-      if (callbackUrl) {
-        router.push(callbackUrl);
-      }
     });
   };
 
   if (userLoading) {
-    return <p>NOTHING TO SHOW</p>;
+    return <ProfileSkeleton />;
   }
 
   return (
     <div className="min-h-screen mt-32">
       <main className="max-w-6xl mx-auto px-4 py-8">
-        <div className="bg-card rounded-xl  backdrop-blur-lg p-8 shadow-lg border border-white/20">
+        <div className="bg-[#1a0a0a] rounded-xl  backdrop-blur-lg p-8 font-cogley tracking-widest shadow-lg border border-white/20">
           <div className="flex flex-col md:flex-row gap-6 items-start">
             <Avatar className="w-32 h-32">
               {!imageLoaded && (
@@ -104,10 +104,10 @@ export default function ProfilePage() {
             </Avatar>
             <div className="space-y-4 flex-1">
               <div>
-                <h1 className="text-2xl font-semibold font-sargento text-white">
+                <h1 className="text-2xl font-semibold uppercase text-white">
                   {userData?.name ? userData?.name : name}
                 </h1>
-                <p className="text-muted-foreground text-white font-instrumentSans">
+                <p className="text-muted-foreground text-white font-antolia text-xl">
                   {userData?.email}
                 </p>
               </div>
@@ -127,7 +127,7 @@ export default function ProfilePage() {
         </div>
 
         <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4 text-white">
+          <h2 className="text-2xl font-bold mb-4 text-white font-cogley tracking-widest ">
             Events Registered
           </h2>
           {registeredEvents.length > 0 ? (
@@ -145,17 +145,17 @@ export default function ProfilePage() {
               ))}
             </div>
           ) : (
-            <div className="text-center text-white">
+            <div className="text-center text-white font-antolia tracking-widest">
               <p className="text-lg mb-4">
                 You have not registered for any event. Register now!
               </p>
-              <Button
+
+              <InteractiveHoverButton
+                className="mt-4"
                 onClick={() => router.push('/events')}
-                variant="outline"
-                className="text-black"
               >
                 Browse Events
-              </Button>
+              </InteractiveHoverButton>
             </div>
           )}
         </div>

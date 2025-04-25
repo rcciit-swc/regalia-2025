@@ -6,13 +6,12 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Image from 'next/image';
-import { uploadPaymentScreenshot } from '@/utils/functions/supabaseUpload';
 import { toast } from 'sonner';
-import { registerSoloEvent } from '@/utils/functions/events/registerSolo';
 import { useUser } from '@/lib/stores';
 import { useEvents } from '@/lib/stores';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
+import { registerSoloEvent, uploadPaymentScreenshot } from '@/utils/functions/register-services';
 
 interface SoloEventRegistrationDialogProps {
   isOpen: boolean;
@@ -130,9 +129,17 @@ export function SoloEventRegistration({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] bg-[#210000] border  rounded-xl p-6">
+      <DialogContent   
+      // style={{
+        //   backgroundImage:
+        //     "url('https://i.postimg.cc/K8j889rC/regalia-2025.png')",
+        //   backgroundSize: 'cover',
+        //   backgroundPosition: 'center',
+        //   backdropFilter: 'blur(10px)',
+        // }} 
+        className="sm:max-w-[500px] bg-[#210000] border  rounded-xl p-6">
         <DialogHeader>
-          <DialogTitle className="text-white text-2xl">
+          <DialogTitle className="text-white font-antolia tracking-widest font-bold text-2xl">
             Registration for {eventName}
           </DialogTitle>
         </DialogHeader>
@@ -144,21 +151,21 @@ export function SoloEventRegistration({
           >
             <div className="grid gap-6 py-4">
               <div className="grid gap-2">
-                <label htmlFor="name" className="text-white">
+                <label htmlFor="name" className="modal-title">
                   Name
                 </label>
                 <input
                   id="name"
                   readOnly
                   {...registerSoloLead("name")}
-                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
+                  className="bg-[#210000] border font-antolia tracking-widest text-xl border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
                   placeholder="Enter your name"
                   defaultValue={userData?.name}
                 />
                 {soloLeadErrors.name && <p className="text-red-500 text-sm">{soloLeadErrors.name.message}</p>}
               </div>
               <div className="grid gap-2">
-                <label htmlFor="phone" className="text-white">
+                <label htmlFor="phone" className="modal-title">
                   Phone
                 </label>
                 <input
@@ -166,21 +173,21 @@ export function SoloEventRegistration({
                   type="tel"
                   readOnly
                   {...registerSoloLead("phone")}
-                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-lg p-2"
+                  className="bg-[#210000] border font-antolia tracking-widest text-xl border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-lg p-2"
                   placeholder="Enter your phone number"
                   defaultValue={userData?.phone}
                 />
                 {soloLeadErrors.phone && <p className="text-red-500 text-sm">{soloLeadErrors.phone.message}</p>}
               </div>
               <div className="grid gap-2">
-                <label htmlFor="email" className="text-white">
+                <label htmlFor="email" className="modal-title">
                   Email
                 </label>
                 <input
                   id="email"
                   type="email"
                   {...registerSoloLead("email")}
-                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
+                  className="bg-[#210000] border font-antolia tracking-widest text-xl border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
                   placeholder="Enter your email"
                   defaultValue={userData?.email}
                   readOnly
@@ -188,29 +195,29 @@ export function SoloEventRegistration({
                 {soloLeadErrors.email && <p className="text-red-500 text-sm">{soloLeadErrors.email.message}</p>}
               </div>
               <div className="grid gap-2">
-                <label htmlFor="college" className="text-white">
+                <label htmlFor="college" className="modal-title">
                   College
                 </label>
                 <input
                   id="college"
                   autoFocus
                   {...registerSoloLead("college")}
-                  className="bg-[#210000] border border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
+                  className="bg-[#210000] border font-antolia tracking-widest text-xl border-gray-500 focus:border-[#F5E1DA] focus:outline-none text-white rounded-md p-2"
                   placeholder="Enter your college name"
                 />
                 {soloLeadErrors.college && <p className="text-red-500 text-sm">{soloLeadErrors.college.message}</p>}
-              </div>
+              </div> 
             </div>
             <div className="flex justify-end gap-4">
               <Button
                 type="button"
                 variant="outline"
                 onClick={onClose}
-                className="bg-white text-black hover:bg-white/90 hover:text-black border-0"
+                className="bg-red-700 text-white hover:text-white hover:bg-red-500 border-0"
               >
                 Close
               </Button>
-              <Button type="submit" className="bg-[#F5E1DA] text-black hover:bg-[#F5E1DA]/90 border-0">
+              <Button type="submit" className="bg-yellow-300 text-black hover:bg-yellow-500 border-0">
                 Next
               </Button>
             </div>
@@ -221,7 +228,7 @@ export function SoloEventRegistration({
           <form onSubmit={handlePaymentSubmit(onPaymentSubmit)} className="overflow-y-auto max-h-[65vh]">
             <div className="grid gap-6 py-4">
               <div className="grid gap-2">
-                <label htmlFor="transactionId" className="text-white">
+                <label htmlFor="transactionId" className="modal-title">
                   Transaction ID
                 </label>
                 <input
@@ -235,7 +242,7 @@ export function SoloEventRegistration({
                 )}
               </div>
               <div className="grid gap-2 text-white">
-                <label htmlFor="paymentScreenshot" className="text-white">
+                <label htmlFor="paymentScreenshot" className="modal-title">
                   Payment Screenshot
                 </label>
                 <input
@@ -250,22 +257,22 @@ export function SoloEventRegistration({
                 )}
               </div>
             </div>
-            <h1 className="text-white text-center text-lg font-semibold">
+            <h1 className="text-white text-center text-2xl font-antolia tracking-widest font-semibold">
               Pay <span className="text-green-500">₹ {eventFees}</span>
             </h1>
-            <div className="mt-6 flex items-center justify-center">
-              <Image src="/images/qr.jpg" alt="Payment QR Code" width={200} height={200} className="rounded-lg" />
+            <div className="mt-3 w-full flex items-center justify-center">
+              <Image src="https://i.postimg.cc/0j5bd9Dy/Whats-App-Image-2025-04-25-at-04-49-14-be67b65c.jpg" alt="Payment QR Code" width={300} height={200} className="rounded-lg" />
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mt-4">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => setStep(1)}
-                className="bg-white text-black hover:text-black hover:bg-white/90 border-0"
+                className="bg-red-700 text-white hover:text-white hover:bg-red-500 border-0"
               >
                 Back
               </Button>
-              <Button type="submit" className="bg-[#F5E1DA] text-black hover:bg-[#F5E1DA]/90  border-0">
+              <Button type="submit" className="bg-yellow-300 text-black hover:bg-yellow-500 border-0">
                 Register
               </Button>
             </div>

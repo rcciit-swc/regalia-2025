@@ -37,7 +37,7 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] bg-black border border-[#8B5CF6] rounded-xl">
+      <DialogContent className="sm:max-w-[425px] bg-black border border-yellow-300 rounded-xl">
         <DialogHeader>
           <DialogTitle className="text-white">Edit Profile</DialogTitle>
         </DialogHeader>
@@ -61,41 +61,41 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
               </Avatar>
             </div>
             <div className="grid gap-2">
-              <label htmlFor="fullName" className="text-white">
+              <label htmlFor="fullName" className="modal-title">
                 Full Name
               </label>
               <Input
                 id="fullName"
                 name="fullName"
                 defaultValue={userData?.name || name}
-                className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                className="bg-black border border-gray-500 focus:border-yellow-300 focus:outline-none text-white rounded-md"
                 placeholder="Enter your full name"
               />
             </div>
             <div className="grid gap-2">
-              <label htmlFor="gender" className="text-white">
+              <label htmlFor="gender" className="modal-title">
                 Gender
               </label>
               <Select name="gender" defaultValue={userData?.gender || ''}>
-                <SelectTrigger className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md">
+                <SelectTrigger className="bg-black border border-gray-500 focus:border-yellow-300 focus:outline-none text-white rounded-md">
                   <SelectValue placeholder="Select Gender" />
                 </SelectTrigger>
                 <SelectContent className="bg-black border border-gray-500">
                   <SelectItem
                     value="female"
-                    className="text-white hover:bg-[#8B5CF6]/20"
+                    className="text-white hover:bg-yellow-300/20"
                   >
                     Female
                   </SelectItem>
                   <SelectItem
                     value="male"
-                    className="text-white hover:bg-[#8B5CF6]/20"
+                    className="text-white hover:bg-yellow-300/20"
                   >
                     Male
                   </SelectItem>
                   <SelectItem
                     value="other"
-                    className="text-white hover:bg-[#8B5CF6]/20"
+                    className="text-white hover:bg-yellow-300/20"
                   >
                     Other
                   </SelectItem>
@@ -103,7 +103,7 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
               </Select>
             </div>
             <div className="grid gap-2">
-              <label htmlFor="email" className="text-white">
+              <label htmlFor="email" className="modal-title">
                 Email ID
               </label>
               <Input
@@ -111,12 +111,12 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
                 name="email"
                 type="email"
                 defaultValue={userData?.email || ''}
-                className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                className="bg-black border border-gray-500 focus:border-yellow-300 focus:outline-none text-white rounded-md"
                 readOnly
               />
             </div>
             <div className="grid gap-2">
-              <label htmlFor="phone" className="text-white">
+              <label htmlFor="phone" className="modal-title">
                 Phone Number
               </label>
               <Input
@@ -124,7 +124,7 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
                 name="phone"
                 type="tel"
                 defaultValue={userData?.phone || ''}
-                className="bg-black border border-gray-500 focus:border-[#8B5CF6] focus:outline-none text-white rounded-md"
+                className="bg-black border border-gray-500 focus:border-yellow-300 focus:outline-none text-white rounded-md"
                 placeholder="Enter your phone number"
               />
             </div>
@@ -134,13 +134,13 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="bg-white text-black hover:bg-white/90 border-0"
+              className="bg-red-500 text-white hover:text-white hover:bg-red-700 border-0"
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/90 border-0"
+              className="bg-yellow-300 text-black hover:bg-yellow-300/90 border-0"
             >
               Save Changes
             </Button>

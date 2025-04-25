@@ -4,10 +4,14 @@ export interface userDataType {
   email: string;
   phone: string;
   address: string;
+  college: string;
   role: string;
+  referral_code: string;
+  college_roll: string;
   created_at: string;
   updated_at: string;
   deleted_at: string;
+  gender: string;
 }
 
 export interface userStateType {

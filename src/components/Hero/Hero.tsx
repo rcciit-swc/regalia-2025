@@ -68,24 +68,24 @@ export default function Hero() {
                 setTimeout(() => {
                   setAnimationComplete(true);
                   // Enable scrolling once animation is complete
-                  document.body.style.overflow = 'auto';
-                }, 1500);
+                  // document.body.style.overflow = 'auto';
+                }, 500);
               }
-            }, 375);
-          }, 375);
+            }, 100);
+          }, 100);
         }
-      }, 375);
+      }, 100);
     };
 
     // Ensure the body starts with overflow hidden during animation
-    document.body.style.overflow = 'hidden';
+    // document.body.style.overflow = 'hidden';
     
     startSequence();
 
     return () => {
       clearTimeout(timeout);
       // Reset overflow when component unmounts
-      document.body.style.overflow = 'auto';
+      // document.body.style.overflow = 'auto';
     };
   }, []);
 
@@ -93,7 +93,7 @@ export default function Hero() {
     <section className="relative h-screen w-full overflow-hidden">
       {/* Grid state */}
       {currentState === 'grid' && (
-        <div className="grid h-screen w-screen grid-cols-2 grid-rows-3 gap-4 p-4 md:grid-cols-3 md:grid-rows-2 md:gap-12 md:p-20">
+        <div className="grid h-screen w-screen grid-cols-2 mt-10 grid-rows-3 gap-4 p-4 md:grid-cols-3 md:grid-rows-2 md:gap-12 md:p-20">
           {images.map((src, index) => (
             <motion.div
               key={index}
@@ -124,13 +124,13 @@ export default function Hero() {
             className="absolute inset-0 z-10 flex flex-col items-center justify-center translate-y-[-10%] md:translate-y-[-15%]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.3 }}
           >
             <motion.div
               className="relative z-10 flex flex-col items-center justify-center text-center text-[#FFF9E5]"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.3 }}
             >
               <motion.h2
                 className="welcome-text mb-2 font-medium leading-none md:mb-4 text-[2.5rem] xs:text-[3rem] sm:text-[4rem] md:text-[5rem] lg:text-[6rem] xl:text-8xl"

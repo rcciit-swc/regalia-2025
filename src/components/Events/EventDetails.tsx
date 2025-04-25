@@ -1,5 +1,8 @@
 "use client"
 import { useState, useEffect, useRef } from 'react';
+import parse from 'html-react-parser';
+import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useEvents, useUser } from '@/lib/stores';
 import { toast } from 'sonner';
@@ -7,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { SoloEventRegistration } from './EventRegistartionDialog';
 import { TeamEventRegistration } from './TeamEventRegistration';
 import { login } from '@/utils/functions/auth/login';
+import Link from 'next/link';
 
 interface EventDetailsProps {
   eventName: string;
@@ -103,9 +107,7 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
       }}
     >
       <div className="container relative px-4 mx-auto">
-        <h1 className="mb-8 text-4xl font-bold text-left text-[#FFF9E5] font-antolia sm:text-5xl">
-          {eventData?.name ?? ''}
-        </h1>
+
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -118,28 +120,25 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
             border: '1px solid rgba(255, 255, 255, 0.1)',
           }}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            {/* Left - Image */}
-            <div className="relative flex items-center justify-center bg-gray-200 aspect-square md:min-h-[600px]">
-              {eventData.image_url ? (
-                <img
-                  src={eventData.image_url}
-                  alt="Event"
-                  className="object-cover w-full h-full"
-                />
-              ) : (
-                <span className="text-gray-400">Event Image</span>
+          <div className="flex flex-col md:flex-row w-full bg-[#1a0a0a]">
+           <div className='flex flex-col items-center justify-center w-fit bg-[#1a0a0a] p-4 md:p-8 h-full'>
+           <Image src={eventData?.image_url} width={400} height={400} className='w-[500px] h-fit' alt={eventData?.name || 'Event Image'} />
+           {eventData.reg_status && (
+                <div className="flex flex-wrap gap-4 mt-3">
+                  <InteractiveHoverButton className='border-yellow-200 border font-cogley tracking-wider'  onClick={handleRegister}
+                    disabled={eventData.registered}>{eventData.registered ? 'Already Registered' : 'REGISTER NOW'}</InteractiveHoverButton>
+                </div>
               )}
-            </div>
+           </div>
 
             {/* Right - Details */}
-            <div className="p-8 text-white bg-[#1a0a0a] md:p-12">
+            <div className="p-8 text-white  md:p-12 md:w-[50%] w-full">
               <h2 className="mb-6 text-4xl font-bold tracking-wide font-antolia">
                 {eventData.name}
               </h2>
 
               {/* Tabs */}
-              <div className="flex mb-6 space-x-4 border-b border-white/20">
+              <div className="flex mb-6 font-antolia font-semibold text-2xl tracking-widest leading-2 space-x-4 border-b border-white/20">
                 <button
                   onClick={() => setActiveTab('description')}
                   className={`pb-2 px-2 font-medium transition-all ${
@@ -166,30 +165,29 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
               <div className="mb-8">
                 {activeTab === 'description' ? (
                   <p className="text-xl leading-relaxed">
-                    {eventData.description}
+                    {parse(eventData.description)}
                   </p>
                 ) : (
-                  <div className="text-xl leading-relaxed">
-                    <pre className="whitespace-pre-wrap font-sans">{eventData.rules}</pre>
+                  <div className="text-xl leading-relaxed overflow-y-scroll max-h-[60vh] pr-5">
+                    <pre className="whitespace-pre-wrap font-antolia tracking-wider text-justify text-xl">{parse(eventData.rules)}</pre>
                   </div>
                 )}
               </div>
 
-              <div className="space-y-4 text-xl font-semibold">
-                <p>Prelims: {eventData.schedule.split('|')[0]}</p>
-                <p>Finals: {eventData.schedule.split('|')[1]}</p>
-                <p>Registration Fees: Rs {eventData.registration_fees}</p>
-                <p>Prize Pool: Rs {eventData.prize_pool}</p>
-                <p>Team Size: {eventData.min_team_size} - {eventData.max_team_size}</p>
+             {activeTab === 'description' && <div className="space-y-4 text-xl font-semibold font-antolia tracking-widest">
+                <p> <span className='font-cogley text-yellow-200 tracking-widest'>SCHEDULE:</span> {parse(eventData.schedule)}</p>
+                <p><span className='font-cogley text-yellow-200 tracking-widest'>REGISTRATION FEES:</span> ₹ {eventData.registration_fees}</p>
+                <p><span className='font-cogley text-yellow-200 tracking-widest'>PRIZE POOL:</span> ₹ {eventData.prize_pool}</p>
+                <p><span className='font-cogley text-yellow-200 tracking-widest'>TEAM SIZE:</span> {eventData.min_team_size} - {eventData.max_team_size}</p>
 
                 {/* Coordinators */}
                 <div className="pt-4">
-                  <p className="mb-2">Coordinators:</p>
+                  <p className="mb-2 font-cogley text-yellow-200">COORDINATORS:</p>
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                     {eventData.coordinators.map((c, idx) => (
                       <div key={idx} className="p-2 rounded bg-black/30">
-                        <p className="font-medium">{c.name}</p>
-                        <p className="text-base text-gray-300">{c.phone}</p>
+                        <p className="font-medium">{c.name.toUpperCase()}</p>
+                        <Link href={`tel:${c.phone}`} className="text-base hover:text-green-500 text-gray-300">{c.phone}</Link>
                       </div>
                     ))}
                   </div>
@@ -214,26 +212,9 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
                     </div>
                   </div>
                 )}
-              </div>
+              </div>}
 
-              {eventData.reg_status && (
-                <div className="flex flex-wrap gap-4 mt-10">
-                  <button
-                    onClick={handleRegister}
-                    disabled={eventData.registered}
-                    className={`px-8 py-3 text-lg font-medium rounded-md border-2 transition-all duration-300 ${
-                      eventData.registered
-                        ? 'border-gray-500 text-gray-400 cursor-not-allowed'
-                        : 'border-white text-white hover:bg-white hover:text-black'
-                    }`}
-                  >
-                    {eventData.registered ? 'Already Registered' : 'Register Now'}
-                  </button>
-                  <button className="px-8 py-3 text-lg font-medium text-white transition-all duration-300 border-2 border-white rounded-md hover:bg-white hover:text-black">
-                    Learn More
-                  </button>
-                </div>
-              )}
+
             </div>
           </div>
         </motion.div>
@@ -249,6 +230,7 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
             eventFees={eventData.registration_fees}
           />
           <TeamEventRegistration
+            eventFees={eventData.registration_fees}
             isOpen={isTeamOpen}
             onClose={() => setIsTeamOpen(false)}
             eventID={eventData.id}
