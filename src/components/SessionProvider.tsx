@@ -6,12 +6,12 @@ import { useEffect } from 'react';
 
 const SessionProvider = () => {
   const setUser = useUser((state) => state.setUserData);
-  const setEvent = useEvents((state)=> state.setEventsData)
+  const setEvent = useEvents((state) => state.setEventsData);
 
   useEffect(() => {
     setUser();
-    setEvent();
-  }, [setUser, setEvent]);
+    setEvent(true);
+  }, [setUser]);
 
   return null;
 };

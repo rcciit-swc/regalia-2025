@@ -20,12 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-      <Navbar/>
-      {children}
-      <Toaster position="bottom-right" richColors duration={5000} />
-      <Footer />
-      <SessionProvider />
+      <body className={`${inter.className} antialiased my-scrollbar`}>
+        <Navbar />
+        {children}
+        <Toaster position="bottom-right" richColors duration={5000} />
+        <Footer />
+        <SessionProvider />
       </body>
     </html>
   );

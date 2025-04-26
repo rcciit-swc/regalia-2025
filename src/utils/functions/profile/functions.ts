@@ -70,6 +70,5 @@ export async function fetchRegistrationDetails(
     throw new Error('Failed to fetch registration details');
   }
 
-  console.log('Registration Details:', data);
   return data;
 }

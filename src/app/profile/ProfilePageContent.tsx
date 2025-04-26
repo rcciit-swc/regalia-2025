@@ -16,12 +16,7 @@ import { handleSaveChanges } from '@/utils/functions/profile/functions';
 import ProfileSkeleton from './ProfileSkeleton';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  LogOut,
-  Pencil,
-  CalendarDays,
-  UserCircle,
-} from 'lucide-react';
+import { LogOut, Pencil, CalendarDays, UserCircle } from 'lucide-react';
 
 export default function ProfilePage() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);

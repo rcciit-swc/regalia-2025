@@ -38,7 +38,6 @@ export async function uploadPaymentScreenshot(file: File, eventName: string) {
     .from(bucket)
     .upload(filePath, file);
 
-
   if (error) {
     console.error('Error uploading file:', error);
     throw error;

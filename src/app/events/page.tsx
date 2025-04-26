@@ -1,10 +1,10 @@
-import EventPage from "@/components/Events/EventPage"
+import EventPage from '@/components/Events/EventPage';
 const Events = () => {
   return (
     <>
-    <EventPage/>
+      <EventPage />
     </>
-  )
-}
+  );
+};
 
-export default Events
+export default Events;

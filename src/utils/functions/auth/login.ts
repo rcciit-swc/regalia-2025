@@ -8,10 +8,7 @@ export const login = async () => {
     },
   });
   if (error) {
-    console.log('some error ocurred ');
-    console.error('Login Error:', error);
     return null;
   }
-  console.log('data is ', data);
   return data;
 };
