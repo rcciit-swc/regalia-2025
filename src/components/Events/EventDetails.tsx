@@ -1,7 +1,7 @@
-"use client"
+'use client';
 import { useState, useEffect, useRef } from 'react';
 import parse from 'html-react-parser';
-import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEvents, useUser } from '@/lib/stores';
@@ -11,17 +11,32 @@ import { SoloEventRegistration } from './EventRegistartionDialog';
 import { TeamEventRegistration } from './TeamEventRegistration';
 import { login } from '@/utils/functions/auth/login';
 import Link from 'next/link';
-import { Music, Calendar, Users, Info, Book, Award, Phone, MapPin, ExternalLink, ArrowRight, Clock, Sparkles } from 'lucide-react';
+import {
+  Music,
+  Calendar,
+  Users,
+  Info,
+  Book,
+  Award,
+  Phone,
+  MapPin,
+  ExternalLink,
+  ArrowRight,
+  Clock,
+  Sparkles,
+} from 'lucide-react';
 
 interface EventDetailsProps {
-  eventName: string;
+  eventId: string;
 }
 
-const EventDetails = ({ eventName }: EventDetailsProps) => {
+const EventDetails = ({ eventId }: EventDetailsProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isSoloOpen, setIsSoloOpen] = useState(false);
   const [isTeamOpen, setIsTeamOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'description' | 'rules'>('description');
+  const [activeTab, setActiveTab] = useState<'description' | 'rules'>(
+    'description'
+  );
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -29,14 +44,11 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
   const { userData, userLoading } = useUser();
   const router = useRouter();
 
-  const lowerName = eventName?.toLowerCase() ?? '';
-  const eventData = eventsData?.find(
-    e => e.name.toLowerCase() === lowerName
-  );
+  const eventData = eventsData?.find((e) => e.id === eventId);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
+      (entries) => {
         if (entries[0].isIntersecting) {
           setTimeout(() => setIsVisible(true), 300);
         } else {
@@ -71,7 +83,7 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
     ) {
       router.push(
         `/profile?onboarding=true&callback=${encodeURIComponent(
-          `/events/${eventName}`
+          `/events/${eventId}`
         )}`
       );
       return;
@@ -86,7 +98,7 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
 
   const renderBackgroundParticles = () => {
     return Array.from({ length: 20 }).map((_, i) => (
-      <motion.div 
+      <motion.div
         key={`particle-${i}`}
         className="absolute rounded-full bg-yellow-300/10"
         style={{
@@ -118,27 +130,18 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
               rotate: 360,
               scale: [1, 1.1, 1],
             }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
           />
           <motion.div
             className="absolute inset-0 flex items-center justify-center text-yellow-300"
             animate={{
-              scale: [1, 1.2, 1]
+              scale: [1, 1.2, 1],
             }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             <Music size={40} />
           </motion.div>
         </div>
-        <video
-          autoPlay
-          muted
-          playsInline
-          className="w-full h-full object-cover absolute inset-0 opacity-30"
-        >
-          <source src="/loader.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
       </div>
     );
   }
@@ -147,7 +150,9 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
     return (
       <section className="w-full min-h-screen flex flex-col justify-center items-center text-white bg-gradient-to-b from-[#1a0505] to-black">
         <Music className="w-16 h-16 text-yellow-300/70 mb-4" />
-        <p className="text-center text-2xl font-antolia tracking-wider">Event not found</p>
+        <p className="text-center text-2xl font-antolia tracking-wider">
+          Event not found
+        </p>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -162,407 +167,456 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
 
   return (
     <>
-    <section
-      ref={sectionRef}
-      className="relative w-full min-h-screen py-12 pt-28 overflow-hidden"
-      style={{
-        background: 'linear-gradient(to bottom, #1a0505, #000000)',
-      }}
-    >
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {renderBackgroundParticles()}
-        
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-bl-full bg-gradient-to-br from-[#5A0000]/20 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 rounded-tr-full bg-gradient-to-tl from-[#5A0000]/20 to-transparent"></div>
-        
-        <div className="absolute left-1/4 top-1/4 w-64 h-64 rounded-full bg-yellow-300/5 backdrop-blur-3xl"></div>
-        <div className="absolute right-1/3 bottom-1/4 w-48 h-48 rounded-full bg-yellow-300/5 backdrop-blur-3xl"></div>
-      </div>
+      <section
+        ref={sectionRef}
+        className="relative w-full min-h-screen py-12 pt-28 overflow-hidden"
+        style={{
+          background: 'linear-gradient(to bottom, #1a0505, #000000)',
+        }}
+      >
+        {/* Background elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {renderBackgroundParticles()}
 
-      <div className="container relative px-4 mx-auto z-10">
-        {/* Page header with music icon */}
-        <motion.div 
-          className="w-full flex flex-col items-center mb-10"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
-          <motion.div 
-            className="flex items-center gap-3 mb-3"
-            animate={{ 
-              y: [0, -3, 0],
-            }}
-            transition={{ duration: 3, repeat: Infinity }}
+          <div className="absolute top-0 right-0 w-96 h-96 rounded-bl-full bg-gradient-to-br from-[#5A0000]/20 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 rounded-tr-full bg-gradient-to-tl from-[#5A0000]/20 to-transparent"></div>
+
+          <div className="absolute left-1/4 top-1/4 w-64 h-64 rounded-full bg-yellow-300/5 backdrop-blur-3xl"></div>
+          <div className="absolute right-1/3 bottom-1/4 w-48 h-48 rounded-full bg-yellow-300/5 backdrop-blur-3xl"></div>
+        </div>
+
+        <div className="container relative px-4 mx-auto z-10">
+          {/* Page header with music icon */}
+          <motion.div
+            className="w-full flex flex-col items-center mb-10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
           >
-            <motion.div 
-              className="h-px w-12 bg-yellow-300/50"
-              animate={{ width: [12, 36, 12] }}
-              transition={{ duration: 4, repeat: Infinity }}
-            />
-            <Music className="h-8 w-8 text-yellow-300/80" />
-            <motion.div 
-              className="h-px w-12 bg-yellow-300/50"
-              animate={{ width: [12, 36, 12] }}
-              transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+            <motion.div
+              className="flex items-center gap-3 mb-3"
+              animate={{
+                y: [0, -3, 0],
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              <motion.div
+                className="h-px w-12 bg-yellow-300/50"
+                animate={{ width: [12, 36, 12] }}
+                transition={{ duration: 4, repeat: Infinity }}
+              />
+              <Music className="h-8 w-8 text-yellow-300/80" />
+              <motion.div
+                className="h-px w-12 bg-yellow-300/50"
+                animate={{ width: [12, 36, 12] }}
+                transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+              />
+            </motion.div>
+            <h1 className="text-3xl md:text-4xl font-antolia tracking-wider text-center text-[#E8D0C9]">
+              {eventData.name}
+            </h1>
+            <motion.div
+              className="h-1 w-32 bg-gradient-to-r from-transparent via-yellow-300/60 to-transparent mt-2"
+              initial={{ width: 0 }}
+              animate={{ width: 160 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
             />
           </motion.div>
-          <h1 className="text-3xl md:text-4xl font-antolia tracking-wider text-center text-[#E8D0C9]">
-            {eventData.name}
-          </h1>
-          <motion.div 
-            className="h-1 w-32 bg-gradient-to-r from-transparent via-yellow-300/60 to-transparent mt-2"
-            initial={{ width: 0 }}
-            animate={{ width: 160 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          />
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8 }}
-          className="relative mx-auto overflow-hidden rounded-xl shadow-2xl max-w-7xl"
-          style={{
-            background: 'linear-gradient(145deg, #1a0505, #230808)',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(200, 70, 70, 0.1) inset',
-            border: '1px solid rgba(255, 255, 255, 0.07)',
-          }}
-        >
-          <div className="flex flex-col md:flex-row w-full">
-            <div className="relative flex flex-col items-center justify-center w-full md:w-5/12 lg:w-5/12 bg-[#190505] p-4 md:p-8 border-r border-white/5">
-              <div className="relative w-full overflow-hidden rounded-lg group">
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-yellow-300/20 to-red-500/20 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  animate={{
-                    background: [
-                      'linear-gradient(45deg, rgba(252,211,77,0.1) 0%, rgba(220,38,38,0.1) 100%)',
-                      'linear-gradient(45deg, rgba(220,38,38,0.1) 0%, rgba(252,211,77,0.1) 100%)',
-                      'linear-gradient(45deg, rgba(252,211,77,0.1) 0%, rgba(220,38,38,0.1) 100%)'
-                    ]
-                  }}
-                  transition={{ duration: 8, repeat: Infinity }}
-                />
-                <div className="relative overflow-hidden rounded-lg aspect-square">
-                  <AnimatePresence>
-                    {!isImageLoaded && (
-                      <motion.div 
-                        className="absolute inset-0 flex items-center justify-center bg-[#1a0505]"
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        <motion.div
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                          className="w-12 h-12 border-2 border-t-yellow-300/70 border-r-yellow-300/40 border-b-yellow-300/20 border-l-yellow-300/5 rounded-full"
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                  <Image 
-                    src={eventData?.image_url} 
-                    width={500} 
-                    height={500} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                    alt={eventData?.name || 'Event Image'}
-                    onLoad={() => setIsImageLoaded(true)}
-                  />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8 }}
+            className="relative mx-auto overflow-hidden rounded-xl shadow-2xl max-w-7xl"
+            style={{
+              background: 'linear-gradient(145deg, #1a0505, #230808)',
+              boxShadow:
+                '0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(200, 70, 70, 0.1) inset',
+              border: '1px solid rgba(255, 255, 255, 0.07)',
+            }}
+          >
+            <div className="flex flex-col md:flex-row w-full">
+              <div className="relative flex flex-col items-center justify-center w-full md:w-5/12 lg:w-5/12 bg-[#190505] p-4 md:p-8 border-r border-white/5">
+                <div className="relative w-full overflow-hidden rounded-lg group">
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    className="absolute inset-0 bg-gradient-to-r from-yellow-300/20 to-red-500/20 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    animate={{
+                      background: [
+                        'linear-gradient(45deg, rgba(252,211,77,0.1) 0%, rgba(220,38,38,0.1) 100%)',
+                        'linear-gradient(45deg, rgba(220,38,38,0.1) 0%, rgba(252,211,77,0.1) 100%)',
+                        'linear-gradient(45deg, rgba(252,211,77,0.1) 0%, rgba(220,38,38,0.1) 100%)',
+                      ],
+                    }}
+                    transition={{ duration: 8, repeat: Infinity }}
                   />
+                  <div className="relative overflow-hidden rounded-lg aspect-square">
+                    <AnimatePresence>
+                      {!isImageLoaded && (
+                        <motion.div
+                          className="absolute inset-0 flex items-center justify-center bg-[#1a0505]"
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: 'linear',
+                            }}
+                            className="w-12 h-12 border-2 border-t-yellow-300/70 border-r-yellow-300/40 border-b-yellow-300/20 border-l-yellow-300/5 rounded-full"
+                          />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                    <Image
+                      src={eventData?.image_url}
+                      width={500}
+                      height={500}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      alt={eventData?.name || 'Event Image'}
+                      onLoad={() => setIsImageLoaded(true)}
+                    />
+                    <motion.div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                </div>
+
+                {/* Event action buttons */}
+                <div className="w-full mt-6 space-y-4">
+                  {eventData.reg_status ? (
+                    <motion.div
+                      className="flex justify-center"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <InteractiveHoverButton
+                        className="w-full py-3 border-yellow-200 border font-cogley tracking-wider text-lg flex items-center justify-center gap-2"
+                        onClick={handleRegister}
+                        disabled={eventData.registered}
+                      >
+                        {eventData.registered
+                          ? 'Already Registered'
+                          : 'REGISTER NOW'}
+                      </InteractiveHoverButton>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      className="flex justify-center"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <InteractiveHoverButton
+                        className="w-full py-3 border-yellow-200 border font-cogley tracking-wider text-lg flex items-center justify-center gap-2"
+                        onClick={() =>
+                          toast.info('Registrations are opening soon!')
+                        }
+                        disabled={eventData.registered}
+                      >
+                        Register Soon
+                      </InteractiveHoverButton>
+                    </motion.div>
+                  )}
+
+                  {/* Event quick stats */}
+                  <motion.div
+                    className="grid grid-cols-2 gap-3 mt-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
+                      <Calendar className="h-5 w-5 text-yellow-300/90 mb-1" />
+                      <p className="text-sm text-gray-300">Registration</p>
+                      <p className="text-lg font-medium text-[#E8D0C9]">
+                        ₹{eventData.registration_fees}
+                      </p>
+                    </div>
+                    <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
+                      <Award className="h-5 w-5 text-yellow-300/90 mb-1" />
+                      <p className="text-sm text-gray-300">Prize Pool</p>
+                      <p className="text-lg font-medium text-[#E8D0C9]">
+                        ₹{eventData.prize_pool}
+                      </p>
+                    </div>
+                    <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
+                      <Users className="h-5 w-5 text-yellow-300/90 mb-1" />
+                      <p className="text-sm text-gray-300">Team Size</p>
+                      <p className="text-lg font-medium text-[#E8D0C9]">
+                        {eventData?.max_team_size > 1
+                          ? `${eventData.min_team_size} - ${eventData.max_team_size}`
+                          : 'Solo'}
+                      </p>
+                    </div>
+                    <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
+                      <Clock className="h-5 w-5 text-yellow-300/90 mb-1" />
+                      <p className="text-sm text-gray-300">Schedule</p>
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        onClick={() => setActiveTab('description')}
+                        className="text-yellow-200 underline text-sm cursor-pointer"
+                      >
+                        View Details
+                      </motion.div>
+                    </div>
+                  </motion.div>
                 </div>
               </div>
 
-              {/* Event action buttons */}
-              <div className="w-full mt-6 space-y-4">
-                {eventData.reg_status && (
-                  <motion.div 
-                    className="flex justify-center"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
+              {/* Right - Details */}
+              <div className="p-6 text-white md:p-8 md:w-7/12 lg:w-7/12 w-full relative">
+                {/* Floating music notes decoration */}
+                <motion.div
+                  className="absolute right-8 top-6 text-yellow-300/30 opacity-50"
+                  animate={{
+                    y: [0, -10, 0],
+                    rotate: [0, 5, 0],
+                  }}
+                  transition={{ duration: 5, repeat: Infinity }}
+                >
+                  <Sparkles size={24} />
+                </motion.div>
+
+                {/* Tabs */}
+                <div className="flex mb-6 font-antolia font-semibold text-xl tracking-widest leading-2 space-x-4 border-b border-white/20">
+                  <motion.button
+                    onClick={() => setActiveTab('description')}
+                    className={`pb-2 px-3 font-medium transition-all relative flex items-center gap-2 ${
+                      activeTab === 'description'
+                        ? 'text-white'
+                        : 'text-gray-400 hover:text-gray-200'
+                    }`}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ y: 0 }}
+                  >
+                    <Info size={18} />
+                    Description
+                    {activeTab === 'description' && (
+                      <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-yellow-300"
+                        layoutId="activeTab"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    )}
+                  </motion.button>
+                  <motion.button
+                    onClick={() => setActiveTab('rules')}
+                    className={`pb-2 px-3 font-medium transition-all relative flex items-center gap-2 ${
+                      activeTab === 'rules'
+                        ? 'text-white'
+                        : 'text-gray-400 hover:text-gray-200'
+                    }`}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ y: 0 }}
+                  >
+                    <Book size={18} />
+                    Rules
+                    {activeTab === 'rules' && (
+                      <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-yellow-300"
+                        layoutId="activeTab"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    )}
+                  </motion.button>
+                </div>
+
+                {/* Tab Content */}
+                <AnimatePresence mode="wait">
+                  {activeTab === 'description' ? (
+                    <motion.div
+                      key="description"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="mb-8"
+                    >
+                      <div className="text-xl leading-relaxed event-description">
+                        {parse(eventData.description)}
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="rules"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="mb-8"
+                    >
+                      <div className="text-xl leading-relaxed overflow-y-auto max-h-[60vh] pr-5 rules-container">
+                        <pre className="whitespace-pre-wrap font-antolia tracking-wider text-justify text-xl">
+                          {parse(eventData.rules)}
+                        </pre>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {activeTab === 'description' && (
+                  <motion.div
+                    className="space-y-5 text-xl font-semibold font-antolia tracking-wider"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <InteractiveHoverButton 
-                      className="w-full py-3 border-yellow-200 border font-cogley tracking-wider text-lg flex items-center justify-center gap-2"  
-                      onClick={handleRegister}
-                      disabled={eventData.registered}
-                    >
-                      {eventData.registered ? 'Already Registered' : 'REGISTER NOW'} 
-
-                    </InteractiveHoverButton>
-                  </motion.div>
-                )}
-                
-                {/* Event quick stats */}
-                <motion.div 
-                  className="grid grid-cols-2 gap-3 mt-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
-                    <Award className="h-5 w-5 text-yellow-300/90 mb-1" />
-                    <p className="text-sm text-gray-300">Prize Pool</p>
-                    <p className="text-lg font-medium text-[#E8D0C9]">₹{eventData.prize_pool}</p>
-                  </div>
-                  <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
-                    <Users className="h-5 w-5 text-yellow-300/90 mb-1" />
-                    <p className="text-sm text-gray-300">Team Size</p>
-                    <p className="text-lg font-medium text-[#E8D0C9]">{eventData.min_team_size} - {eventData.max_team_size}</p>
-                  </div>
-                  <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
-                    <Calendar className="h-5 w-5 text-yellow-300/90 mb-1" />
-                    <p className="text-sm text-gray-300">Registration</p>
-                    <p className="text-lg font-medium text-[#E8D0C9]">₹{eventData.registration_fees}</p>
-                  </div>
-                  <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
-                    <Clock className="h-5 w-5 text-yellow-300/90 mb-1" />
-                    <p className="text-sm text-gray-300">Schedule</p>
-                    <motion.div 
-                      whileHover={{ scale: 1.05 }}
-                      onClick={() => setActiveTab('description')}
-                      className="text-yellow-200 underline text-sm cursor-pointer"
-                    >
-                      View Details
-                    </motion.div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-
-            {/* Right - Details */}
-            <div className="p-6 text-white md:p-8 md:w-7/12 lg:w-7/12 w-full relative">
-              {/* Floating music notes decoration */}
-              <motion.div
-                className="absolute right-8 top-6 text-yellow-300/30 opacity-50"
-                animate={{ 
-                  y: [0, -10, 0],
-                  rotate: [0, 5, 0],
-                }}
-                transition={{ duration: 5, repeat: Infinity }}
-              >
-                <Sparkles size={24} />
-              </motion.div>
-              
-              {/* Tabs */}
-              <div className="flex mb-6 font-antolia font-semibold text-xl tracking-widest leading-2 space-x-4 border-b border-white/20">
-                <motion.button
-                  onClick={() => setActiveTab('description')}
-                  className={`pb-2 px-3 font-medium transition-all relative flex items-center gap-2 ${
-                    activeTab === 'description'
-                      ? 'text-white' 
-                      : 'text-gray-400 hover:text-gray-200'
-                  }`}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0 }}
-                >
-                  <Info size={18} />
-                  Description
-                  {activeTab === 'description' && (
-                    <motion.div 
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-yellow-300"
-                      layoutId="activeTab"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
-                </motion.button>
-                <motion.button
-                  onClick={() => setActiveTab('rules')}
-                  className={`pb-2 px-3 font-medium transition-all relative flex items-center gap-2 ${
-                    activeTab === 'rules'
-                      ? 'text-white'
-                      : 'text-gray-400 hover:text-gray-200'
-                  }`}
-                  whileHover={{ y: -2 }}
-                  whileTap={{ y: 0 }}
-                >
-                  <Book size={18} />
-                  Rules
-                  {activeTab === 'rules' && (
-                    <motion.div 
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-yellow-300"
-                      layoutId="activeTab"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  )}
-                </motion.button>
-              </div>
-
-              {/* Tab Content */}
-              <AnimatePresence mode="wait">
-                {activeTab === 'description' ? (
-                  <motion.div
-                    key="description"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="mb-8"
-                  >
-                    <div className="text-xl leading-relaxed event-description">
-                      {parse(eventData.description)}
+                    <div className="flex items-start gap-3 p-3 rounded-lg bg-[#200505] border border-white/5">
+                      <Clock className="min-w-6 h-6 text-yellow-300/90 mt-1" />
+                      <div>
+                        <p className="font-cogley text-yellow-200 tracking-widest text-lg">
+                          SCHEDULE:
+                        </p>
+                        <p className="text-[#E8D0C9]">
+                          {parse(eventData.schedule)}
+                        </p>
+                      </div>
                     </div>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="rules"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="mb-8"
-                  >
-                    <div className="text-xl leading-relaxed overflow-y-auto max-h-[60vh] pr-5 rules-container">
-                      <pre className="whitespace-pre-wrap font-antolia tracking-wider text-justify text-xl">{parse(eventData.rules)}</pre>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
 
-              {activeTab === 'description' && (
-                <motion.div 
-                  className="space-y-5 text-xl font-semibold font-antolia tracking-wider"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <div className="flex items-start gap-3 p-3 rounded-lg bg-[#200505] border border-white/5">
-                    <Clock className="min-w-6 h-6 text-yellow-300/90 mt-1" />
-                    <div>
-                      <p className="font-cogley text-yellow-200 tracking-widest text-lg">SCHEDULE:</p>
-                      <p className="text-[#E8D0C9]">{parse(eventData.schedule)}</p>
+                    <div className="flex items-start gap-3 p-3 rounded-lg bg-[#200505] border border-white/5">
+                      <Award className="min-w-6 h-6 text-yellow-300/90 mt-1" />
+                      <div>
+                        <p className="font-cogley text-yellow-200 tracking-widest text-lg">
+                          PRIZE POOL:
+                        </p>
+                        <p className="text-[#E8D0C9]">
+                          ₹ {eventData.prize_pool}
+                        </p>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex items-start gap-3 p-3 rounded-lg bg-[#200505] border border-white/5">
-                    <Award className="min-w-6 h-6 text-yellow-300/90 mt-1" />
-                    <div>
-                      <p className="font-cogley text-yellow-200 tracking-widest text-lg">PRIZE POOL:</p>
-                      <p className="text-[#E8D0C9]">₹ {eventData.prize_pool}</p>
-                    </div>
-                  </div>
-
-                  {/* Coordinators */}
-                  <div className="pt-4">
-                    <p className="mb-3 font-cogley text-yellow-200 tracking-widest text-xl flex items-center gap-2">
-                      <Phone className="h-5 w-5" /> COORDINATORS:
-                    </p>
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                      {eventData.coordinators.map((c, idx) => (
-                        <motion.div 
-                          key={idx} 
-                          className="p-3 rounded-lg bg-[#300505] bg-opacity-50 backdrop-blur-sm border border-white/10 transition-all hover:border-yellow-300/30"
-                          whileHover={{ scale: 1.02, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
-                        >
-                          <p className="font-medium">{c.name.toUpperCase()}</p>
-                          <Link 
-                            href={`tel:${c.phone}`} 
-                            className="text-base hover:text-yellow-300 text-gray-300 flex items-center gap-1 mt-1"
-                          >
-                            <Phone size={14} />
-                            {c.phone}
-                          </Link>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Links */}
-                  {eventData.links && eventData.links.length > 0 && (
+                    {/* Coordinators */}
                     <div className="pt-4">
                       <p className="mb-3 font-cogley text-yellow-200 tracking-widest text-xl flex items-center gap-2">
-                        <ExternalLink className="h-5 w-5" /> RESOURCES:
+                        <Phone className="h-5 w-5" /> ORGANISERS:
                       </p>
-                      <div className="flex flex-wrap gap-3">
-                        {eventData.links.map((link, idx) => (
-                          <motion.a
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        {eventData.coordinators.map((c, idx) => (
+                          <motion.div
                             key={idx}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-4 py-2 text-base transition-all duration-300 bg-[#200505] hover:bg-[#300808] rounded-lg border border-white/10 hover:border-yellow-300/30 flex items-center gap-2"
-                            whileHover={{ y: -2, boxShadow: "0 10px 15px rgba(0,0,0,0.2)" }}
-                            whileTap={{ y: 0 }}
+                            className="p-3 rounded-lg bg-[#300505] bg-opacity-50 backdrop-blur-sm border border-white/10 transition-all hover:border-yellow-300/30"
+                            whileHover={{
+                              scale: 1.02,
+                              boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
+                            }}
                           >
-                            <ExternalLink size={14} />
-                            {link.title}
-                          </motion.a>
+                            <p className="font-medium">
+                              {c.name.toUpperCase()}
+                            </p>
+                            <Link
+                              href={`tel:${c.phone}`}
+                              className="text-base hover:text-yellow-300 text-gray-300 flex items-center gap-1 mt-1"
+                            >
+                              <Phone size={14} />
+                              {c.phone}
+                            </Link>
+                          </motion.div>
                         ))}
                       </div>
                     </div>
-                  )}
-                </motion.div>
-              )}
-            </div>
-          </div>
-        </motion.div>
-        
-        {/* Bottom accent */}
-        <motion.div 
-          className="flex items-center justify-center gap-3 mt-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        >
-          <motion.div 
-            className="h-px w-16 bg-yellow-300/30"
-            animate={{ width: [16, 64, 16] }}
-            transition={{ duration: 5, repeat: Infinity }}
-          />
-          <Music className="h-6 w-6 text-yellow-300/60" />
-          <motion.div 
-            className="h-px w-16 bg-yellow-300/30"
-            animate={{ width: [16, 64, 16] }}
-            transition={{ duration: 5, repeat: Infinity, delay: 0.5 }}
-          />
-        </motion.div>
-      </div>
 
-      {/* Add custom styles */}
-      <style jsx global>{`
-        .event-description {
-          color: #E8D0C9;
-        }
-        
-        .event-description a, .rules-container a {
-          color: #FBBF24;
-          text-decoration: underline;
-          transition: all 0.2s;
-        }
-        
-        .event-description a:hover, .rules-container a:hover {
-          color: #F59E0B;
-        }
-        
-        .rules-container::-webkit-scrollbar {
-          width: 6px;
-        }
-        
-        .rules-container::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 10px;
-        }
-        
-        .rules-container::-webkit-scrollbar-thumb {
-          background: rgba(252, 211, 77, 0.3);
-          border-radius: 10px;
-        }
-        
-        .rules-container::-webkit-scrollbar-thumb:hover {
-          background: rgba(252, 211, 77, 0.5);
-        }
-      `}</style>
-    </section>
-    {eventData && (
+                    {/* Links */}
+                    {eventData.links && eventData.links.length > 0 && (
+                      <div className="pt-4">
+                        <p className="mb-3 font-cogley text-yellow-200 tracking-widest text-xl flex items-center gap-2">
+                          <ExternalLink className="h-5 w-5" /> RESOURCES:
+                        </p>
+                        <div className="flex flex-wrap gap-3">
+                          {eventData.links.map((link, idx) => (
+                            <motion.a
+                              key={idx}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-4 py-2 text-base transition-all duration-300 bg-[#200505] hover:bg-[#300808] rounded-lg border border-white/10 hover:border-yellow-300/30 flex items-center gap-2"
+                              whileHover={{
+                                y: -2,
+                                boxShadow: '0 10px 15px rgba(0,0,0,0.2)',
+                              }}
+                              whileTap={{ y: 0 }}
+                            >
+                              <ExternalLink size={14} />
+                              {link.title}
+                            </motion.a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Bottom accent */}
+          <motion.div
+            className="flex items-center justify-center gap-3 mt-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+          >
+            <motion.div
+              className="h-px w-16 bg-yellow-300/30"
+              animate={{ width: [16, 64, 16] }}
+              transition={{ duration: 5, repeat: Infinity }}
+            />
+            <Music className="h-6 w-6 text-yellow-300/60" />
+            <motion.div
+              className="h-px w-16 bg-yellow-300/30"
+              animate={{ width: [16, 64, 16] }}
+              transition={{ duration: 5, repeat: Infinity, delay: 0.5 }}
+            />
+          </motion.div>
+        </div>
+
+        {/* Add custom styles */}
+        <style jsx global>{`
+          .event-description {
+            color: #e8d0c9;
+          }
+
+          .event-description a,
+          .rules-container a {
+            color: #fbbf24;
+            text-decoration: underline;
+            transition: all 0.2s;
+          }
+
+          .event-description a:hover,
+          .rules-container a:hover {
+            color: #f59e0b;
+          }
+
+          .rules-container::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          .rules-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+          }
+
+          .rules-container::-webkit-scrollbar-thumb {
+            background: rgba(252, 211, 77, 0.3);
+            border-radius: 10px;
+          }
+
+          .rules-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(252, 211, 77, 0.5);
+          }
+        `}</style>
+      </section>
+      {eventData && (
         <>
           <SoloEventRegistration
             isOpen={isSoloOpen}
             onClose={() => setIsSoloOpen(false)}
-            eventID={eventData.id}
+            eventID={eventData.id as string}
             eventName={eventData.name}
             eventFees={eventData.registration_fees}
           />
@@ -570,7 +624,7 @@ const EventDetails = ({ eventName }: EventDetailsProps) => {
             eventFees={eventData.registration_fees}
             isOpen={isTeamOpen}
             onClose={() => setIsTeamOpen(false)}
-            eventID={eventData.id}
+            eventID={eventData.id as string}
             eventName={eventData.name}
             minTeamSize={Number(eventData.min_team_size)}
             maxTeamSize={Number(eventData.max_team_size)}

@@ -1,6 +1,6 @@
 import { toast } from 'sonner';
 import { supabase } from './supabase-client';
-import { createServerClient } from './supabse-server';
+import { supabaseServer } from './supabase-server';
 
 export const getUserData = async () => {
   try {
@@ -15,7 +15,7 @@ export const getUserData = async () => {
       }
     }
   } catch (err) {
-    console.log(err);
+    toast.error('Error fetching user data');
   }
 };
 
@@ -38,7 +38,7 @@ export const updateUserData = async (data: any) => {
     }
     return;
   } catch (error) {
-    console.log('error is ', error);
+    toast.error('Error updating user data');
     throw error;
   }
 };
@@ -112,7 +112,7 @@ export const getSWCData = async (collegeRoll: string, email: string) => {
       .or(`roll.ilike.${collegeRoll},email.eq.${email}`);
     return data && data.length > 0;
   } catch (err) {
-    console.log(err);
+    toast.error('Error fetching SWC data');
     return false;
   }
 };
@@ -146,7 +146,7 @@ export async function fetchRegistrationDetails(
 
 export const verifyCommunityReferralCode = async (code: string) => {
   try {
-    const supabase = await createServerClient();
+    const supabase = await supabaseServer();
     const { data, error } = await supabase
       .from('referral_codes')
       .select('*')

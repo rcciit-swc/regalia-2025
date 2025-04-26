@@ -101,9 +101,7 @@ export function ViewTeamMembers({
           disabled={registerLoading}
           className="mt-2 bg-yellow-200 text-black hover:bg-yellow-200/90 border-0"
         >
-          {registerLoading
-              ? 'Loading...'
-            : 'Proceed to Payment'}
+          {registerLoading ? 'Loading...' : 'Proceed to Payment'}
         </Button>
       )}
     </div>

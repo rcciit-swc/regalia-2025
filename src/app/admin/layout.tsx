@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-black min-h-screen w-full font-instrumentSans  pt-14  max-w-7xl mx-auto">
+    <div className="bg-[#210000] min-h-screen w-full font-cogley  pt-14  max-w-7xl mx-auto">
       <div className="w-full max-w-7xl mx-auto px-4 py-16">
         <div className="flex flex-col mt-3 md:flex-row gap-4 w-full justify-center">
           <Link href="/admin/manage-events" className="w-full md:w-auto">

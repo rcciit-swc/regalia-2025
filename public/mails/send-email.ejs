@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Confirmation - <%= data.eventName %> <%= data.year %></title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .email-header {
+            background-color: #220000;
+            color: #fef08a;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .email-header img {
+            max-width: 200px;
+            height: auto;
+        }
+        
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .email-body {
+            padding: 30px;
+            color: #333;
+        }
+        
+        .greeting {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #220000;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #fef08a;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+        
+        .details-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #220000;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .team-members {
+            margin-bottom: 20px;
+        }
+        
+        .team-member {
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .team-member:last-child {
+            border-bottom: none;
+        }
+        
+        .contact-info {
+            background-color: #fef08a;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .note {
+            background-color: #fff4e5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #ffa500;
+        }
+        
+        .whatsapp-link {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        .email-footer {
+            background-color: #220000;
+            color: #fef08a;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .social-icons {
+            margin: 15px 0;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #fef08a;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+        
+        .footer-text {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .email-header, .email-body, .email-footer {
+                padding: 15px;
+            }
+            
+            .header-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <img src="<%= data.logoUrl || 'https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png' %>" alt="<%= data.eventName %> <%= data.year %> Logo">
+            <div class="header-title">REGISTRATION CONFIRMATION</div>
+        </div>
+        
+        <div class="email-body">
+            <div class="greeting">Dear Team <%= data.teamName %>,</div>
+            
+            <div class="message">
+                We are delighted to inform you that your registration for the event <strong><%= data.eventName %></strong> has been successfully received. Your enthusiasm for participation is truly appreciated, and we're looking forward to an exciting event ahead!
+            </div>
+            
+            <div class="section-title">REGISTRATION DETAILS</div>
+            <div class="details-box">
+                <% if(data.teamName) { %>
+                    <p><strong>Team Name:</strong> <%= data.teamName %></p>
+                    <% } %>
+                <p><strong>Team Leader Name:</strong> <%= data.leaderName %></p>
+                <p><strong>Team Leader Phone:</strong> <%= data.leaderPhone || 'Not provided' %></p>
+                <p><strong>Email:</strong> <%= data.email %></p>
+                <% if(data.transactionId) { %>
+                <p><strong>Transaction ID:</strong> <%= data.transactionId %></p>
+                <% } %>
+                <% if(data.college) { %>
+                <p><strong>College:</strong> <%= data.college %></p>
+                <% } %>
+            </div>
+            
+            <!-- <% if(data.whatsappLink) { %>
+            <div>
+                <strong>WhatsApp Invitation Link:</strong><br>
+                <a href="<%= data.whatsappLink %>" class="whatsapp-link">Join WhatsApp Group</a>
+            </div>
+            <% } %> -->
+            
+            <% if(data.teamMembers && data.teamMembers.length > 0) { %>
+            <div class="section-title">TEAM MEMBERS</div>
+            <div class="team-members details-box">
+                <% data.teamMembers.forEach(function(member) { %>
+                <div class="team-member">
+                    <strong>Name:</strong> <%= member.name %> | <strong>Phone:</strong> <%= member.phone %>
+                </div>
+                <% }); %>
+            </div>
+            <% } %>
+            
+            <% if(data.coordinators && data.coordinators.length > 0) { %>
+            <div class="section-title">CONTACT COORDINATORS</div>
+            <div class="contact-info">
+                <% data.coordinators.forEach(function(coordinator) { %>
+                <strong><%= coordinator.name %>:</strong> <%= coordinator.phone %><br>
+                <% }); %>
+            </div>
+            <% } %>
+            
+            <div class="note">
+                <strong>Please note:</strong> Your registration is currently under verification. Your verification will be completed within <%= data.verificationDays || 2 %> days. We kindly ask for your patience and understanding as our team ensures the smooth processing of all registrations. If you have any urgent inquiries, feel free to reach out to us at <a href="mailto:<%= data.contactEmail || 'regalia.rcciit.official@gmail.com' %>"><%= data.contactEmail || 'regalia.rcciit.official@gmail.com' %></a>.
+            </div>
+            
+            <div class="message">
+                Thank you once again for choosing to be a part of <strong><%= data.eventName %></strong>. We wish you the best of luck, and we can't wait to see you showcase your talents!
+            </div>
+            
+            <div style="margin-top: 30px;">
+                Warm regards,<br>
+                <strong><%= data.festName || 'Regalia' %> <%= data.year || '2024' %></strong>
+            </div>
+        </div>
+        
+        <div class="email-footer">
+            <div>FOLLOW US</div>
+            <div class="social-icons">
+                <% if(data.socialLinks && data.socialLinks.instagram) { %>
+                <a href="<%= data.socialLinks.instagram %>" title="Instagram">
+                <% } else { %>
+                <a href="#" title="Instagram">
+                <% } %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <% if(data.socialLinks && data.socialLinks.facebook) { %>
+                <a href="<%= data.socialLinks.facebook %>" title="Facebook">
+                <% } else { %>
+                <a href="#" title="Facebook">
+                <% } %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <% if(data.socialLinks && data.socialLinks.website) { %>
+                <a href="<%= data.socialLinks.website %>" title="Website">
+                <% } else { %>
+                <a href="#" title="Website">
+                <% } %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="footer-text">© <%= data.year || '2024' %> <%= data.festName || 'Regalia' %>. All rights reserved.</div>
+        </div>
+    </div>
+</body>
+</html>

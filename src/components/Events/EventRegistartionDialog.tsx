@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,10 +11,24 @@ import { useUser } from '@/lib/stores';
 import { useEvents } from '@/lib/stores';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
-import { registerSoloEvent, uploadPaymentScreenshot } from '@/utils/functions/register-services';
-import { 
-  User, Phone, Mail, Building, CreditCard, Upload, ArrowRight, 
-  ArrowLeft, Check, X, PartyPopper, Ticket, Music
+import {
+  registerSoloEvent,
+  uploadPaymentScreenshot,
+} from '@/utils/functions/register-services';
+import {
+  User,
+  Phone,
+  Mail,
+  Building,
+  CreditCard,
+  Upload,
+  ArrowRight,
+  ArrowLeft,
+  Check,
+  X,
+  PartyPopper,
+  Ticket,
+  Music,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -56,9 +70,13 @@ export function SoloEventRegistration({
   eventFees,
 }: SoloEventRegistrationDialogProps) {
   const { userData } = useUser();
-  const { markEventAsRegistered } = useEvents();
+
+  const { markEventAsRegistered, eventsData } = useEvents();
+  const eventData = eventsData?.find((event) => event.id === eventID);
   const [step, setStep] = useState(1);
-  const [soloLeadData, setSoloLeadData] = useState<SoloLeadFormValues | null>(null);
+  const [soloLeadData, setSoloLeadData] = useState<SoloLeadFormValues | null>(
+    null
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -75,7 +93,7 @@ export function SoloEventRegistration({
       phone: userData?.phone,
       email: userData?.email,
     },
-  })
+  });
 
   const onSoloLeadSubmit = (data: SoloLeadFormValues) => {
     setSoloLeadData(data);
@@ -98,9 +116,9 @@ export function SoloEventRegistration({
     confetti({
       particleCount: 100,
       spread: 70,
-      origin: { y: 0.6 }
+      origin: { y: 0.6 },
     });
-  }
+  };
 
   const onPaymentSubmit = async (data: PaymentFormValues) => {
     setIsSubmitting(true);
@@ -128,9 +146,42 @@ export function SoloEventRegistration({
       phone: soloLeadData!.phone,
       email: soloLeadData!.email,
     };
-
+    const emailData = {
+      teamName: null, // Dynamic team name
+      leaderName: soloLeadData?.name, // Team leader name
+      leaderPhone: soloLeadData?.phone, // Leader phone
+      email: soloLeadData?.email, // Email
+      eventName: eventName, // Event name
+      year: '2025', // Year
+      festName: 'Regalia', // Festival name
+      transactionId: data.transactionId, // Transaction ID if available
+      college: soloLeadData!.college, // College name if available
+      whatsappLink: 'https://chat.whatsapp.com/BfLSvagNLgv64VsBzhouCE', // WhatsApp group link
+      teamMembers: [],
+      coordinators: eventData?.coordinators || [], // Event coordinators
+      verificationDays: 2, // Number of days for verification
+      contactEmail: 'regalia.rcciit.official@gmail.com', // Contact email
+      logoUrl: 'https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png', // Logo URL
+      socialLinks: {
+        instagram: '#',
+        facebook: '#',
+        website: '#',
+      },
+    };
     try {
       const result = await registerSoloEvent(registrationParams);
+      const emailResponse = await fetch('/api/sendMail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: soloLeadData?.email,
+          subject: `🎉 Registration Confirmed: ${eventID}`,
+          fileName: 'send-email.ejs',
+          data: emailData,
+        }),
+      });
       markEventAsRegistered(eventID);
       setIsSubmitting(false);
       setShowSuccess(true);
@@ -147,7 +198,7 @@ export function SoloEventRegistration({
       toast.error('Failed to register for solo event. Please try again.');
       setIsSubmitting(false);
     }
-  }
+  };
 
   // Reset form when dialog closes
   useEffect(() => {
@@ -163,20 +214,20 @@ export function SoloEventRegistration({
   const fadeVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } }
+    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[550px] bg-gradient-to-br from-[#210000] to-[#3a0000] border-2 border-yellow-500/30 rounded-xl p-8 shadow-xl overflow-hidden">
+      <DialogContent className="sm:max-w-[550px] my-scrollbar bg-gradient-to-br from-[#210000] to-[#3a0000] border-2 border-yellow-500/30 rounded-xl p-8 shadow-xl overflow-hidden">
         {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden opacity-10">
           <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-yellow-300 blur-3xl"></div>
           <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-red-600 blur-3xl"></div>
         </div>
-        
+
         <DialogHeader className="relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -194,15 +245,19 @@ export function SoloEventRegistration({
           </div>
           <div className="flex justify-center mt-4">
             <div className="flex gap-4">
-              <div className={`w-3 h-3 rounded-full ${step === 1 ? 'bg-yellow-400' : 'bg-gray-600'} transition-colors duration-300`}></div>
-              <div className={`w-3 h-3 rounded-full ${step === 2 ? 'bg-yellow-400' : 'bg-gray-600'} transition-colors duration-300`}></div>
+              <div
+                className={`w-3 h-3 rounded-full ${step === 1 ? 'bg-yellow-400' : 'bg-gray-600'} transition-colors duration-300`}
+              ></div>
+              <div
+                className={`w-3 h-3 rounded-full ${step === 2 ? 'bg-yellow-400' : 'bg-gray-600'} transition-colors duration-300`}
+              ></div>
             </div>
           </div>
         </DialogHeader>
 
         <AnimatePresence mode="wait">
           {showSuccess ? (
-            <motion.div 
+            <motion.div
               key="success"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -212,9 +267,15 @@ export function SoloEventRegistration({
               <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6">
                 <Check size={40} className="text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-2">Registration Successful!</h2>
-              <p className="text-gray-300 text-center mb-4">You have successfully registered for {eventName}</p>
-              <p className="text-yellow-300 font-medium">We'll see you at the fest!</p>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Registration Successful!
+              </h2>
+              <p className="text-gray-300 text-center mb-4">
+                You have successfully registered for {eventName}
+              </p>
+              <p className="text-yellow-300 font-medium">
+                We'll see you at the fest!
+              </p>
             </motion.div>
           ) : step === 1 ? (
             <motion.form
@@ -228,7 +289,10 @@ export function SoloEventRegistration({
             >
               <div className="grid gap-6 py-4">
                 <div className="grid gap-2">
-                  <label htmlFor="name" className="flex items-center gap-2 text-yellow-200 font-medium">
+                  <label
+                    htmlFor="name"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
                     <User size={18} />
                     <span>Name</span>
                   </label>
@@ -236,18 +300,28 @@ export function SoloEventRegistration({
                     <input
                       id="name"
                       readOnly
-                      {...registerSoloLead("name")}
+                      {...registerSoloLead('name')}
                       className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                       placeholder="Enter your name"
                       defaultValue={userData?.name}
                     />
-                    <User size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                    <User
+                      size={18}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                    />
                   </div>
-                  {soloLeadErrors.name && <p className="text-red-400 text-sm ml-2">{soloLeadErrors.name.message}</p>}
+                  {soloLeadErrors.name && (
+                    <p className="text-red-400 text-sm ml-2">
+                      {soloLeadErrors.name.message}
+                    </p>
+                  )}
                 </div>
-                
+
                 <div className="grid gap-2">
-                  <label htmlFor="phone" className="flex items-center gap-2 text-yellow-200 font-medium">
+                  <label
+                    htmlFor="phone"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
                     <Phone size={18} />
                     <span>Phone</span>
                   </label>
@@ -256,18 +330,28 @@ export function SoloEventRegistration({
                       id="phone"
                       type="tel"
                       readOnly
-                      {...registerSoloLead("phone")}
+                      {...registerSoloLead('phone')}
                       className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                       placeholder="Enter your phone number"
                       defaultValue={userData?.phone}
                     />
-                    <Phone size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                    <Phone
+                      size={18}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                    />
                   </div>
-                  {soloLeadErrors.phone && <p className="text-red-400 text-sm ml-2">{soloLeadErrors.phone.message}</p>}
+                  {soloLeadErrors.phone && (
+                    <p className="text-red-400 text-sm ml-2">
+                      {soloLeadErrors.phone.message}
+                    </p>
+                  )}
                 </div>
-                
+
                 <div className="grid gap-2">
-                  <label htmlFor="email" className="flex items-center gap-2 text-yellow-200 font-medium">
+                  <label
+                    htmlFor="email"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
                     <Mail size={18} />
                     <span>Email</span>
                   </label>
@@ -275,19 +359,29 @@ export function SoloEventRegistration({
                     <input
                       id="email"
                       type="email"
-                      {...registerSoloLead("email")}
+                      {...registerSoloLead('email')}
                       className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                       placeholder="Enter your email"
                       defaultValue={userData?.email}
                       readOnly
                     />
-                    <Mail size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                    <Mail
+                      size={18}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                    />
                   </div>
-                  {soloLeadErrors.email && <p className="text-red-400 text-sm ml-2">{soloLeadErrors.email.message}</p>}
+                  {soloLeadErrors.email && (
+                    <p className="text-red-400 text-sm ml-2">
+                      {soloLeadErrors.email.message}
+                    </p>
+                  )}
                 </div>
-                
+
                 <div className="grid gap-2">
-                  <label htmlFor="college" className="flex items-center gap-2 text-yellow-200 font-medium">
+                  <label
+                    htmlFor="college"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
                     <Building size={18} />
                     <span>College</span>
                   </label>
@@ -295,16 +389,23 @@ export function SoloEventRegistration({
                     <input
                       id="college"
                       autoFocus
-                      {...registerSoloLead("college")}
+                      {...registerSoloLead('college')}
                       className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                       placeholder="Enter your college name"
                     />
-                    <Building size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                    <Building
+                      size={18}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                    />
                   </div>
-                  {soloLeadErrors.college && <p className="text-red-400 text-sm ml-2">{soloLeadErrors.college.message}</p>}
-                </div> 
+                  {soloLeadErrors.college && (
+                    <p className="text-red-400 text-sm ml-2">
+                      {soloLeadErrors.college.message}
+                    </p>
+                  )}
+                </div>
               </div>
-              
+
               <div className="flex justify-end gap-4 mt-6">
                 <Button
                   type="button"
@@ -315,8 +416,8 @@ export function SoloEventRegistration({
                   <X size={18} />
                   <span>Close</span>
                 </Button>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-medium flex items-center gap-2 px-6 py-2 rounded-md border-0 transition-all duration-300"
                 >
                   <span>Next</span>
@@ -325,37 +426,48 @@ export function SoloEventRegistration({
               </div>
             </motion.form>
           ) : (
-            <motion.form 
+            <motion.form
               key="step2"
               variants={fadeVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              onSubmit={handlePaymentSubmit(onPaymentSubmit)} 
+              onSubmit={handlePaymentSubmit(onPaymentSubmit)}
               className="overflow-y-auto my-scrollbar max-h-[65vh] relative z-10 mt-4"
             >
               <div className="grid gap-6 py-4">
                 <div className="grid gap-2">
-                  <label htmlFor="transactionId" className="flex items-center gap-2 text-yellow-200 font-medium">
+                  <label
+                    htmlFor="transactionId"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
                     <CreditCard size={18} />
                     <span>Transaction ID</span>
                   </label>
                   <div className="relative">
                     <input
                       id="transactionId"
-                      {...registerPayment("transactionId")}
+                      {...registerPayment('transactionId')}
                       className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                       placeholder="Enter transaction ID"
                     />
-                    <CreditCard size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                    <CreditCard
+                      size={18}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                    />
                   </div>
                   {paymentErrors.transactionId && (
-                    <p className="text-red-400 text-sm ml-2">{paymentErrors.transactionId.message}</p>
+                    <p className="text-red-400 text-sm ml-2">
+                      {paymentErrors.transactionId.message}
+                    </p>
                   )}
                 </div>
-                
+
                 <div className="grid gap-2 text-white">
-                  <label htmlFor="paymentScreenshot" className="flex items-center gap-2 text-yellow-200 font-medium">
+                  <label
+                    htmlFor="paymentScreenshot"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
                     <Upload size={18} />
                     <span>Payment Screenshot</span>
                   </label>
@@ -363,17 +475,19 @@ export function SoloEventRegistration({
                     <input
                       id="paymentScreenshot"
                       type="file"
-                      {...registerPayment("paymentScreenshot")}
+                      {...registerPayment('paymentScreenshot')}
                       className="w-full bg-[#210000]/60 border file:text-black border-yellow-500/30 focus:border-yellow-400 focus:outline-none rounded-md p-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-gradient-to-r file:from-yellow-400 file:to-yellow-500 file:hover:from-yellow-500 file:hover:to-yellow-600 file:transition-all file:duration-300"
                       accept="image/*"
                     />
                   </div>
                   {paymentErrors.paymentScreenshot && (
-                    <p className="text-red-400 text-sm ml-2">{String(paymentErrors.paymentScreenshot.message)}</p>
+                    <p className="text-red-400 text-sm ml-2">
+                      {String(paymentErrors.paymentScreenshot.message)}
+                    </p>
                   )}
                 </div>
               </div>
-              
+
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -387,18 +501,18 @@ export function SoloEventRegistration({
                   <div className="relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-red-500 rounded-lg blur-lg opacity-50 animate-pulse"></div>
                     <div className="relative p-1 bg-gradient-to-r from-yellow-400 to-red-500 rounded-lg">
-                      <Image 
-                        src="https://i.postimg.cc/0j5bd9Dy/Whats-App-Image-2025-04-25-at-04-49-14-be67b65c.jpg" 
-                        alt="Payment QR Code" 
-                        width={280} 
-                        height={280} 
-                        className="rounded-md" 
+                      <Image
+                        src="https://i.postimg.cc/0j5bd9Dy/Whats-App-Image-2025-04-25-at-04-49-14-be67b65c.jpg"
+                        alt="Payment QR Code"
+                        width={280}
+                        height={280}
+                        className="rounded-md"
                       />
                     </div>
                   </div>
                 </div>
               </motion.div>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 mt-6 sm:justify-between">
                 <Button
                   type="button"
@@ -410,8 +524,8 @@ export function SoloEventRegistration({
                   <ArrowLeft size={18} />
                   <span>Back</span>
                 </Button>
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-medium flex items-center gap-2 px-6 py-2 rounded-md border-0 transition-all duration-300"
                   disabled={isSubmitting}
                 >

@@ -21,8 +21,6 @@ export interface RegisterTeamParams {
 }
 
 export async function registerTeamWithParticipants(params: RegisterTeamParams) {
-  console.log('Registering team with participants:', params);
-
   // Validate required fields. If any validation fails, throw immediately.
   const validations = [
     { value: params.userId, message: 'User ID is required.' },
@@ -88,7 +86,6 @@ export async function registerTeamWithParticipants(params: RegisterTeamParams) {
     throw new Error(error.message);
   } else {
     toast.success('Registration successful!');
-    console.log('Team registered successfully:', data);
     return data;
   }
 }

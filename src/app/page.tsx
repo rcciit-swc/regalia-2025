@@ -1,10 +1,11 @@
-"use client"
+'use client';
 
 import { useState, useEffect } from 'react';
 import EventSection from '@/components/Events/EventSection';
 import Sponsors from '@/components/Sponsors/Sponsors';
 import Music from '@/components/Music/Music';
 import Hero from '@/components/Hero/Hero';
+import RegaliaLoader from '@/components/common/Loader';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -22,18 +23,7 @@ export default function Home() {
   return (
     <>
       {showIntro ? (
-        <div className="min-h-screen w-full flex justify-center items-center bg-black text-[#E8D0C9]">
-          <video
-            autoPlay
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-            onEnded={() => setShowIntro(false)}
-          >
-            <source src="/loader.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
+        <RegaliaLoader />
       ) : (
         <>
           <Hero />

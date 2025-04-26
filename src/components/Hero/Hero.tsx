@@ -80,7 +80,7 @@ export default function Hero() {
 
     // Ensure the body starts with overflow hidden during animation
     // document.body.style.overflow = 'hidden';
-    
+
     startSequence();
 
     return () => {
@@ -91,7 +91,9 @@ export default function Hero() {
   }, []);
 
   const handleRegisterClick = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (user) {
       window.location.href = '/events';
     } else {
@@ -102,8 +104,6 @@ export default function Hero() {
         },
       });
       if (error) {
-        console.log('some error ocurred ');
-        console.error('Login Error:', error);
         return null;
       }
     }

@@ -1,12 +1,11 @@
-import React from 'react'
-import AboutUsAnimation from '@/components/Aboutus/AboutSection'
+import React from 'react';
+import AboutUsAnimation from '@/components/Aboutus/AboutSection';
 const About = () => {
   return (
     <div>
-
-        <AboutUsAnimation/>
+      <AboutUsAnimation />
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default About;

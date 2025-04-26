@@ -1,6 +1,14 @@
-
-import { createEvent, getApprovalDashboardData, getEventByID, getEventCategories, getEventsData, updateEventById, updateRegisterStatusDb } from '@/utils/functions';
+import {
+  createEvent,
+  getApprovalDashboardData,
+  getEventByID,
+  getEventCategories,
+  getEventsData,
+  updateEventById,
+  updateRegisterStatusDb,
+} from '@/utils/functions';
 import { events } from '../types/events';
+import { toast } from 'sonner';
 
 export const populateEventDetails = async (set: any, all: boolean) => {
   set({ eventsLoading: true });
@@ -25,7 +33,7 @@ export const addEvent = async (set: any, eventData: events) => {
     await createEvent(eventData);
     set({ eventsLoading: false });
   } catch (error: any) {
-    console.log(error.message);
+    toast.error('Failed to create event. ' + error.message);
   }
 };
 
@@ -47,13 +55,19 @@ export const updatePopulateEvents = async (set: any, id: string, data: any) => {
   set({ eventsData: updatedData, eventsLoading: false });
 };
 
-export const populateApprovalDashboard = async (set: any, rangeStart:number, rangeEnd:number) => {
+export const populateApprovalDashboard = async (
+  set: any,
+  rangeStart: number,
+  rangeEnd: number
+) => {
   try {
     set({ approvalDashboardLoading: true });
     const res = await getApprovalDashboardData(rangeStart, rangeEnd);
-    const res2 = await getApprovalDashboardData(rangeStart + 1000, rangeEnd + 1000);
+    const res2 = await getApprovalDashboardData(
+      rangeStart + 1000,
+      rangeEnd + 1000
+    );
     const finalRes = res && res2 && res.concat(res2);
-    console.log('finalRes', finalRes);
     set({ approvalDashboardData: finalRes, approvalDashboardLoading: false });
     // if (!res) {
     //   set({ approvalDashboardData: [], approvalDashboardLoading: false });

@@ -1,19 +1,19 @@
 import { EventData, events } from '@/lib/types/events';
 import { supabase } from './supabase-client';
 import { toast } from 'sonner';
+import { supabaseServer } from './supabase-server';
 import { getRoles } from './userUtils';
-import { createServerClient } from './supabse-server';
 
 export const getEventCategories = async () => {
   try {
     const { data, error } = await supabase
       .from('event_categories')
       .select('*')
-      .eq('fest_id', '44bb2093-d229-4385-8f08-3fe7da3521c8');
+      .eq('fest_id', '9b890292-2425-4c61-8753-9a1fcdd37acc');
     if (error) return error;
     return data;
   } catch (error: any) {
-    console.log(error.message);
+    toast.error(error.message);
   }
 };
 
@@ -55,8 +55,12 @@ export const getEventsData = async (all: boolean = true) => {
     }
 
     const p_user_id = sessionData?.session?.user?.id || null;
-    const p_fest_id = '44bb2093-d229-4385-8f08-3fe7da3521c8';
-    const rolesData = await getRoles(); // Expecting this to return an array of roles
+    const p_fest_id = '9b890292-2425-4c61-8753-9a1fcdd37acc';
+    const rolesData: {
+      role: string;
+      event_category_id?: string;
+      event_id?: string;
+    }[] = (await getRoles()) || []; // Provide a default empty array if getRoles() returns null or undefined
 
     let data, error;
 
@@ -69,7 +73,6 @@ export const getEventsData = async (all: boolean = true) => {
     } else {
       // Determine the highest privileged role
       const roles = rolesData.map((role: { role: string }) => role.role);
-      console.log(roles)
       if (roles.includes('super_admin') || roles.includes('registrar')) {
         ({ data, error } = await supabase.rpc('get_events_by_fest', {
           p_fest_id,
@@ -77,8 +80,14 @@ export const getEventsData = async (all: boolean = true) => {
         }));
       } else if (roles.includes('convenor')) {
         const eventCategoryIds = rolesData
-          .filter((role) => role.role === 'convenor')
-          .map((role: { event_category_id: string }) => role.event_category_id);
+          .filter(
+            (role: { role: string; event_category_id?: string }) =>
+              role.role === 'convenor'
+          )
+          .map(
+            (role: { role: string; event_category_id?: string }) =>
+              role.event_category_id
+          );
 
         ({ data, error } = await supabase
           .from('events')
@@ -86,8 +95,11 @@ export const getEventsData = async (all: boolean = true) => {
           .in('event_category_id', eventCategoryIds));
       } else if (roles.includes('coordinator')) {
         const eventIds = rolesData
-          .filter((role) => role.role === 'coordinator')
-          .map((role) => role.event_id);
+          .filter(
+            (role: { role: string; event_id?: string }) =>
+              role.role === 'coordinator'
+          )
+          .map((role: { event_id?: string | null }) => role.event_id);
 
         ({ data, error } = await supabase
           .from('events')
@@ -102,9 +114,7 @@ export const getEventsData = async (all: boolean = true) => {
       throw new Error(error.message);
     }
 
-    // Limit to only 9 events
-    const limitedData = data.slice(0, 9);
-    return limitedData;
+    return data;
   } catch (err) {
     console.error('Unexpected error:', err);
     return null;
@@ -136,8 +146,14 @@ export const getEventsForAdmin = async (
       }));
     } else if (roles.includes('convenor')) {
       const eventCategoryIds = rolesData
-        .filter((role) => role.role === 'convenor')
-        .map((role) => role.event_category_id);
+        .filter(
+          (role: { role: string; event_category_id?: string }) =>
+            role.role === 'convenor'
+        )
+        .map(
+          (role: { role: string; event_category_id?: string }) =>
+            role.event_category_id
+        );
 
       ({ data, error } = await supabase
         .from('events')
@@ -145,8 +161,11 @@ export const getEventsForAdmin = async (
         .in('event_category_id', eventCategoryIds));
     } else if (roles.includes('coordinator')) {
       const eventIds = rolesData
-        .filter((role) => role.role === 'coordinator')
-        .map((role) => role.event_id);
+        .filter(
+          (role: { role: string; event_id?: string }) =>
+            role.role === 'coordinator'
+        )
+        .map((role: { event_id?: string | null }) => role.event_id);
 
       ({ data, error } = await supabase
         .from('events')
@@ -193,21 +212,22 @@ export const updateEventById = async (
 
 export const getApprovalDashboardData = async (
   rangeStart: number,
-  rangeEnd: number): Promise<EventData[] | null> => {
+  rangeEnd: number
+): Promise<EventData[] | null> => {
   try {
-    const rolesData = await getRoles();
-    const roleCategory = rolesData?.map((roles) =>
-      roles.event_category_id !== null ? roles.event_category_id : null
-    )[0];
-    const eventIds = rolesData
-      ?.map((role) => (role.event_id !== null ? role.event_id : null))
-      .filter((id) => id !== null);
-    const finalEventIds = eventIds!.length > 0 ? eventIds : null;
+    // const rolesData = await getRoles();
+    // const roleCategory = rolesData?.map((roles: { event_category_id: string | null }) =>
+    //   roles.event_category_id !== null ? roles.event_category_id : null
+    // )[0];
+    // const eventIds = rolesData
+    //   ?.map((role: { event_id: string | null }) => (role.event_id !== null ? role.event_id : null))
+    //   .filter((id: string | null) => id !== null);
+    // const finalEventIds = eventIds!.length > 0 ? eventIds : null;
     const { data, error } = await supabase
       .rpc('get_registrations_by_event_ids', {
-        p_fest_id: '44bb2093-d229-4385-8f08-3fe7da3521c8',
-        p_event_category_id: roleCategory || null,
-        p_event_id: finalEventIds || null,
+        p_fest_id: '9b890292-2425-4c61-8753-9a1fcdd37acc',
+        p_event_category_id: 'bc21d159-b6f4-4f1d-9c4a-45b67e9971b3',
+        // p_event_id: finalEventIds || null,
       })
       .range(rangeStart, rangeEnd);
 
@@ -225,9 +245,8 @@ export const getApprovalDashboardData = async (
   }
 };
 
-
 export const getEventByID = async (id: string): Promise<events | null> => {
-  const serverClient = await createServerClient();
+  const serverClient = await supabaseServer();
   const p_event_id = id;
   const { data: sessionData, error: sessionError } =
     await supabase.auth.getSession();
@@ -238,7 +257,10 @@ export const getEventByID = async (id: string): Promise<events | null> => {
 
   // const p_user_id = sessionData?.session?.user?.id || null;
 
-  const { data, error } = await serverClient.from('events').select('*').eq('id', p_event_id);
+  const { data, error } = await serverClient
+    .from('events')
+    .select('*')
+    .eq('id', p_event_id);
 
   if (error) {
     console.error('Error fetching event:', error);

@@ -42,12 +42,12 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       // Pass the form data to the onSave handler
       await onSave(new FormData(e.currentTarget));
       setShowSuccess(true);
-      
+
       // Close dialog after showing success message
       setTimeout(() => {
         setShowSuccess(false);
@@ -63,7 +63,7 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
   const fadeVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } }
+    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
   };
 
   return (
@@ -74,9 +74,9 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
           <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-yellow-300 blur-3xl"></div>
           <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-red-600 blur-3xl"></div>
         </div>
-        
+
         <DialogHeader className="relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -94,7 +94,7 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
 
         <AnimatePresence mode="wait">
           {showSuccess ? (
-            <motion.div 
+            <motion.div
               key="success"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -104,8 +104,12 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
               <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6">
                 <Check size={40} className="text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-2">Profile Updated!</h2>
-              <p className="text-gray-300 text-center mb-4">Your profile has been successfully updated</p>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Profile Updated!
+              </h2>
+              <p className="text-gray-300 text-center mb-4">
+                Your profile has been successfully updated
+              </p>
             </motion.div>
           ) : (
             <motion.form
@@ -134,7 +138,10 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
 
               <div className="grid gap-6 py-4">
                 <div className="grid gap-2">
-                  <label htmlFor="fullName" className="flex items-center gap-2 text-yellow-200 font-medium">
+                  <label
+                    htmlFor="fullName"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
                     <User size={18} />
                     <span>Full Name</span>
                   </label>
@@ -146,12 +153,18 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
                       className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                       placeholder="Enter your full name"
                     />
-                    <User size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                    <User
+                      size={18}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                    />
                   </div>
                 </div>
 
                 <div className="grid gap-2">
-                  <label htmlFor="gender" className="flex items-center gap-2 text-yellow-200 font-medium">
+                  <label
+                    htmlFor="gender"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
                     <UserRound size={18} />
                     <span>Gender</span>
                   </label>
@@ -183,7 +196,10 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
                 </div>
 
                 <div className="grid gap-2">
-                  <label htmlFor="email" className="flex items-center gap-2 text-yellow-200 font-medium">
+                  <label
+                    htmlFor="email"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
                     <Mail size={18} />
                     <span>Email ID</span>
                   </label>
@@ -196,12 +212,18 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
                       className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                       readOnly
                     />
-                    <Mail size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                    <Mail
+                      size={18}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                    />
                   </div>
                 </div>
 
                 <div className="grid gap-2">
-                  <label htmlFor="phone" className="flex items-center gap-2 text-yellow-200 font-medium">
+                  <label
+                    htmlFor="phone"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
                     <Phone size={18} />
                     <span>Phone Number</span>
                   </label>
@@ -214,7 +236,10 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
                       className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                       placeholder="Enter your phone number"
                     />
-                    <Phone size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                    <Phone
+                      size={18}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                    />
                   </div>
                 </div>
               </div>

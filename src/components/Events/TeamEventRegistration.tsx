@@ -20,11 +20,32 @@ import { toast, Toaster } from 'sonner';
 import { useEvents } from '@/lib/stores';
 import confetti from 'canvas-confetti';
 import { ViewTeamMembers } from './ViewTeamMembers';
-import { RegisterTeamParams, registerTeamWithParticipants, uploadPaymentScreenshot } from '@/utils/functions/register-services';
-import { 
-  User, Phone, Mail, Building, CreditCard, Upload, ArrowRight, ArrowLeft, Check, X, 
-  Users, Pencil, Plus, UserCheck, UserPlus, Ticket, Music, Trophy, UsersRound,
-  Eye
+import {
+  RegisterTeamParams,
+  registerTeamWithParticipants,
+  uploadPaymentScreenshot,
+} from '@/utils/functions/register-services';
+import {
+  User,
+  Phone,
+  Mail,
+  Building,
+  CreditCard,
+  Upload,
+  ArrowRight,
+  ArrowLeft,
+  Check,
+  X,
+  Users,
+  Pencil,
+  Plus,
+  UserCheck,
+  UserPlus,
+  Ticket,
+  Music,
+  Trophy,
+  UsersRound,
+  Eye,
 } from 'lucide-react';
 
 interface EventRegistrationDialogProps {
@@ -82,7 +103,9 @@ export function TeamEventRegistration({
   // step: 1 = Team Lead, 2 = Manage Team Members, 3 = Payment Details
   const [step, setStep] = useState(1);
   // Store validated team lead details
-  const [teamLeadData, setTeamLeadData] = useState<TeamLeadFormValues | null>(null);
+  const [teamLeadData, setTeamLeadData] = useState<TeamLeadFormValues | null>(
+    null
+  );
   // Store added team members (without a college field)
   const [teamMembers, setTeamMembers] = useState<TeamMemberFormValues[]>([]);
   // For displaying the added team members via the ViewTeamMembers component
@@ -92,7 +115,9 @@ export function TeamEventRegistration({
   // Toggle for showing the add team member form
   const [isAddingMember, setIsAddingMember] = useState(false);
   // Added state to track which member is being edited
-  const [editingMemberIndex, setEditingMemberIndex] = useState<number | null>(null);
+  const [editingMemberIndex, setEditingMemberIndex] = useState<number | null>(
+    null
+  );
   // State to track registration process
   const [isRegistering, setIsRegistering] = useState(false);
   // Success state
@@ -111,7 +136,7 @@ export function TeamEventRegistration({
       phone: userData?.phone,
       email: userData?.email,
       collegeName: userData?.college,
-    }
+    },
   });
 
   const onTeamLeadSubmit = (data: TeamLeadFormValues) => {
@@ -159,9 +184,13 @@ export function TeamEventRegistration({
 
   const handleProceedToPayment = () => {
     if (totalTeamCount < minTeamSize) {
-      toast.error(`Minimum team size is ${minTeamSize}. Please add more team members.`);
+      toast.error(
+        `Minimum team size is ${minTeamSize}. Please add more team members.`
+      );
     } else if (totalTeamCount > maxTeamSize) {
-      toast.error(`Maximum team size is ${maxTeamSize}. Please remove some team members.`);
+      toast.error(
+        `Maximum team size is ${maxTeamSize}. Please remove some team members.`
+      );
     } else {
       setShowConfirmTeam(true);
       setIsSheetOpen(true);
@@ -172,7 +201,7 @@ export function TeamEventRegistration({
     confetti({
       particleCount: 100,
       spread: 70,
-      origin: { y: 0.6 }
+      origin: { y: 0.6 },
     });
   };
 
@@ -270,7 +299,7 @@ export function TeamEventRegistration({
   const fadeVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } }
+    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
   };
 
   return (
@@ -282,15 +311,15 @@ export function TeamEventRegistration({
         }
       }}
     >
-      <DialogContent className="sm:max-w-[550px] max-h-[80vh] bg-gradient-to-br from-[#210000] to-[#3a0000] border-2 border-yellow-500/30 rounded-xl p-8 shadow-xl overflow-y-scroll">
+      <DialogContent className="sm:max-w-[550px] max-h-[80vh] my-scrollbar bg-gradient-to-br from-[#210000] to-[#3a0000] border-2 border-yellow-500/30 rounded-xl p-8 shadow-xl overflow-y-scroll">
         {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden opacity-10">
           <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-yellow-300 blur-3xl"></div>
           <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-red-600 blur-3xl"></div>
         </div>
-        
+
         <DialogHeader className="relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -311,27 +340,37 @@ export function TeamEventRegistration({
           <div className="flex justify-center mt-2">
             <div className="h-1 w-32 bg-gradient-to-r from-yellow-500 to-red-500 rounded-full"></div>
           </div>
-          
+
           <div className="flex flex-col items-center mt-4">
             <div className="flex gap-4 mb-2">
-              <div className={`w-3 h-3 rounded-full ${step === 1 ? 'bg-yellow-400' : 'bg-gray-600'} transition-colors duration-300`}></div>
-              <div className={`w-3 h-3 rounded-full ${step === 2 ? 'bg-yellow-400' : 'bg-gray-600'} transition-colors duration-300`}></div>
-              <div className={`w-3 h-3 rounded-full ${step === 3 ? 'bg-yellow-400' : 'bg-gray-600'} transition-colors duration-300`}></div>
+              <div
+                className={`w-3 h-3 rounded-full ${step === 1 ? 'bg-yellow-400' : 'bg-gray-600'} transition-colors duration-300`}
+              ></div>
+              <div
+                className={`w-3 h-3 rounded-full ${step === 2 ? 'bg-yellow-400' : 'bg-gray-600'} transition-colors duration-300`}
+              ></div>
+              <div
+                className={`w-3 h-3 rounded-full ${step === 3 ? 'bg-yellow-400' : 'bg-gray-600'} transition-colors duration-300`}
+              ></div>
             </div>
-            
-            <motion.div 
+
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               className="flex items-center gap-2 bg-yellow-900/30 px-4 py-2 rounded-full mt-2"
             >
               <Users size={18} className="text-yellow-300" />
               <p className="text-white font-antolia tracking-widest text-sm">
-                Team Members: <span className="text-yellow-300">{totalTeamCount}</span>
-                <span className="text-gray-400"> (Min: {minTeamSize}, Max: {maxTeamSize})</span>
+                Team Members:{' '}
+                <span className="text-yellow-300">{totalTeamCount}</span>
+                <span className="text-gray-400">
+                  {' '}
+                  (Min: {minTeamSize}, Max: {maxTeamSize})
+                </span>
               </p>
             </motion.div>
           </div>
-          
+
           {teamMembers.length > 0 && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -355,7 +394,7 @@ export function TeamEventRegistration({
 
         <AnimatePresence mode="wait">
           {showSuccess ? (
-            <motion.div 
+            <motion.div
               key="success"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -365,9 +404,16 @@ export function TeamEventRegistration({
               <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-6">
                 <Check size={40} className="text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-2">Registration Successful!</h2>
-              <p className="text-gray-300 text-center mb-4">Your team "{teamLeadData?.teamName}" has been registered for {eventName}</p>
-              <p className="text-yellow-300 font-medium">We're excited to see your team at the fest!</p>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Registration Successful!
+              </h2>
+              <p className="text-gray-300 text-center mb-4">
+                Your team "{teamLeadData?.teamName}" has been registered for{' '}
+                {eventName}
+              </p>
+              <p className="text-yellow-300 font-medium">
+                We're excited to see your team at the fest!
+              </p>
             </motion.div>
           ) : (
             <>
@@ -380,12 +426,15 @@ export function TeamEventRegistration({
                   animate="visible"
                   exit="exit"
                   onSubmit={handleTeamLeadSubmit(onTeamLeadSubmit)}
-                  className="overflow-y-auto my-scrollbar max-h-[65vh] relative z-10 mt-4"
+                  className="overflow-y-auto my-scrollbar relative z-10 mt-4"
                 >
                   <div className="grid gap-6 py-4">
                     {/* Team Name Field */}
                     <div className="grid gap-2">
-                      <label htmlFor="teamName" className="flex items-center gap-2 text-yellow-200 font-medium">
+                      <label
+                        htmlFor="teamName"
+                        className="flex items-center gap-2 text-yellow-200 font-medium"
+                      >
                         <Users size={18} />
                         <span>Team Name</span>
                       </label>
@@ -398,15 +447,23 @@ export function TeamEventRegistration({
                           placeholder="Enter your team name"
                           autoFocus
                         />
-                        <Users size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                        <Users
+                          size={18}
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                        />
                       </div>
                       {teamLeadErrors.teamName && (
-                        <p className="text-red-400 text-sm ml-2">{teamLeadErrors.teamName.message}</p>
+                        <p className="text-red-400 text-sm ml-2">
+                          {teamLeadErrors.teamName.message}
+                        </p>
                       )}
                     </div>
-                    
+
                     <div className="grid gap-2">
-                      <label htmlFor="name" className="flex items-center gap-2 text-yellow-200 font-medium">
+                      <label
+                        htmlFor="name"
+                        className="flex items-center gap-2 text-yellow-200 font-medium"
+                      >
                         <UserCheck size={18} />
                         <span>Team Lead Name</span>
                       </label>
@@ -419,15 +476,23 @@ export function TeamEventRegistration({
                           placeholder="Enter team lead name"
                           defaultValue={userData?.name}
                         />
-                        <UserCheck size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                        <UserCheck
+                          size={18}
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                        />
                       </div>
                       {teamLeadErrors.name && (
-                        <p className="text-red-400 text-sm ml-2">{teamLeadErrors.name.message}</p>
+                        <p className="text-red-400 text-sm ml-2">
+                          {teamLeadErrors.name.message}
+                        </p>
                       )}
                     </div>
-                    
+
                     <div className="grid gap-2">
-                      <label htmlFor="phone" className="flex items-center gap-2 text-yellow-200 font-medium">
+                      <label
+                        htmlFor="phone"
+                        className="flex items-center gap-2 text-yellow-200 font-medium"
+                      >
                         <Phone size={18} />
                         <span>Team Lead Phone</span>
                       </label>
@@ -441,15 +506,23 @@ export function TeamEventRegistration({
                           className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                           placeholder="Enter team lead phone number"
                         />
-                        <Phone size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                        <Phone
+                          size={18}
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                        />
                       </div>
                       {teamLeadErrors.phone && (
-                        <p className="text-red-400 text-sm ml-2">{teamLeadErrors.phone.message}</p>
+                        <p className="text-red-400 text-sm ml-2">
+                          {teamLeadErrors.phone.message}
+                        </p>
                       )}
                     </div>
-                    
+
                     <div className="grid gap-2">
-                      <label htmlFor="email" className="flex items-center gap-2 text-yellow-200 font-medium">
+                      <label
+                        htmlFor="email"
+                        className="flex items-center gap-2 text-yellow-200 font-medium"
+                      >
                         <Mail size={18} />
                         <span>Team Lead Email</span>
                       </label>
@@ -463,15 +536,23 @@ export function TeamEventRegistration({
                           placeholder="Enter team lead email"
                           readOnly
                         />
-                        <Mail size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                        <Mail
+                          size={18}
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                        />
                       </div>
                       {teamLeadErrors.email && (
-                        <p className="text-red-400 text-sm ml-2">{teamLeadErrors.email.message}</p>
+                        <p className="text-red-400 text-sm ml-2">
+                          {teamLeadErrors.email.message}
+                        </p>
                       )}
                     </div>
-                    
+
                     <div className="grid gap-2">
-                      <label htmlFor="collegeName" className="flex items-center gap-2 text-yellow-200 font-medium">
+                      <label
+                        htmlFor="collegeName"
+                        className="flex items-center gap-2 text-yellow-200 font-medium"
+                      >
                         <Building size={18} />
                         <span>College Name</span>
                       </label>
@@ -479,18 +560,25 @@ export function TeamEventRegistration({
                         <input
                           id="collegeName"
                           {...registerTeamLead('collegeName')}
-                          defaultValue={teamLeadData?.collegeName || userData?.college}
+                          defaultValue={
+                            teamLeadData?.collegeName || userData?.college
+                          }
                           className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                           placeholder="Enter college name"
                         />
-                        <Building size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                        <Building
+                          size={18}
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                        />
                       </div>
                       {teamLeadErrors.collegeName && (
-                        <p className="text-red-400 text-sm ml-2">{teamLeadErrors.collegeName.message}</p>
+                        <p className="text-red-400 text-sm ml-2">
+                          {teamLeadErrors.collegeName.message}
+                        </p>
                       )}
                     </div>
                   </div>
-                  
+
                   <div className="flex justify-end gap-4 mt-6">
                     <Button
                       type="button"
@@ -501,8 +589,8 @@ export function TeamEventRegistration({
                       <X size={18} />
                       <span>Close</span>
                     </Button>
-                    <Button 
-                      type="submit" 
+                    <Button
+                      type="submit"
                       className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-medium flex items-center gap-2 px-6 py-2 rounded-md border-0 transition-all duration-300"
                     >
                       <span>Next</span>
@@ -540,7 +628,7 @@ export function TeamEventRegistration({
               {/* Step 2: Manage Team Members */}
               {step === 2 && (
                 <motion.div
-                  key="step2" 
+                  key="step2"
                   variants={fadeVariants}
                   initial="hidden"
                   animate="visible"
@@ -566,11 +654,16 @@ export function TeamEventRegistration({
                       transition={{ duration: 0.3 }}
                     >
                       <h3 className="text-center text-yellow-300 font-antolia tracking-widest text-xl">
-                        {editingMemberIndex !== null ? 'Edit Team Member' : 'Add Team Member'}
+                        {editingMemberIndex !== null
+                          ? 'Edit Team Member'
+                          : 'Add Team Member'}
                       </h3>
-                      
+
                       <div className="grid gap-2">
-                        <label htmlFor="memberName" className="flex items-center gap-2 text-yellow-200 font-medium">
+                        <label
+                          htmlFor="memberName"
+                          className="flex items-center gap-2 text-yellow-200 font-medium"
+                        >
                           <User size={18} />
                           <span>Member Name</span>
                         </label>
@@ -582,15 +675,23 @@ export function TeamEventRegistration({
                             placeholder="Enter member name"
                             autoFocus
                           />
-                          <User size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                          <User
+                            size={18}
+                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                          />
                         </div>
                         {teamMemberErrors.name && (
-                          <p className="text-red-400 text-sm ml-2">{teamMemberErrors.name.message}</p>
+                          <p className="text-red-400 text-sm ml-2">
+                            {teamMemberErrors.name.message}
+                          </p>
                         )}
                       </div>
-                      
+
                       <div className="grid gap-2">
-                        <label htmlFor="memberPhone" className="flex items-center gap-2 text-yellow-200 font-medium">
+                        <label
+                          htmlFor="memberPhone"
+                          className="flex items-center gap-2 text-yellow-200 font-medium"
+                        >
                           <Phone size={18} />
                           <span>Member Phone</span>
                         </label>
@@ -602,15 +703,23 @@ export function TeamEventRegistration({
                             className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                             placeholder="Enter member phone number"
                           />
-                          <Phone size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                          <Phone
+                            size={18}
+                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                          />
                         </div>
                         {teamMemberErrors.phone && (
-                          <p className="text-red-400 text-sm ml-2">{teamMemberErrors.phone.message}</p>
+                          <p className="text-red-400 text-sm ml-2">
+                            {teamMemberErrors.phone.message}
+                          </p>
                         )}
                       </div>
-                      
+
                       <div className="grid gap-2">
-                        <label htmlFor="memberEmail" className="flex items-center gap-2 text-yellow-200 font-medium">
+                        <label
+                          htmlFor="memberEmail"
+                          className="flex items-center gap-2 text-yellow-200 font-medium"
+                        >
                           <Mail size={18} />
                           <span>Member Email</span>
                         </label>
@@ -622,13 +731,18 @@ export function TeamEventRegistration({
                             className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                             placeholder="Enter member email"
                           />
-                          <Mail size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                          <Mail
+                            size={18}
+                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                          />
                         </div>
                         {teamMemberErrors.email && (
-                          <p className="text-red-400 text-sm ml-2">{teamMemberErrors.email.message}</p>
+                          <p className="text-red-400 text-sm ml-2">
+                            {teamMemberErrors.email.message}
+                          </p>
                         )}
                       </div>
-                      
+
                       <div className="flex flex-row flex-wrap gap-4 mt-4 justify-between">
                         <Button
                           type="button"
@@ -649,7 +763,8 @@ export function TeamEventRegistration({
                           {editingMemberIndex !== null ? (
                             <>
                               <Pencil size={18} />
-                              <span>Update Member</span></>
+                              <span>Update Member</span>
+                            </>
                           ) : (
                             <>
                               <Plus size={18} />
@@ -660,23 +775,23 @@ export function TeamEventRegistration({
                       </div>
                     </motion.form>
                   ) : (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
                       className="flex flex-col gap-6"
                     >
                       <div className="text-center">
-                        <h3 className="text-yellow-300 font-antolia tracking-widest text-xl mb-4">Manage Team Members</h3>
+                        <h3 className="text-yellow-300 font-antolia tracking-widest text-xl mb-4">
+                          Manage Team Members
+                        </h3>
                         <p className="text-gray-300">
-                          {teamMembers.length === 0 ? (
-                            "Add team members to continue with registration."
-                          ) : (
-                            `You have added ${teamMembers.length} team member${teamMembers.length !== 1 ? 's' : ''}.`
-                          )}
+                          {teamMembers.length === 0
+                            ? 'Add team members to continue with registration.'
+                            : `You have added ${teamMembers.length} team member${teamMembers.length !== 1 ? 's' : ''}.`}
                         </p>
                       </div>
-                      
+
                       {teamMembers.length > 0 && (
                         <div className="bg-[#300000]/40 rounded-lg p-4 border border-yellow-500/20">
                           <h4 className="text-yellow-200 font-medium mb-3 flex items-center gap-2">
@@ -685,18 +800,33 @@ export function TeamEventRegistration({
                           </h4>
                           <div className="text-white">
                             <div className="flex items-center gap-2 mb-2 bg-yellow-900/20 p-2 rounded-md">
-                              <UserCheck size={16} className="text-yellow-400 flex-shrink-0" />
+                              <UserCheck
+                                size={16}
+                                className="text-yellow-400 flex-shrink-0"
+                              />
                               <div className="flex-grow">
-                                <span className="font-medium">{teamLeadData?.name}</span>
-                                <span className="text-gray-400 text-sm ml-2">(Team Lead)</span>
+                                <span className="font-medium">
+                                  {teamLeadData?.name}
+                                </span>
+                                <span className="text-gray-400 text-sm ml-2">
+                                  (Team Lead)
+                                </span>
                               </div>
                             </div>
-                            
+
                             {teamMembers.map((member, idx) => (
-                              <div key={idx} className="flex items-center justify-between gap-2 mb-2 bg-gray-900/30 p-2 rounded-md">
+                              <div
+                                key={idx}
+                                className="flex items-center justify-between gap-2 mb-2 bg-gray-900/30 p-2 rounded-md"
+                              >
                                 <div className="flex items-center gap-2">
-                                  <User size={16} className="text-gray-400 flex-shrink-0" />
-                                  <span className="font-medium">{member.name}</span>
+                                  <User
+                                    size={16}
+                                    className="text-gray-400 flex-shrink-0"
+                                  />
+                                  <span className="font-medium">
+                                    {member.name}
+                                  </span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                   <button
@@ -720,7 +850,7 @@ export function TeamEventRegistration({
                           </div>
                         </div>
                       )}
-                      
+
                       <div className="flex flex-wrap gap-4 justify-between mt-2">
                         {teamMembers.length < maxTeamSize - 1 && (
                           <Button
@@ -732,7 +862,7 @@ export function TeamEventRegistration({
                             <span>Add Member</span>
                           </Button>
                         )}
-                        
+
                         <div className="flex gap-4">
                           <Button
                             type="button"
@@ -743,12 +873,15 @@ export function TeamEventRegistration({
                             <ArrowLeft size={18} />
                             <span>Back</span>
                           </Button>
-                          
+
                           <Button
                             type="button"
                             onClick={handleProceedToPayment}
                             className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-medium flex items-center gap-2 px-6 py-2 rounded-md border-0 transition-all duration-300"
-                            disabled={totalTeamCount < minTeamSize || totalTeamCount > maxTeamSize}
+                            disabled={
+                              totalTeamCount < minTeamSize ||
+                              totalTeamCount > maxTeamSize
+                            }
                           >
                             <span>Next</span>
                             <ArrowRight size={18} />
@@ -773,17 +906,23 @@ export function TeamEventRegistration({
                 >
                   <div className="grid gap-6 py-4">
                     <div className="text-center mb-4">
-                      <h3 className="text-yellow-300 font-antolia tracking-widest text-xl mb-2">Payment Details</h3>
+                      <h3 className="text-yellow-300 font-antolia tracking-widest text-xl mb-2">
+                        Payment Details
+                      </h3>
                       <div className="flex items-center justify-center gap-2 bg-yellow-900/30 px-4 py-2 rounded-full">
                         <CreditCard size={18} className="text-yellow-300" />
                         <p className="text-white font-medium">
-                          Amount: <span className="text-yellow-300">₹{eventFees}</span>
+                          Amount:{' '}
+                          <span className="text-yellow-300">₹{eventFees}</span>
                         </p>
                       </div>
                     </div>
-                    
+
                     <div className="grid gap-2">
-                      <label htmlFor="transactionId" className="flex items-center gap-2 text-yellow-200 font-medium">
+                      <label
+                        htmlFor="transactionId"
+                        className="flex items-center gap-2 text-yellow-200 font-medium"
+                      >
                         <Ticket size={18} />
                         <span>Transaction ID</span>
                       </label>
@@ -794,15 +933,23 @@ export function TeamEventRegistration({
                           className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                           placeholder="Enter transaction ID"
                         />
-                        <Ticket size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                        <Ticket
+                          size={18}
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                        />
                       </div>
                       {paymentErrors.transactionId && (
-                        <p className="text-red-400 text-sm ml-2">{paymentErrors.transactionId.message}</p>
+                        <p className="text-red-400 text-sm ml-2">
+                          {paymentErrors.transactionId.message}
+                        </p>
                       )}
                     </div>
-                    
+
                     <div className="grid gap-2">
-                      <label htmlFor="paymentScreenshot" className="flex items-center gap-2 text-yellow-200 font-medium">
+                      <label
+                        htmlFor="paymentScreenshot"
+                        className="flex items-center gap-2 text-yellow-200 font-medium"
+                      >
                         <Upload size={18} />
                         <span>Payment Screenshot</span>
                       </label>
@@ -814,13 +961,18 @@ export function TeamEventRegistration({
                           className="w-full bg-[#210000]/60 border font-antolia tracking-wider border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
                           accept="image/*"
                         />
-                        <Upload size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70" />
+                        <Upload
+                          size={18}
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                        />
                       </div>
                       {paymentErrors.paymentScreenshot && (
-                        <p className="text-red-400 text-sm ml-2">{String(paymentErrors.paymentScreenshot.message)}</p>
+                        <p className="text-red-400 text-sm ml-2">
+                          {String(paymentErrors.paymentScreenshot.message)}
+                        </p>
                       )}
                     </div>
-                    
+
                     <div className="mt-6 flex items-center justify-center">
                       <div className="border-2 border-yellow-500/30 rounded-lg p-2 flex flex-col items-center">
                         <h4 className="text-white text-center text-lg font-bold mb-2">
@@ -834,12 +986,13 @@ export function TeamEventRegistration({
                           className="rounded-lg mb-2"
                         />
                         <p className="text-yellow-300 text-sm text-center">
-                          After payment, enter Transaction ID and upload screenshot
+                          After payment, enter Transaction ID and upload
+                          screenshot
                         </p>
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="flex justify-end gap-4 mt-6">
                     <Button
                       type="button"
@@ -850,8 +1003,8 @@ export function TeamEventRegistration({
                       <ArrowLeft size={18} />
                       <span>Back</span>
                     </Button>
-                    <Button 
-                      type="submit" 
+                    <Button
+                      type="submit"
                       className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-medium flex items-center gap-2 px-6 py-2 rounded-md border-0 transition-all duration-300"
                       disabled={isRegistering}
                     >
@@ -872,7 +1025,7 @@ export function TeamEventRegistration({
             </>
           )}
         </AnimatePresence>
-        
+
         <Toaster position="top-center" richColors />
       </DialogContent>
     </Dialog>

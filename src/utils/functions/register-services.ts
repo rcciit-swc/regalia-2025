@@ -48,7 +48,7 @@ export async function registerSoloEvent(
     college,
     ref,
     paymentMode,
-    regMode
+    regMode,
   } = params;
 
   // Call the RPC named 'register_solo_event' with the required parameters.
@@ -66,7 +66,6 @@ export async function registerSoloEvent(
       p_attendance: false,
     }
   );
-
   if (error) {
     throw error;
   } else {
@@ -146,7 +145,7 @@ export async function registerTeamWithParticipants(
     teamMembers,
     ref,
     paymentMode,
-    regMode
+    regMode,
   } = params;
 
   // Call the RPC function 'register_team_with_participants'
