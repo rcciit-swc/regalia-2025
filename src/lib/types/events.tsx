@@ -44,6 +44,7 @@ export interface TeamMember {
   name: string;
   email: string;
   phone: string;
+  college: string;
 }
 
 export interface EventData {

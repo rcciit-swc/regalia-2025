@@ -237,7 +237,7 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
           >
             <div className="flex flex-col md:flex-row w-full">
               <div className="relative flex flex-col items-center justify-center w-full md:w-5/12 lg:w-5/12 bg-[#190505] p-4 md:p-8 border-r border-white/5">
-                <div className="relative w-full overflow-hidden rounded-lg group">
+                <div className="relative w-full overflow-hidden cursor-pointer rounded-lg group">
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-yellow-300/20 to-red-500/20 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     animate={{
@@ -273,7 +273,7 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
                       src={eventData?.image_url}
                       width={500}
                       height={500}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                       alt={eventData?.name || 'Event Image'}
                       onLoad={() => setIsImageLoaded(true)}
                     />
@@ -437,7 +437,7 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
                       transition={{ duration: 0.3 }}
                       className="mb-8"
                     >
-                      <div className="text-xl leading-relaxed event-description">
+                      <div className="text-xl leading-relaxed font-antolia event-description">
                         {parse(eventData.description)}
                       </div>
                     </motion.div>

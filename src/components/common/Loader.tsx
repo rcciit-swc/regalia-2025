@@ -58,7 +58,7 @@ export default function RegaliaLoader() {
             <img
               src="https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png"
               alt="Regalia 2025"
-              className={`w-full h-full object-contain drop-shadow-2xl ${loading ? 'animate-pulse' : ''}`}
+              className={`w-full h-full object-contain drop-shadow-2xl rounded-full ${loading ? 'animate-pulse' : ''}`}
             />
 
             {/* Rotating outer ring */}

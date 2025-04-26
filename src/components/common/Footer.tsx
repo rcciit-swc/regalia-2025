@@ -235,7 +235,7 @@ const Footer = () => {
       >
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-[#F5E1DA] opacity-80">
-            © 2025 Music Festival. All rights reserved.
+            © 2025 Regalia. All rights reserved.
           </p>
           <div className="flex items-center mt-3 md:mt-0">
             <span className="text-sm mr-2">Made with</span>

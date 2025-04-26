@@ -466,7 +466,7 @@ const EventSection = () => {
         />
       </motion.div>
 
-      <div className="relative h-[150vh] w-full">
+      <div className="relative h-[100vh] md:h-[150vh] w-full">
         {/* Button with animation */}
         <motion.div
           className="absolute z-30"

@@ -1,25 +1,22 @@
 import { sendMail } from '@/utils/functions/mailUtils';
 import { NextRequest, NextResponse } from 'next/server';
 
-// This is required to handle file uploads
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// New way to configure routes in Next.js App Router
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 // Handle file upload directly
 export async function POST(req: NextRequest) {
   try {
     const { to, subject, fileName, data } = await req.json();
-
+    
     const res = await sendMail({
       to,
       subject,
       fileName,
       data,
     });
-
+    
     if (res.success) {
       return NextResponse.json({ success: true, messageId: res.messageId });
     } else {

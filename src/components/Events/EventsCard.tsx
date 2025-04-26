@@ -72,7 +72,7 @@ const EventCard = ({
       )}
 
       {/* Image container with animated overlay */}
-      <div className="relative w-full h-52 sm:h-64 overflow-hidden">
+      <div className="relative w-full h-52 sm:h-96 overflow-hidden">
         <Image
           src={image_url || '/placeholder.svg'}
           alt={name || 'Event image'}
