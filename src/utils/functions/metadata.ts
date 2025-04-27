@@ -9,7 +9,7 @@ export function constructMetaData({
   },
   creator = 'REGALIA RCCIIT Team 2025',
   generator = 'Next.js',
-  publisher = 'TECHTRIX',
+  publisher = 'REGALIA RCCIIT Team 2025',
   icons = '/favicon.png',
   robots = 'index, follow',
   image = '/favicon.png',
@@ -41,7 +41,7 @@ export function constructMetaData({
       ],
     },
     icons,
-    metadataBase: new URL('https://techtrix.rcciit.org.in/'),
+    metadataBase: new URL('https://regalia.rcciit.org.in/'),
     robots,
   };
 }
