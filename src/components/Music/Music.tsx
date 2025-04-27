@@ -208,7 +208,7 @@ export default function Music() {
             </motion.p>
 
             <motion.p variants={fadeInUp} className="leading-relaxed">
-              Regalia 2024 fest promises to be an exciting and colorful
+              Regalia 2025 fest promises to be an exciting and colorful
               extravaganza of
               <span className="text-amber-200 font-semibold">
                 {' '}
@@ -221,7 +221,7 @@ export default function Music() {
 
             <motion.p variants={fadeInUp} className="leading-relaxed">
               The fest will also feature performances by renowned artists and
-              celebrities. The organizing committee of Regalia 2024 has put in
+              celebrities. The organizing committee of Regalia 2025 has put in
               months of effort and planning to ensure that the fest is a grand
               success and provides a memorable experience for all participants.
             </motion.p>
@@ -230,7 +230,7 @@ export default function Music() {
               variants={fadeInUp}
               className="leading-relaxed font-semibold text-amber-100"
             >
-              Regalia 2024 promises to be a celebration of art, culture,
+              Regalia 2025 promises to be a celebration of art, culture,
               creativity, and talent.
             </motion.p>
           </motion.div>
@@ -291,7 +291,7 @@ export default function Music() {
               }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              2, 3 & 4 May, 2025
+              15, 16 & 17 May, 2025
             </motion.h2>
             <motion.div
               className="flex items-center mt-1 w-3/5 justify-center"

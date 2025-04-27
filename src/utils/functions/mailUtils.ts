@@ -45,7 +45,7 @@ export async function sendMail({ to, subject, fileName, data }: EmailContent) {
     const html: string = await ejs.renderFile(templatePath, { data });
 
     const mailOptions = {
-      from: `"Regalia 2024" <${process.env.EMAIL_USER}>`,
+      from: `"Regalia 2025" <${process.env.EMAIL_USER}>`,
       to,
       subject,
       html,

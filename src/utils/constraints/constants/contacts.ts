@@ -100,7 +100,7 @@ export const contactData = [
   //       name: 'Dibakar Banerjee',
   //       role: 'Joint Convener',
   //       image:
-  //         'https://i.postimg.cc/3RX1g4ZN/Whats-App-Image-2024-07-19-at-18-29-51.jpg',
+  //         'https://i.postimg.cc/3RX1g4ZN/Whats-App-Image-2025-07-19-at-18-29-51.jpg',
   //       phone: '+91 9051484336',
   //     },
   //   ],

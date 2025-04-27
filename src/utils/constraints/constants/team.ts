@@ -45,7 +45,7 @@ export const teams = [
         name: 'Mr. Sarbojit Mukherjee',
         role: 'Faculty Coordinator (Sports)',
         image:
-          'https://i.postimg.cc/VvD2ngKr/Whats-App-Image-2024-04-27-at-09-25-34-03d51234.jpg',
+          'https://i.postimg.cc/VvD2ngKr/Whats-App-Image-2025-04-27-at-09-25-34-03d51234.jpg',
       },
       //   {
       //     name: "Dr. Hiranmoy Roy",
@@ -185,7 +185,7 @@ export const teams = [
         name: 'Dibakar Banerjee',
         role: 'Tech Team Member',
         image:
-          'https://i.postimg.cc/3RX1g4ZN/Whats-App-Image-2024-07-19-at-18-29-51.jpg',
+          'https://i.postimg.cc/3RX1g4ZN/Whats-App-Image-2025-07-19-at-18-29-51.jpg',
       },
       {
         name: 'Palas Saha',
@@ -237,7 +237,7 @@ export const teams = [
         name: 'Dibakar Banerjee',
         role: 'Convenor',
         image:
-          'https://i.postimg.cc/3RX1g4ZN/Whats-App-Image-2024-07-19-at-18-29-51.jpg',
+          'https://i.postimg.cc/3RX1g4ZN/Whats-App-Image-2025-07-19-at-18-29-51.jpg',
       },
       {
         name: 'Rwitam Ray',
