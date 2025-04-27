@@ -273,8 +273,8 @@ export default function Music() {
           >
             <VinylPlayer
               size={playerSize}
-              volume={90}
-              youtubeVideoLink="https://www.youtube.com/watch?v=xRbIU4ZD1Tk"
+              volume={50}
+              youtubeVideoLink="https://youtu.be/xLJixpEej8A"
               className="transform scale-110 sm:scale-115 lg:scale-125 drop-shadow-2xl"
             />
           </motion.div>
