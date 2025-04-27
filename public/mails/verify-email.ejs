@@ -1,3 +1,4 @@
+<!-- band-bash-confirmation.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -202,7 +203,6 @@
             display: inline-block;
             background-color: #25D366;
             color: white;
-            text-decoration: none;
             padding: 12px 20px;
             text-decoration: none;
             border-radius: 8px;
@@ -419,28 +419,20 @@
             <div class="greeting">Dear Team <%= data.teamName %>,</div>
             
             <div class="message">
-                We are thrilled to confirm your registration for <strong><%= data.eventName %></strong> has been successfully received! Your enthusiasm and participation are what make our events special, and we're eagerly looking forward to seeing your talent in action.
+                <strong>Congratulations!</strong> Your registration for Event <strong><%= data.eventName %></strong> has been successfully verified. Your enthusiasm for participation is truly appreciated, and we're looking forward to an exciting event with your energetic performance ahead! All The Best!
             </div>
             
             <div class="section-title">REGISTRATION DETAILS</div>
             <div class="details-box">
-                <% if(data.teamName) { %>
-                    <p><strong>Team Name:</strong> <%= data.teamName %></p>
-                <% } %>
-                <p><strong>Team Leader:</strong> <%= data.leaderName %></p>
-                <p><strong>Contact Number:</strong> <%= data.leaderPhone || 'Not provided' %></p>
-                <p><strong>Email Address:</strong> <%= data.email %></p>
-                <% if(data.transactionId) { %>
-                <p><strong>Transaction ID:</strong> <%= data.transactionId %></p>
-                <% } %>
-                <% if(data.college) { %>
-                <p><strong>Institution:</strong> <%= data.college %></p>
-                <% } %>
+                <p><strong>Team Name:</strong> <%= data.teamName %></p>
+                <p><strong>Team Leader Name:</strong> <%= data.leaderName %></p>
+                <p><strong>Team Leader Phone:</strong> <%= data.leaderPhone %></p>
+                <p><strong>Email:</strong> <%= data.email %></p>
             </div>
             
             <% if(data.whatsappLink) { %>
             <div>
-                <strong>Stay Connected:</strong><br>
+                <strong>Join WhatsApp Group</strong><br>
                 <p>Join our WhatsApp group to receive real-time updates, important announcements, and connect with other participants.</p>
                 <a href="<%= data.whatsappLink %>" class="whatsapp-link">Join WhatsApp Group</a>
             </div>
@@ -460,7 +452,7 @@
             <% if(data.coordinators && data.coordinators.length > 0) { %>
             <div class="section-title">EVENT COORDINATORS</div>
             <div class="contact-info">
-                <p>Have questions? Feel free to reach out to our coordinators:</p>
+                <p>For more details regarding <%= data.eventName %>, Feel free to Contact Coordinators:</p>
                 <% data.coordinators.forEach(function(coordinator) { %>
                 <p><strong><%= coordinator.name %>:</strong> <%= coordinator.phone %></p>
                 <% }); %>
@@ -468,16 +460,16 @@
             <% } %>
             
             <div class="note">
-                <strong>Important:</strong> Your registration is currently pending verification, which will be completed within <%= data.verificationDays || 2 %> days. We appreciate your patience during this process as our team ensures everything is in order. For urgent inquiries, please contact us at <a href="mailto:<%= data.contactEmail || 'swc-gs@rcciit.org.in' %>" class="email-link"><%= data.contactEmail || 'swc-gs@rcciit.org.in' %></a>.
+                <strong>Important:</strong> Join the WhatsApp group through the above attached link for further updates regarding the event schedules and instructions. For any kind of queries, feel free to ask in the group. Feel free to reach out to us at <a href="mailto:<%= data.contactEmail || 'regalia.rcciit.official@gmail.com' %>" class="email-link"><%= data.contactEmail || 'regalia.rcciit.official@gmail.com' %></a>.
             </div>
             
             <div class="message">
-                Thank you for choosing to be a part of <strong><%= data.eventName %></strong>. We're excited to witness your talents and make this event memorable for everyone involved!
+                Thank you once again for choosing to be a part of the <strong><%= data.eventName %></strong>. We wish you the best of luck, and we can't wait to see you showcase your talents!
             </div>
             
             <div class="signature">
                 Warm regards,
-                <strong><%= data.festName || 'Regalia' %> <%= data.year || '2025' %> Team</strong>
+                <strong><%= data.festName || 'Regalia' %> <%= data.year || '2024' %> Team</strong>
             </div>
         </div>
         
@@ -500,7 +492,7 @@
                 <div class="divider"></div>
                 
                 <div class="footer-text">
-                    © <%= data.year || '2025' %> <%= data.festName || 'Regalia' %>. All rights reserved.<br>
+                    © <%= data.year || '2024' %> <%= data.festName || 'Regalia' %>. All rights reserved.<br>
                     <small>This is an automated email. Please do not reply.</small>
                 </div>
             </div>

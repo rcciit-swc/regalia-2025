@@ -177,11 +177,12 @@ export function SoloEventRegistration({
         },
         body: JSON.stringify({
           to: soloLeadData?.email,
-          subject: `🎉 Registration Confirmed: ${eventID}`,
+          subject: `🎉 Registration Confirmed: ${eventData?.name} - REGALIA 2025`,
           fileName: 'send-email.ejs',
           data: emailData,
         }),
       });
+      toast.success('Registered successfully');
       markEventAsRegistered(eventID);
       setIsSubmitting(false);
       setShowSuccess(true);

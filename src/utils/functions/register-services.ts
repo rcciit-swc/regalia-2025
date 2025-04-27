@@ -67,9 +67,7 @@ export async function registerSoloEvent(
     }
   );
   if (error) {
-    throw error;
-  } else {
-    toast.success('Registered successfully');
+    toast.error(`Registration failed: ${error.message}`);
   }
 
   return data;
@@ -179,7 +177,6 @@ export async function registerTeamWithParticipants(
     console.error('Error registering team:', error);
     throw new Error(error.message);
   } else {
-    toast.success('Registration successful!');
     return data;
   }
 }

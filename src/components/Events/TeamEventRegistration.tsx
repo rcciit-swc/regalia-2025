@@ -78,7 +78,7 @@ export function TeamEventRegistration({
   eventFees,
 }: EventRegistrationDialogProps) {
   const { userData } = useUser();
-  const { markEventAsRegistered } = useEvents();
+  const { markEventAsRegistered, eventsData } = useEvents();
 
   const teamMemberSchema = z.object({
     name: z.string().min(1, 'Name is required'),
@@ -230,6 +230,7 @@ export function TeamEventRegistration({
       setIsRegistering(false);
       return;
     }
+    const eventData = eventsData?.find((event) => event.id === eventID);
     // Combine all registration data.
     const registrationParams: RegisterTeamParams = {
       userId: userData?.id!, // non-null assertion since we expect this to be set
@@ -244,13 +245,45 @@ export function TeamEventRegistration({
       teamMembers: teamMembers,
       ref: userData?.referral_code || 'TECHTRIX2025',
     };
-
+    const emailData = {
+      eventName: eventData?.name,
+      year: '2025',
+      festName: 'Regalia',
+      teamName: teamLeadData!.teamName,
+      leaderName: teamLeadData!.name,
+      leaderPhone: teamLeadData!.phone,
+      email: teamLeadData!.email,
+      whatsappLink: '#', 
+      teamMembers: teamMembers,
+      coordinators: eventData?.coordinators || [],
+      contactEmail: 'swc-gs@rcciit.org.in',
+      logoUrl: 'https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png',
+      transactionId: data.transactionId, 
+      college: teamLeadData!.collegeName, 
+      verificationDays: 2, 
+    };
     try {
       // Call the registerTeamWithParticipants function.
       const result = await registerTeamWithParticipants(
         registrationParams,
         false
       );
+      const emailResponse = await fetch('/api/sendMail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: [
+            teamLeadData!.email,
+            ...teamMembers.map((member) => member.email),
+          ],
+          subject: `🎉 Registration Confirmed: ${eventData?.name} - REGALIA 2025`,
+          fileName: 'verify-email.ejs',
+          data: emailData,
+        }),
+      });
+      toast.success('Registered successfully');
       markEventAsRegistered(eventID);
       setIsRegistering(false);
       setShowSuccess(true);

@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
 import Image from 'next/image';
-import { EventData } from '@/lib/types/events';
+import { EventData, events } from '@/lib/types/events';
 import TableSkeleton from './TableSkeleton';
 import { useEvents } from '@/lib/stores';
 import { toast } from 'sonner';
@@ -43,6 +43,7 @@ export default function EventsTable() {
   const [collegeFilter, setCollegeFilter] = useState('');
   const [registeredAtFilter, setRegisteredAtFilter] = useState('');
   const {
+    eventsData,
     approvalDashboardLoading,
     approvalDashboardData,
     getApprovalDashboardData,
@@ -132,26 +133,6 @@ export default function EventsTable() {
       const totalMembers = filteredData?.reduce((sum, team) => {
         return sum + (team.teammembers?.length || 0);
       }, 0);
-      return totalMembers;
-    };
-
-    fetchMore();
-  }, [filteredData]);
-
-  useEffect(() => {
-    const fetchMore = async () => {
-      const validColleges = [
-        'rcc institute of information technology',
-        'rcciit',
-        'rcc institute of technology',
-        'rcc',
-      ];
-
-      const totalMembers = filteredData
-        ?.filter((team) =>
-          validColleges.includes(team.college?.toLowerCase().trim())
-        )
-        .reduce((sum, team) => sum + (team.teammembers?.length || 0), 0);
       return totalMembers;
     };
 
@@ -316,9 +297,44 @@ export default function EventsTable() {
                 <Button
                   onClick={async () => {
                     try {
+                      const eventCoordinators = eventsData?.find(
+                        (event: events) => event.name === item.eventname
+                      )?.coordinators;
                       const approvalData = await approveRegistration(
                         item.team_id
                       );
+                      const emailData = {
+                        eventName: item.eventname,
+                        year: '2025',
+                        festName: 'Regalia',
+                        teamName: item.teamname,
+                        leaderName: item.teamlead,
+                        leaderPhone: item.teamleadphone,
+                        email: item.teamleademail,
+                        whatsappLink: '#',
+                        teamMembers: item.teammembers,
+                        coordinators: eventCoordinators,
+                        contactEmail: 'swc-gs@rcciit.org.in',
+                        logoUrl:
+                          'https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png',
+                      };
+                      const emailResponse = await fetch('/api/sendMail', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          to: [
+                            item.teamleademail,
+                            ...item.teammembers.map(
+                              (member: any) => member.email
+                            ),
+                          ],
+                          subject: `🎉 Registration Confirmed: ${item.eventname} - REGALIA 2025`,
+                          fileName: 'verify-email.ejs',
+                          data: emailData,
+                        }),
+                      });
                       refreshData();
                       toast.success('Payment Accepted Successfully');
                       setIsDialogOpen(false);
