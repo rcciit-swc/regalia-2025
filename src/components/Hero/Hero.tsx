@@ -408,7 +408,7 @@ export default function Hero() {
                   textShadow: "0 2px 4px rgba(0,0,0,0.7), 0 0 10px rgba(250,204,21,0.5)"
                 }}
               >
-                APRIL 15-18, 2025
+                MAY 15-17, 2025
               </motion.p>
             </motion.div>
 

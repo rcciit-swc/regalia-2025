@@ -17,10 +17,12 @@ export interface userDataType {
 export interface userStateType {
   userData: userDataType | null;
   userLoading: boolean;
+  isLoaded: boolean;
 }
 
 export interface userActionsType {
   setUserData: () => void;
   updateUserData: (data: any) => void;
   clearUserData: () => void;
+  setLoaded: (isLoaded: boolean) => void;
 }

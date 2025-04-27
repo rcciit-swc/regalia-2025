@@ -6,19 +6,25 @@ import Sponsors from '@/components/Sponsors/Sponsors';
 import Music from '@/components/Music/Music';
 import Hero from '@/components/Hero/Hero';
 import RegaliaLoader from '@/components/common/Loader';
+import { useUser } from '@/lib/stores';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
+  const { isLoaded, setLoaded } = useUser();
 
   useEffect(() => {
-    // Set timeout to hide intro after 4 seconds
+    if (isLoaded) {
+      setShowIntro(false); 
+      return;
+    }
+
     const timer = setTimeout(() => {
       setShowIntro(false);
+      setLoaded(true);
     }, 4000);
 
-    // Clean up timer on component unmount
     return () => clearTimeout(timer);
-  }, []);
+  }, [isLoaded, setLoaded]);
 
   return (
     <>
