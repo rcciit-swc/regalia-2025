@@ -68,7 +68,7 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] bg-gradient-to-br from-[#210000] to-[#3a0000] border-2 border-yellow-500/30 rounded-xl p-8 shadow-xl overflow-hidden">
+      <DialogContent className="sm:max-w-[500px] bg-gradient-to-br max-h-[70vh] overflow-y-scroll my-scrollbar from-[#210000] to-[#3a0000] border-2 border-yellow-500/30 rounded-xl p-8 shadow-xl overflow-hidden">
         {/* Background decorative elements */}
         <div className="absolute inset-0 overflow-hidden opacity-10">
           <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-yellow-300 blur-3xl"></div>

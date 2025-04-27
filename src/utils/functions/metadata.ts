@@ -2,17 +2,17 @@ import { Metadata } from 'next';
 
 export function constructMetaData({
   title = 'Regalia 2025',
-  description = 'Techtrix is the Official Techno-Management Fest of RCCIIT.',
+  description = 'REGALIA is the Official Cultural Fest of RCCIIT.',
   authors = {
-    name: 'TECHTRIX RCCIIT Team 2025',
-    url: 'https://techtrix.rcciit.org.in/',
+    name: 'REGALIA RCCIIT Team 2025',
+    url: 'https://regalia.rcciit.org.in/',
   },
-  creator = 'TECHTRIX RCCIIT Team 2025',
+  creator = 'REGALIA RCCIIT Team 2025',
   generator = 'Next.js',
   publisher = 'TECHTRIX',
-  icons = '/favicon.ico',
+  icons = '/favicon.png',
   robots = 'index, follow',
-  image = '/assets/home/techtrix.png',
+  image = '/favicon.png',
 }: {
   title?: string;
   description?: string;

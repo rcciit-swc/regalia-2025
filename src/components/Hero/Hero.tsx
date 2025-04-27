@@ -421,7 +421,7 @@ export default function Hero() {
                     fontFamily: "'Cinzel Decorative', serif",
                     color: primaryColor,
                     textShadow: `0 0 20px ${secondaryColor}, 0 4px 8px rgba(0,0,0,0.8), 0 0 40px rgba(250,204,21,0.4)`,
-                    WebkitTextStroke: "1px #220000"
+                
                   }}
                   initial={{ opacity: 0, y: 50 }}
                   animate={{
@@ -443,6 +443,7 @@ export default function Hero() {
                       repeat: Infinity,
                       repeatType: "reverse"
                     }}
+                    className='font-antolia tracking-widest'
                   >
                     REGALIA 2025
                   </motion.span>
