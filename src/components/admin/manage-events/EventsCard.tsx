@@ -315,13 +315,13 @@ export function EventCards() {
 
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
-                            <Button
+                            {/* <Button
                               variant="outline"
                               className="bg-gradient-to-r from-red-600/20 to-orange-600/20 hover:from-red-600/30 hover:to-orange-600/30 text-red-300 border border-red-500/30 hover:border-red-400/50 transition-all duration-300 flex items-center gap-2"
                             >
                               <Trash2 size={16} />
                               <span>Delete Event</span>
-                            </Button>
+                            </Button> */}
                           </AlertDialogTrigger>
                           <AlertDialogContent className="bg-gradient-to-br from-[#1a1e2c] to-[#2d3748] text-white border-gray-700">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/10 rounded-full blur-3xl -mr-32 -mt-32 z-0"></div>
