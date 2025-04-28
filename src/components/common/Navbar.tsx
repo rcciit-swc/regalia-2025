@@ -61,7 +61,7 @@ const GlassNavigation = () => {
       setShowNav(false);
       const timer = setTimeout(() => {
         setShowNav(true);
-      }, 3000);
+      }, 9000);
       return () => clearTimeout(timer);
     } else {
       setShowNav(true);
