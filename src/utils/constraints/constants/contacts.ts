@@ -12,7 +12,7 @@ export const contactData = [
         name: 'Mr. Abhijit Das',
         role: 'Faculty Coordinator Cultural, Associate Professor, RCCIIT',
         image: 'https://i.imgur.com/hcm4vi6.png',
-        phone: '+91 98303 73904',
+        phone: '+91 9830444823',
       },
     ],
   },
@@ -25,18 +25,6 @@ export const contactData = [
         image: 'https://i.postimg.cc/SsynMHHh/image.png',
         phone: '+91 9876543210',
       },
-      // {
-      //     "name": "Manish Saha",
-      //     "role": "A.G.S. Cultural",
-      //     "image": "https://i.postimg.cc/52RgvTbW/Hari_Sir_.jpeg.jpg",
-      //     "phone": "+91 9876543210",
-      // },
-      // {
-      //     "name": "Subhranil Saha",
-      //     "role": "A.G.S. Sports",
-      //     "image": "https://i.postimg.cc/52RgvTbW/Hari_Sir_.jpeg.jpg",
-      //     "phone": "+91 81016 96445",
-      // },
       {
         name: 'Basanta Kumar Shaw',
         role: 'General Secretary',
@@ -61,17 +49,17 @@ export const contactData = [
     name: 'Technical Enquiry',
     contacts: [
       {
+        name: 'Soumyaraj Bag',
+        role: 'Tech Team Co-Lead',
+        image: 'https://i.postimg.cc/G2WNsQVc/Shin-0084.jpg',
+        phone: '+91 8337045160',
+      },
+      {
         name: 'Arghya Dutta',
-        role: 'TECH TEAM LEAD',
+        role: 'Tech Team Lead',
         image:
           'https://i.postimg.cc/v8CZRWMc/PSX-20231022-195203-Arghya-Dutta.jpg',
         phone: '+91 9051244326',
-      },
-      {
-        name: 'Soumyaraj Bag',
-        role: 'Tech Team Co-Lead',
-        image: 'https://i.imgur.com/xVMP5RE.jpg',
-        phone: '+91 8337045160',
       },
     ],
   },

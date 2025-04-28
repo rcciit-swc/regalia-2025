@@ -150,7 +150,9 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
       return;
     }
 
-    if (eventData?.max_team_size === 1) {
+    if(eventData?.id === '668c8fbb-ea27-479f-8fd8-ca2bd3d888a7') {
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLSfm4y7KvpCR9V0gHj1Vg91F2PzJaBTLVa8qFPQ1PwTJLxoBoQ/viewform', '_blank');
+    }else if (eventData?.max_team_size === 1) {
       setIsSoloOpen(true);
     } else {
       setIsTeamOpen(true);
