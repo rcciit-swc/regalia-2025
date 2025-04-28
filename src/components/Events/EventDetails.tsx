@@ -11,6 +11,7 @@ import { SoloEventRegistration } from './EventRegistartionDialog';
 import { TeamEventRegistration } from './TeamEventRegistration';
 import { login } from '@/utils/functions/auth/login';
 import Link from 'next/link';
+import YouTube from 'react-youtube';
 import {
   Music,
   Calendar,
@@ -24,20 +25,39 @@ import {
   ArrowRight,
   Clock,
   Sparkles,
+  Volume2,
+  VolumeX,
 } from 'lucide-react';
 
 interface EventDetailsProps {
   eventId: string;
 }
 
+interface MusicConfig {
+  videoId: string;
+  startSeconds?: number;
+}
+
+const musicMapping: Record<string, MusicConfig> = {
+  '4c9eb3eb-34b6-4cd1-bf91-e6e983c146c3': { videoId: 'RBi7xTG93Y8', startSeconds: 12 },
+  '5478d6ad-fb0a-4e35-9e99-9e27340a08d9': { videoId: 'CtRD_WBVkoo', startSeconds: 167 },
+  '5b52d163-3b88-43bc-ab66-14dbfd6cf428': { videoId: 'tCajWVFTQNs', startSeconds: 0 },
+  '92ad4395-b1bf-446d-a76e-b18c4b8c4151': { videoId: 'BxeuRrPNZAQ', startSeconds: 0 },
+  '961f5b81-9580-40c3-971e-0186e89fc4b5': { videoId: 'BxeuRrPNZAQ', startSeconds: 0 },
+  'a8bb0f2d-c0f8-48f9-bf87-6049216d049e': { videoId: 'NTcy1aAOA6I', startSeconds: 0 },
+  'b4c2e3e8-8081-4dfc-aa1b-0a3f9d83da4a': { videoId: 'Jkgjy2-HcU8', startSeconds: 28 },
+  'ff9607bf-cda5-4331-9a6d-a9da7e48495a': { videoId: 'LmgmdlFojek', startSeconds: 0 },
+};
+
 const EventDetails = ({ eventId }: EventDetailsProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isSoloOpen, setIsSoloOpen] = useState(false);
   const [isTeamOpen, setIsTeamOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'description' | 'rules'>(
-    'description'
-  );
+  const [activeTab, setActiveTab] = useState<'description' | 'rules'>('description');
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [playerReady, setPlayerReady] = useState(false);
+  const playerRef = useRef<any>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const { eventsData, eventsLoading } = useEvents();
@@ -45,7 +65,48 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
   const router = useRouter();
 
   const eventData = eventsData?.find((e) => e.id === eventId);
+  const musicConfig = eventId ? musicMapping[eventId] : undefined;
+  const musicVideoId = musicConfig?.videoId;
+  const musicStartTime = musicConfig?.startSeconds || 0;
 
+  const toggleMusic = () => {
+    try {
+      if (playerRef.current && playerReady) {
+        if (isMusicPlaying) {
+          playerRef.current.pauseVideo();
+        } else {
+          playerRef.current.playVideo();
+        }
+        setIsMusicPlaying(!isMusicPlaying);
+      }
+    } catch (error) {
+      console.error('Error toggling music:', error);
+    }
+  };
+
+  const onPlayerReady = (event: any) => {
+    playerRef.current = event.target;
+    setPlayerReady(true);
+    // Auto play with low volume
+    event.target.setVolume(30);
+    event.target.playVideo();
+    setIsMusicPlaying(true);
+  };
+
+  useEffect(() => {
+    // Clean up player on unmount
+    return () => {
+      if (playerRef.current && playerReady) {
+        try {
+          playerRef.current.pauseVideo();
+        } catch (error) {
+          console.error('Error cleaning up player:', error);
+        }
+      }
+    };
+  }, [playerReady]);
+
+  // Rest of the existing useEffect
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -366,17 +427,52 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
 
               {/* Right - Details */}
               <div className="p-6 text-white md:p-8 md:w-7/12 lg:w-7/12 w-full relative">
-                {/* Floating music notes decoration */}
-                <motion.div
-                  className="absolute right-8 top-6 text-yellow-300/30 opacity-50"
-                  animate={{
-                    y: [0, -10, 0],
-                    rotate: [0, 5, 0],
-                  }}
-                  transition={{ duration: 5, repeat: Infinity }}
-                >
-                  <Sparkles size={24} />
-                </motion.div>
+                {/* Floating music notes decoration with volume control */}
+                <div className="absolute right-8 top-6 flex items-center gap-2">
+                  <motion.button
+                    onClick={toggleMusic}
+                    className={`text-yellow-300/70 hover:text-yellow-300 transition-colors p-2 rounded-full hover:bg-white/5 ${musicVideoId ? 'visible' : 'invisible'}`}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    title={isMusicPlaying ? "Mute music" : "Play music"}
+                  >
+                    {isMusicPlaying ? <Volume2 size={20} /> : <VolumeX size={20} />}
+                  </motion.button>
+                  <motion.div
+                    className="text-yellow-300/30 opacity-50"
+                    animate={{
+                      y: [0, -10, 0],
+                      rotate: [0, 5, 0],
+                    }}
+                    transition={{ duration: 5, repeat: Infinity }}
+                  >
+                    <Sparkles size={24} />
+                  </motion.div>
+                </div>
+
+                {/* YouTube player (hidden) */}
+                {musicVideoId && (
+                  <div className="hidden">
+                    <YouTube
+                      videoId={musicVideoId}
+                      opts={{
+                        height: '0',
+                        width: '0',
+                        playerVars: {
+                          autoplay: 1,
+                          controls: 0,
+                          disablekb: 1,
+                          fs: 0,
+                          iv_load_policy: 3,
+                          modestbranding: 1,
+                          rel: 0,
+                          start: musicStartTime,
+                        },
+                      }}
+                      onReady={onPlayerReady}
+                    />
+                  </div>
+                )}
 
                 {/* Tabs */}
                 <div className="flex mb-6 font-antolia font-semibold text-xl tracking-widest leading-2 space-x-4 border-b border-white/20">
