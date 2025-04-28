@@ -43,7 +43,7 @@ const musicMapping: Record<string, MusicConfig> = {
   '5478d6ad-fb0a-4e35-9e99-9e27340a08d9': { videoId: 'CtRD_WBVkoo', startSeconds: 167 },
   '5b52d163-3b88-43bc-ab66-14dbfd6cf428': { videoId: 'tCajWVFTQNs', startSeconds: 0 },
   '92ad4395-b1bf-446d-a76e-b18c4b8c4151': { videoId: 'BxeuRrPNZAQ', startSeconds: 0 },
-  '961f5b81-9580-40c3-971e-0186e89fc4b5': { videoId: 'BxeuRrPNZAQ', startSeconds: 0 },
+  '961f5b81-9580-40c3-971e-0186e89fc4b5': { videoId: '', startSeconds: 0 },
   'a8bb0f2d-c0f8-48f9-bf87-6049216d049e': { videoId: 'NTcy1aAOA6I', startSeconds: 0 },
   'b4c2e3e8-8081-4dfc-aa1b-0a3f9d83da4a': { videoId: 'Jkgjy2-HcU8', startSeconds: 28 },
   'ff9607bf-cda5-4331-9a6d-a9da7e48495a': { videoId: 'LmgmdlFojek', startSeconds: 0 },
