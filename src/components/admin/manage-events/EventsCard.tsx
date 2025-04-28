@@ -129,13 +129,11 @@ export function EventCards({
       </div>
     );
   }
-
-  const adminProtectedEvents = isSuperAdmin ? eventsData : eventsData?.filter((event) => event.id === eventID);
   return (
     <div className="space-y-8 w-full max-w-6xl">
       <AnimatePresence>
         {eventsData?.length > 0 &&
-          adminProtectedEvents?.map((event, index) => (
+          (isSuperAdmin ? eventsData : eventsData?.filter((event) => event.id === eventID))?.map((event, index) => (
             <motion.div
               key={event.id}
               custom={index}
