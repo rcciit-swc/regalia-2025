@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useUser, useEvents } from '@/lib/stores';
 import { supabase } from '@/utils/functions/supabase-client';
-import { logout } from '@/utils/functions/auth/logout';
 import EventsCard from '@/components/Events/EventsCard';
 import { EditProfileDialog } from './EditProfileDialog';
 import type { events } from '@/lib/types';
@@ -154,7 +153,7 @@ export default function ProfilePage() {
                     // Optional: handle event click
                   }}
                 >
-                  <EventsCard {...event} />
+                  <EventsCard {...event} eventID={event.id!} />
                 </motion.div>
               ))}
             </div>

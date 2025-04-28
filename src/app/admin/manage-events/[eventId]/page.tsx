@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import * as z from 'zod';
 import { Loader2 } from 'lucide-react';
 import 'react-quill/dist/quill.snow.css';
@@ -41,6 +41,7 @@ export default function EditEventPage() {
       rules: '',
       coordinators: [],
       links: [],
+      reg_status: false,
     },
   });
 
@@ -59,6 +60,7 @@ export default function EditEventPage() {
         rules: eventToEdit.rules,
         coordinators: eventToEdit.coordinators || [],
         links: eventToEdit.links || [],
+        reg_status: eventToEdit.reg_status,
       });
       setLinks(eventToEdit.links || []);
       setCoordinators(eventToEdit.coordinators || []);
@@ -72,18 +74,20 @@ export default function EditEventPage() {
   if (!eventToEdit) {
     return <div>Event not found.</div>;
   }
-
   async function onSubmit(values: z.infer<typeof eventSchema>) {
     try {
+
+
       const eventData = {
         ...values,
         min_team_size: Number(values.min_team_size),
         max_team_size: Number(values.max_team_size),
         links: links,
         coordinators: coordinators,
+        event_category_id: "bc21d159-b6f4-4f1d-9c4a-45b67e9971b3",
       };
-      updateEventsData(eventId, eventData);
-      toast.success('Event updated!');
+
+     await updateEventsData(eventId, eventData);
     } catch (error: any) {
       console.error(error);
     }
@@ -102,20 +106,21 @@ export default function EditEventPage() {
                 Edit event by filling out the details below.
               </p>
             </div>
+            <button
+              type="submit"
+              // size="lg"
+              className="bg-gradient-to-r from-[#a383e6] via-[#9158FF] to-[#9158FF] px-5 py-2 hover:opacity-90 transition-opacity"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Save Changes
+            </button>
           </div>
 
           <BasicInformation form={form} />
-          <button
-            type="submit"
-            // size="lg"
-            className="bg-gradient-to-r from-[#a383e6] via-[#9158FF] to-[#9158FF] hover:opacity-90 transition-opacity"
-            disabled={form.formState.isSubmitting}
-          >
-            {form.formState.isSubmitting && (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            Save Changes
-          </button>
+
           <ScheduleAndDescription form={form} />
           <RulesAndGuidelines form={form} />
           <LinksAndCoordinators

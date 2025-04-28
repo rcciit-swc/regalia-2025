@@ -20,6 +20,7 @@ interface EventCardProps {
   registration_fees: number;
   registered?: boolean;
   schedule: string;
+  eventID: string;
 }
 
 const EventCard = ({
@@ -28,6 +29,7 @@ const EventCard = ({
   registration_fees,
   schedule,
   registered = false,
+  eventID,
 }: EventCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [sparkles, setSparkles] = useState<

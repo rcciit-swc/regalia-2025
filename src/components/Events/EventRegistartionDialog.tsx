@@ -31,6 +31,7 @@ import {
   Music,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { whatsAppLinks } from '@/utils/constraints/constants/whatsApp';
 
 interface SoloEventRegistrationDialogProps {
   isOpen: boolean;
@@ -156,7 +157,7 @@ export function SoloEventRegistration({
       festName: 'Regalia', // Festival name
       transactionId: data.transactionId, // Transaction ID if available
       college: soloLeadData!.college, // College name if available
-      whatsappLink: 'https://chat.whatsapp.com/BfLSvagNLgv64VsBzhouCE', // WhatsApp group link
+      whatsappLink:  whatsAppLinks?.find((link) => link.event_id === eventID)?.link, // WhatsApp group link
       teamMembers: [],
       coordinators: eventData?.coordinators || [], // Event coordinators
       verificationDays: 2, // Number of days for verification

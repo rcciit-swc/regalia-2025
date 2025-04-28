@@ -200,6 +200,7 @@ export default function EventsTable() {
     style: React.CSSProperties;
   }) => {
     const item = filteredData[index];
+    console.log(item);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     return (
       <div
@@ -261,7 +262,7 @@ export default function EventsTable() {
               </span>
             ) : colIndex === 10 ? (
               <div className="min-w-[300px]">
-                <TeamMembersDialog members={item.teammembers} />
+                <TeamMembersDialog members={item.teammembers} teamID={item.team_id} />
               </div>
             ) : (
               <span className="text-gray-400">

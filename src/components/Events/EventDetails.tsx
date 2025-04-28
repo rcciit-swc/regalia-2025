@@ -333,13 +333,13 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
                         ₹{eventData.registration_fees}
                       </p>
                     </div>
-                    <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
+                    {eventData?.prize_pool > 0 &&<div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
                       <Award className="h-5 w-5 text-yellow-300/90 mb-1" />
                       <p className="text-sm text-gray-300">Prize Pool</p>
-                      <p className="text-lg font-medium text-[#E8D0C9]">
+                       <p className="text-lg font-medium text-[#E8D0C9]">
                         ₹{eventData.prize_pool}
                       </p>
-                    </div>
+                    </div>}
                     <div className="bg-black/30 p-3 rounded-lg border border-white/5 flex flex-col items-center justify-center">
                       <Users className="h-5 w-5 text-yellow-300/90 mb-1" />
                       <p className="text-sm text-gray-300">Team Size</p>
@@ -485,7 +485,7 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
                           PRIZE POOL:
                         </p>
                         <p className="text-[#E8D0C9]">
-                          ₹ {eventData.prize_pool}
+                           {eventData.prize_pool > 0 ?  "₹ " + eventData?.prize_pool : <span>1st Prize: Memento with Certificate <br /> 2nd Prize: Certificate <br /> 3rd Prize: Certificate</span>}
                         </p>
                       </div>
                     </div>

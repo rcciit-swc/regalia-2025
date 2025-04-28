@@ -47,6 +47,7 @@ import {
   UsersRound,
   Eye,
 } from 'lucide-react';
+import { whatsAppLinks } from '@/utils/constraints/constants/whatsApp';
 
 interface EventRegistrationDialogProps {
   isOpen: boolean;
@@ -253,7 +254,7 @@ export function TeamEventRegistration({
       leaderName: teamLeadData!.name,
       leaderPhone: teamLeadData!.phone,
       email: teamLeadData!.email,
-      whatsappLink: '#', 
+      whatsappLink: whatsAppLinks?.find((link) => link.event_id === eventID)?.link, 
       teamMembers: teamMembers,
       coordinators: eventData?.coordinators || [],
       contactEmail: 'swc-gs@rcciit.org.in',

@@ -1,64 +1,120 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { User, Phone, Mail, UserRound, Check, X } from 'lucide-react';
+  User,
+  Phone,
+  Mail,
+  Building,
+  Check,
+  X,
+  Save,
+  PartyPopper,
+  Edit,
+} from 'lucide-react';
+import confetti from 'canvas-confetti';
+import { TeamMember } from '@/lib/types/events';
 
-interface EditProfileDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  userData: any;
-  profileImage?: string;
-  name?: string;
-  onSave: (formData: FormData) => Promise<void>;
+interface EditTeamMemberDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+  teamID: string;
+  member: TeamMember;
+  onSave: (updatedMember: TeamMember, teamID: string) => Promise<void>;
 }
 
-export const EditProfileDialog: FC<EditProfileDialogProps> = ({
-  open,
-  onOpenChange,
-  userData,
-  name,
-  profileImage,
+// Schema for team member details.
+const memberSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  phone: z.string().regex(/^\d{10,}$/, 'Phone must be at least 10 digits'),
+  email: z.string().email('Invalid email'),
+});
+type MemberFormValues = z.infer<typeof memberSchema>;
+
+export function EditTeamMemberDialog({
+  isOpen,
+  onClose,
+  member,
+  teamID,
   onSave,
-}) => {
+}: EditTeamMemberDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // Form for team member details.
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<MemberFormValues>({
+    resolver: zodResolver(memberSchema),
+    defaultValues: {
+      name: member?.name || '',
+      phone: member?.phone || '',
+      email: member?.email || '',
+    },
+  });
+
+  const triggerConfetti = () => {
+    // Create confetti effect
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#eab308', '#ef4444', '#f59e0b'],
+    });
+  };
+
+  const onSubmit = async (data: MemberFormValues) => {
     setIsSubmitting(true);
-
     try {
-      // Pass the form data to the onSave handler
-      await onSave(new FormData(e.currentTarget));
+      // Create updated member object
+      const updatedMember: TeamMember = {
+        ...member,
+        ...data,
+      };
+      
+      // Call the save function passed as prop
+      await onSave(updatedMember, teamID);
+      
+      toast.success('Team member updated successfully');
+      setIsSubmitting(false);
       setShowSuccess(true);
-
-      // Close dialog after showing success message
+      triggerConfetti();
+      
       setTimeout(() => {
         setShowSuccess(false);
-        onOpenChange(false);
+        onClose();
       }, 2000);
     } catch (error) {
-      console.error('Failed to save profile:', error);
-    } finally {
+      console.error('Failed to update team member:', error);
+      toast.error('Failed to update team member. Please try again.');
       setIsSubmitting(false);
     }
   };
+
+  // Reset form when dialog closes or when member data changes
+  useEffect(() => {
+    if (isOpen && member) {
+      reset({
+        name: member.name,
+        phone: member.phone,
+        email: member.email,
+      });
+    }
+    
+    if (!isOpen) {
+      setShowSuccess(false);
+    }
+  }, [isOpen, member, reset]);
 
   const fadeVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -67,10 +123,10 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] bg-gradient-to-br max-h-[70vh] overflow-y-scroll my-scrollbar from-[#210000] to-[#3a0000] border-2 border-yellow-500/30 rounded-xl p-8 shadow-xl overflow-x-hidden">
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-[550px] my-scrollbar bg-gradient-to-br from-[#210000] to-[#3a0000] border-2 border-yellow-500/30 rounded-xl p-8 shadow-xl overflow-hidden">
         {/* Background decorative elements */}
-        <div className="absolute inset-0  opacity-10">
+        <div className="absolute inset-0 overflow-hidden opacity-10">
           <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-yellow-300 blur-3xl"></div>
           <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-red-600 blur-3xl"></div>
         </div>
@@ -80,12 +136,14 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center justify-center mb-4"
+            className="flex items-center justify-center gap-3 mb-4"
           >
-            <UserRound size={32} className="text-yellow-300" />
+            <Edit size={32} className="text-yellow-300" />
+            <User size={32} className="text-yellow-300" />
+            <PartyPopper size={32} className="text-yellow-300" />
           </motion.div>
           <DialogTitle className="text-center text-white font-antolia tracking-widest font-bold text-3xl bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-500 pb-2">
-            Edit Profile
+            Edit Team Member
           </DialogTitle>
           <div className="flex justify-center mt-2">
             <div className="h-1 w-32 bg-gradient-to-r from-yellow-500 to-red-500 rounded-full"></div>
@@ -105,10 +163,10 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
                 <Check size={40} className="text-white" />
               </div>
               <h2 className="text-2xl font-bold text-white mb-2">
-                Profile Updated!
+                Changes Saved!
               </h2>
               <p className="text-gray-300 text-center mb-4">
-                Your profile has been successfully updated
+                Team member information has been updated successfully
               </p>
             </motion.div>
           ) : (
@@ -118,105 +176,36 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
               initial="hidden"
               animate="visible"
               exit="exit"
-              onSubmit={handleSubmit}
-              className="overflow-y-auto my-scrollbar relative z-10 mt-4"
+              onSubmit={handleSubmit(onSubmit)}
+              className="overflow-y-auto my-scrollbar max-h-[65vh] relative z-10 mt-4"
             >
-              <div className="flex justify-center mb-6">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-red-500 rounded-full blur-lg opacity-50"></div>
-                  <Avatar className="w-24 h-24 border-2 border-yellow-400">
-                    <AvatarImage
-                      src={profileImage}
-                      alt={userData?.name || 'Profile'}
-                    />
-                    <AvatarFallback className="bg-violet-500 text-white font-antolia text-xl">
-                      {userData?.name?.[0] || 'U'}
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
-              </div>
-
               <div className="grid gap-6 py-4">
                 <div className="grid gap-2">
                   <label
-                    htmlFor="fullName"
+                    htmlFor="name"
                     className="flex items-center gap-2 text-yellow-200 font-medium"
                   >
                     <User size={18} />
-                    <span>Full Name</span>
+                    <span>Name</span>
                   </label>
                   <div className="relative">
                     <input
-                      id="fullName"
-                      name="fullName"
-                      defaultValue={userData?.name || name}
+                      id="name"
+                      autoFocus
+                      {...register('name')}
                       className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
-                      placeholder="Enter your full name"
+                      placeholder="Enter member name"
                     />
                     <User
                       size={18}
                       className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
                     />
                   </div>
-                </div>
-
-                <div className="grid gap-2">
-                  <label
-                    htmlFor="gender"
-                    className="flex items-center gap-2 text-yellow-200 font-medium"
-                  >
-                    <UserRound size={18} />
-                    <span>Gender</span>
-                  </label>
-                  <Select name="gender" defaultValue={userData?.gender || ''}>
-                    <SelectTrigger className="bg-[#210000]/60 border border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 h-14 font-antolia tracking-wider text-xl">
-                      <SelectValue placeholder="Select Gender" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-[#210000] border border-yellow-500/30">
-                      <SelectItem
-                        value="female"
-                        className="text-white hover:bg-yellow-300/20 focus:bg-yellow-300/20 font-antolia tracking-wider"
-                      >
-                        Female
-                      </SelectItem>
-                      <SelectItem
-                        value="male"
-                        className="text-white hover:bg-yellow-300/20 focus:bg-yellow-300/20 font-antolia tracking-wider"
-                      >
-                        Male
-                      </SelectItem>
-                      <SelectItem
-                        value="other"
-                        className="text-white hover:bg-yellow-300/20 focus:bg-yellow-300/20 font-antolia tracking-wider"
-                      >
-                        Other
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="grid gap-2">
-                  <label
-                    htmlFor="email"
-                    className="flex items-center gap-2 text-yellow-200 font-medium"
-                  >
-                    <Mail size={18} />
-                    <span>Email ID</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      defaultValue={userData?.email || ''}
-                      className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
-                      readOnly
-                    />
-                    <Mail
-                      size={18}
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
-                    />
-                  </div>
+                  {errors.name && (
+                    <p className="text-red-400 text-sm ml-2">
+                      {errors.name.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid gap-2">
@@ -225,31 +214,66 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
                     className="flex items-center gap-2 text-yellow-200 font-medium"
                   >
                     <Phone size={18} />
-                    <span>Phone Number</span>
+                    <span>Phone</span>
                   </label>
                   <div className="relative">
                     <input
                       id="phone"
-                      name="phone"
                       type="tel"
-                      defaultValue={userData?.phone || ''}
+                      {...register('phone')}
                       className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
-                      placeholder="Enter your phone number"
+                      placeholder="Enter phone number"
                     />
                     <Phone
                       size={18}
                       className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
                     />
                   </div>
+                  {errors.phone && (
+                    <p className="text-red-400 text-sm ml-2">
+                      {errors.phone.message}
+                    </p>
+                  )}
                 </div>
+
+                <div className="grid gap-2">
+                  <label
+                    htmlFor="email"
+                    className="flex items-center gap-2 text-yellow-200 font-medium"
+                  >
+                    <Mail size={18} />
+                    <span>Email</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      id="email"
+                      type="email"
+                      {...register('email')}
+                      className="w-full bg-[#210000]/60 border font-antolia tracking-wider text-xl border-yellow-500/30 focus:border-yellow-400 focus:ring-1 focus:ring-yellow-400 focus:outline-none text-white rounded-md p-3 pl-10 transition-all duration-300"
+                      placeholder="Enter email"
+                    />
+                    <Mail
+                      size={18}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500/70"
+                    />
+                  </div>
+                  {errors.email && (
+                    <p className="text-red-400 text-sm ml-2">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+
+
               </div>
 
-              <div className="flex justify-end gap-4 mt-6">
+              <div className="flex justify-between gap-4 mt-6">
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => onOpenChange(false)}
+                  onClick={onClose}
                   className="bg-red-700 hover:bg-red-600 text-white flex items-center gap-2 px-4 py-2 rounded-md border-0 transition-all duration-300"
+                  disabled={isSubmitting}
                 >
                   <X size={18} />
                   <span>Cancel</span>
@@ -266,8 +290,8 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
                     </>
                   ) : (
                     <>
+                      <Save size={18} />
                       <span>Save Changes</span>
-                      <Check size={18} />
                     </>
                   )}
                 </Button>
@@ -278,4 +302,4 @@ export const EditProfileDialog: FC<EditProfileDialogProps> = ({
       </DialogContent>
     </Dialog>
   );
-};
+}

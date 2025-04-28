@@ -49,7 +49,6 @@ export const updateRegisterStatus = async (
 
 export const updatePopulateEvents = async (set: any, id: string, data: any) => {
   set({ eventsLoading: true });
-  console.log('updatePopulateEvents', id, data);
   await updateEventById(id, data);
   const updatedData = await getEventsData();
   set({ eventsData: updatedData, eventsLoading: false });

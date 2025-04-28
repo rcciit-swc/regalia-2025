@@ -275,6 +275,7 @@ const EventPage = () => {
                     registration_fees={event.registration_fees}
                     registered={event.registered}
                     schedule={event.schedule}
+                    eventID={event.id!}
                   />
                 </Link>
               </motion.div>
