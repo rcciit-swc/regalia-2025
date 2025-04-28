@@ -477,7 +477,7 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
                 )}
 
                 {/* Tabs */}
-                <div className="flex mb-6 font-antolia font-semibold text-xl tracking-widest leading-2 space-x-4 border-b border-white/20">
+                <div className="flex mb-6 font-antolia font-semibold text-base md:text-xl tracking-widest leading-2 space-x-4 border-b border-white/20">
                   <motion.button
                     onClick={() => setActiveTab('description')}
                     className={`pb-2 px-3 font-medium transition-all relative flex items-center gap-2 ${
