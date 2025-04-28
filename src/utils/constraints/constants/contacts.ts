@@ -4,13 +4,13 @@ export const contactData = [
     contacts: [
       {
         name: 'Mr. Harinandan Tunga',
-        role: 'Faculty-In-Charge SA & SW , Associate Professor, RCCIIT',
+        role: 'Faculty-In-Charge SA & SW',
         image: 'https://i.postimg.cc/6p39VZ0Z/image.png',
         phone: '+91 93398 77213',
       },
       {
         name: 'Mr. Abhijit Das',
-        role: 'Faculty Coordinator Cultural, Associate Professor, RCCIIT',
+        role: 'Faculty Coordinator Cultural',
         image: 'https://i.imgur.com/hcm4vi6.png',
         phone: '+91 9830444823',
       },

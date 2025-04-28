@@ -188,10 +188,10 @@ const ContactPage = () => {
                 <div className="flex items-center gap-2">
                   <FaEnvelope className="text-yellow-200" />
                   <a
-                    href="mailto:info@regaliafest.com"
+                    href="mailto:regalia.rcciit.official@gmail.com"
                     className="hover:text-yellow-200 transition-colors"
                   >
-                    info@regaliafest.com
+                    regalia.rcciit.official@gmail.com
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
