@@ -20,7 +20,7 @@ const Page = async () => {
           </Button>
         </Link>
       )}
-      <EventCards />
+      <EventCards isSuperAdmin={isAdmin} eventID={data![0]?.event_id} />
     </div>
   );
 };

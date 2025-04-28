@@ -106,7 +106,13 @@ function EventCardSkeleton() {
   );
 }
 
-export function EventCards() {
+export function EventCards({
+  isSuperAdmin=false,
+  eventID,
+}: {
+  isSuperAdmin: boolean;
+  eventID?: string | undefined;
+}) {
   const { eventsData, eventsLoading, setEventsData, updateRegisterStatus } =
     useEvents();
 
@@ -124,11 +130,12 @@ export function EventCards() {
     );
   }
 
+  const adminProtectedEvents = isSuperAdmin ? eventsData : eventsData?.filter((event) => event.id === eventID);
   return (
     <div className="space-y-8 w-full max-w-6xl">
       <AnimatePresence>
         {eventsData?.length > 0 &&
-          eventsData?.map((event, index) => (
+          adminProtectedEvents?.map((event, index) => (
             <motion.div
               key={event.id}
               custom={index}
