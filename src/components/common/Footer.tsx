@@ -108,7 +108,7 @@ const Footer = () => {
             variants={staggerChildren}
           >
             <motion.a
-              href="https://instagram.com"
+              href="https://www.instagram.com/regalia_rcciit/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#F5E1DA] text-4xl md:text-5xl hover:text-pink-400 transition-colors duration-300"
@@ -118,7 +118,7 @@ const Footer = () => {
               <FaInstagram />
             </motion.a>
             <motion.a
-              href="https://facebook.com"
+              href="https://www.facebook.com/regalia.rccfests"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#F5E1DA] text-4xl md:text-5xl hover:text-blue-400 transition-colors duration-300"
@@ -126,16 +126,6 @@ const Footer = () => {
               whileHover={socialHover}
             >
               <FaFacebook />
-            </motion.a>
-            <motion.a
-              href="https://whatsapp.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#F5E1DA] text-4xl md:text-5xl hover:text-green-400 transition-colors duration-300"
-              variants={fadeIn}
-              whileHover={socialHover}
-            >
-              <FaWhatsapp />
             </motion.a>
           </motion.div>
         </motion.div>
@@ -186,7 +176,7 @@ const Footer = () => {
             </motion.li>
             <motion.li variants={menuItemVariants}>
               <a
-                href="/contact"
+                href="/contacts"
                 className="hover:text-yellow-200 transition-colors duration-300 relative group"
               >
                 Contact

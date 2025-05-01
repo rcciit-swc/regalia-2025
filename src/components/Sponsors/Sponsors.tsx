@@ -52,7 +52,7 @@ export default function Sponsors() {
 
           <div>
             <Link
-              href="/contact"
+              href="/contacts"
               className="group inline-block hover:text-yellow-200 transition-colors duration-300"
             >
               <span className="text-2xl font-antolia">Contact Us</span>
