@@ -9,7 +9,7 @@ export const contactData = [
         phone: '+91 93398 77213',
       },
       {
-        name: 'Mr. Abhijit Das',
+        name: 'Dr. Abhijit Das',
         role: 'Faculty Advisor (Cultural)',
         image: 'https://i.postimg.cc/rstgySy7/abhijit.jpg',
         phone: '+91 9830444823',
