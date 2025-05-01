@@ -177,7 +177,7 @@ export function SoloEventRegistration({
         },
         body: JSON.stringify({
           to: soloLeadData?.email,
-          subject: `🎉 Registration Confirmed: ${eventData?.name.toLowerCase().charAt(0).toUpperCase()} - Regalia 2025`,
+          subject: `🎉 Registration Confirmed: ${eventData?.name.charAt(0).toUpperCase()} ${eventData?.name.slice(1).toLowerCase()} - Regalia 2025`,
           fileName: 'send-email.ejs',
           data: emailData,
         }),
