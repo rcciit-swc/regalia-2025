@@ -15,17 +15,16 @@ interface EmailContent {
 export async function sendMail({ to, subject, fileName, data }: EmailContent) {
   try {
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
+      service: "gmail",
+      host: "smtp.gmail.com",
+      tls: {
+        rejectUnauthorized: false,
+      },
+      port: 465 ,
+      secure: true,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
-      },
-      tls: {
-        // Do not fail on invalid certs
-        rejectUnauthorized: false,
       },
     });
 
@@ -34,7 +33,7 @@ export async function sendMail({ to, subject, fileName, data }: EmailContent) {
       .verify()
       .then(() => {})
       .catch((err) => {
-        toast.error('SMTP verification failed:', err);
+        console.error('Error verifying email connection:', err);
         throw err;
       });
 

@@ -4,14 +4,14 @@ export const contactData = [
     contacts: [
       {
         name: 'Mr. Harinandan Tunga',
-        role: 'Faculty-In-Charge SA & SW',
+        role: 'Faculty-In-Charge, SA & SW',
         image: 'https://i.postimg.cc/6p39VZ0Z/image.png',
         phone: '+91 93398 77213',
       },
       {
         name: 'Mr. Abhijit Das',
-        role: 'Faculty Coordinator Cultural',
-        image: 'https://i.imgur.com/hcm4vi6.png',
+        role: 'Faculty Advisor (Cultural)',
+        image: 'https://i.postimg.cc/rstgySy7/abhijit.jpg',
         phone: '+91 9830444823',
       },
     ],
@@ -49,17 +49,17 @@ export const contactData = [
     name: 'Technical Enquiry',
     contacts: [
       {
-        name: 'Soumyaraj Bag',
-        role: 'Tech Team Co-Lead',
-        image: 'https://i.postimg.cc/G2WNsQVc/Shin-0084.jpg',
-        phone: '+91 8337045160',
-      },
-      {
         name: 'Arghya Dutta',
         role: 'Tech Team Lead',
         image:
           'https://i.postimg.cc/v8CZRWMc/PSX-20231022-195203-Arghya-Dutta.jpg',
         phone: '+91 9051244326',
+      },
+      {
+        name: 'Soumyaraj Bag',
+        role: 'Tech Team Co-Lead',
+        image: 'https://i.postimg.cc/G2WNsQVc/Shin-0084.jpg',
+        phone: '+91 8337045160',
       },
     ],
   },

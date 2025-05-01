@@ -148,21 +148,20 @@ export function SoloEventRegistration({
       email: soloLeadData!.email,
     };
     const emailData = {
-      teamName: null, // Dynamic team name
-      leaderName: soloLeadData?.name, // Team leader name
-      leaderPhone: soloLeadData?.phone, // Leader phone
-      email: soloLeadData?.email, // Email
-      eventName: eventName, // Event name
-      year: '2025', // Year
-      festName: 'Regalia', // Festival name
-      transactionId: data.transactionId, // Transaction ID if available
-      college: soloLeadData!.college, // College name if available
-      whatsappLink:  whatsAppLinks?.find((link) => link.event_id === eventID)?.link, // WhatsApp group link
+      teamName: null,
+      leaderName: soloLeadData?.name, 
+      leaderPhone: soloLeadData?.phone, 
+      email: soloLeadData?.email, 
+      eventName: eventName, 
+      year: '2025', 
+      festName: 'Regalia', 
+      transactionId: data.transactionId, 
+      college: soloLeadData!.college, 
       teamMembers: [],
-      coordinators: eventData?.coordinators || [], // Event coordinators
-      verificationDays: 2, // Number of days for verification
-      contactEmail: 'regalia.rcciit.official@gmail.com', // Contact email
-      logoUrl: 'https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png', // Logo URL
+      coordinators: eventData?.coordinators || [], 
+      verificationDays: 2, 
+      contactEmail: 'regalia.rcciit.official@gmail.com', 
+      logoUrl: 'https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png', 
       socialLinks: {
         instagram: '#',
         facebook: '#',
@@ -178,7 +177,7 @@ export function SoloEventRegistration({
         },
         body: JSON.stringify({
           to: soloLeadData?.email,
-          subject: `🎉 Registration Confirmed: ${eventData?.name} - REGALIA 2025`,
+          subject: `🎉 Registration Confirmed: ${eventData?.name.toLowerCase().charAt(0).toUpperCase()} - Regalia 2025`,
           fileName: 'send-email.ejs',
           data: emailData,
         }),

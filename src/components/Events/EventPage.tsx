@@ -117,7 +117,7 @@ const EventPage = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.8 }}
                 >
-                  Festival Events
+                  Regalia Events
                 </motion.h1>
 
                 <motion.div
@@ -208,7 +208,7 @@ const EventPage = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
-                Festival Events
+                Regalia Events
               </motion.h1>
 
               <motion.div
@@ -324,7 +324,7 @@ const EventPage = () => {
             Join us for unforgettable experiences
           </p>
           <p className="text-[#E8D0C9]/40 text-center text-xs">
-            © {new Date().getFullYear()} Festival Events
+            © {new Date().getFullYear()} Regalia
           </p>
         </div>
       </div>

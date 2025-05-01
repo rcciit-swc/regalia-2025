@@ -315,7 +315,7 @@ export default function EventsTable() {
                         whatsappLink: '#',
                         teamMembers: item.teammembers,
                         coordinators: eventCoordinators,
-                        contactEmail: 'swc-gs@rcciit.org.in',
+                        contactEmail: 'regalia.rcciit.official@gmail.com',
                         logoUrl:
                           'https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png',
                       };

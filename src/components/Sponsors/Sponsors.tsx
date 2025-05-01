@@ -38,7 +38,8 @@ export default function Sponsors() {
         <div className="space-y-8 mt-4">
           <div>
             <Link
-              href="/brochure"
+              href="https://drive.google.com/file/d/11YhIyrEKdtW5a_Jq7buAcSn51vCyQ-aA/view?usp=sharing"
+              target='_blank'
               className="group inline-block hover:text-yellow-200 transition-colors duration-300"
             >
               <span className="text-2xl font-antolia">Brochure</span>

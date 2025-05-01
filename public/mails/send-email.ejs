@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Registration Confirmation - <%= data.eventName %> <%= data.year %></title>
+    <style type="text/css">
+        /* CLIENT-SPECIFIC STYLES */
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        img { -ms-interpolation-mode: bicubic; }
+
+        /* RESET STYLES */
+        img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+        table { border-collapse: collapse !important; }
+        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+
+        /* iOS BLUE LINKS */
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+
+        /* MOBILE STYLES */
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            .fluid {
+                max-width: 100% !important;
+                height: auto !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            .stack-column,
+            .stack-column-center {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                direction: ltr !important;
+            }
+            .stack-column-center {
+                text-align: center !important;
+            }
+            .center-on-narrow {
+                text-align: center !important;
+                display: block !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                float: none !important;
+            }
+            table.center-on-narrow {
+                display: inline-block !important;
+            }
+        }
+    </style>
+</head>
+<body bgcolor="#f5f5f5" style="margin: 0; padding: 0 !important; font-family: 'Arial', sans-serif; font-size: 16px; color: #333333; line-height: 1.6;">
+    <!-- HIDDEN PREHEADER TEXT -->
+    <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: Arial, sans-serif;">
+        Your registration for <%= data.eventName %> <%= data.year %> has been confirmed!
+    </div>
+
+    <!-- EMAIL CONTAINER -->
+    <center style="width: 100%; background-color: #f5f5f5; padding: 20px 0;">
+        <div style="max-width: 650px; margin: 0 auto;" class="email-container">
+            <!-- EMAIL HEADER -->
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 0 auto; border-radius: 16px 16px 0 0; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); border: 1px solid rgba(34, 0, 0, 0.05);">
+                <tr>
+                    <td background="https://i.ibb.co/DryVRyd/dark-maroon-bg.png" bgcolor="#2b0000" align="center" valign="top" style="background: linear-gradient(135deg, #2b0000 0%, #400000 100%); padding: 40px 30px; text-align: center; color: #fef08a;">
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td align="center" valign="middle">
+                                    <img src="https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png" width="220" height="auto" alt="<%= data.eventName %> <%= data.year %> Logo" style="display: block; margin: 0 auto 15px; border: 0; max-width: 220px;">
+                                    <h1 style="font-family: Arial, sans-serif; font-size: 28px; font-weight: 800; margin-top: 20px; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); margin-bottom: 30px; color: #fef08a;">REGISTRATION CONFIRMATION</h1>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            
+            <!-- EMAIL BODY -->
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 0 auto; background-color: #ffffff;">
+                <tr>
+                    <td style="padding: 40px 30px; color: #333333;">
+                        <!-- Decorative Line -->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="height: 6px; background: linear-gradient(90deg, #220000, #fef08a, #220000); margin-bottom: 30px;">&nbsp;</td>
+                            </tr>
+                        </table>
+                        
+                        <!-- Greeting -->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-top: 30px; padding-bottom: 20px;">
+                                    <h2 style="font-family: 'Times New Roman', Times, serif; font-size: 22px; font-weight: 600; margin: 0; color: #220000;">Dear Team <%= data.teamName %>,</h2>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- Message -->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-bottom: 30px;">
+                                    <p style="margin: 0; line-height: 1.7;">
+                                        We are thrilled to confirm your registration for <strong><%= data.eventName %></strong> has been successfully received! Your enthusiasm and participation are what make our events special, and we're eagerly looking forward to seeing your talent in action.
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- Registration Details Section -->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-bottom: 15px;">
+                                    <h3 style="font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: #220000; margin: 0; padding-bottom: 8px; border-bottom: 3px solid #fef08a;">REGISTRATION DETAILS</h3>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- Details Box -->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #fbfbfb; margin-bottom: 30px; border-radius: 0 8px 8px 0; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);">
+                            <tr>
+                                <td style="border-left: 4px solid #220000; padding: 20px;">
+                                    <% if(data.teamName) { %>
+                                    <p style="margin-bottom: 12px;"><strong style="color: #220000; font-weight: 600;">Team Name:</strong> <%= data.teamName %></p>
+                                    <% } %>
+                                    <p style="margin-bottom: 12px;"><strong style="color: #220000; font-weight: 600;">Team Leader:</strong> <%= data.leaderName %></p>
+                                    <p style="margin-bottom: 12px;"><strong style="color: #220000; font-weight: 600;">Contact Number:</strong> <%= data.leaderPhone || 'Not provided' %></p>
+                                    <p style="margin-bottom: 12px;"><strong style="color: #220000; font-weight: 600;">Email Address:</strong> <%= data.email %></p>
+                                    <% if(data.transactionId) { %>
+                                    <p style="margin-bottom: 12px;"><strong style="color: #220000; font-weight: 600;">Transaction ID:</strong> <%= data.transactionId %></p>
+                                    <% } %>
+                                    <% if(data.college) { %>
+                                    <p style="margin-bottom: 0;"><strong style="color: #220000; font-weight: 600;">Institution:</strong> <%= data.college %></p>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- WhatsApp Group Section -->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-bottom: 20px;">
+                                    <p style="margin-top: 0; margin-bottom: 10px;"><strong style="color: #220000;">Stay Connected:</strong></p>
+                                    <p style="margin-top: 0; margin-bottom: 15px;">Join our WhatsApp group to receive real-time updates, important announcements, and connect with other participants.</p>
+                                    
+                                    <!-- Button : BEGIN -->
+                                    <table align="left" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: 0 auto;">
+                                        <tr>
+                                            <td class="button-td button-td-primary" style="border-radius: 8px; background: #25D366;">
+                                                <a href="https://chat.whatsapp.com/EauB6VLFbuRBgNJykhtovH" target="_blank" style="background: #25D366; border: 1px solid #25D366; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 8px; font-weight: 500; color: #ffffff; padding: 12px 20px;">
+                                                    Join WhatsApp Group
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- Button : END -->
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- Team Members Section -->
+                        <% if(data.teamMembers && data.teamMembers.length > 0) { %>
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-bottom: 15px; padding-top: 10px;">
+                                    <h3 style="font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: #220000; margin: 0; padding-bottom: 8px; border-bottom: 3px solid #fef08a;">TEAM MEMBERS</h3>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #fbfbfb; margin-bottom: 30px; border-radius: 0 8px 8px 0; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);">
+                            <tr>
+                                <td style="border-left: 4px solid #220000; padding: 20px;">
+                                    <% data.teamMembers.forEach(function(member, index) { %>
+                                    <p style="margin-bottom: <%= index === data.teamMembers.length - 1 ? '0' : '12px' %>; padding-bottom: <%= index === data.teamMembers.length - 1 ? '0' : '12px' %>; <%= index === data.teamMembers.length - 1 ? '' : 'border-bottom: 1px dashed #e0e0e0;' %>">
+                                        <strong style="color: #220000; font-weight: 600;">Name:</strong> <%= member.name %> | <strong style="color: #220000; font-weight: 600;">Phone:</strong> <%= member.phone %>
+                                    </p>
+                                    <% }); %>
+                                </td>
+                            </tr>
+                        </table>
+                        <% } %>
+                        
+                        <!-- Event Coordinators Section -->
+                        <% if(data.coordinators && data.coordinators.length > 0) { %>
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-bottom: 15px;">
+                                    <h3 style="font-family: Arial, sans-serif; font-size: 18px; font-weight: 700; color: #220000; margin: 0; padding-bottom: 8px; border-bottom: 3px solid #fef08a;">EVENT COORDINATORS</h3>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background: linear-gradient(145deg, #fef08a 0%, #fde047 100%); margin-bottom: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(254, 240, 138, 0.3);">
+                            <tr>
+                                <td style="padding: 20px;">
+                                    <p style="margin-top: 0; margin-bottom: 10px;">Have questions? Feel free to reach out to our coordinators:</p>
+                                    <% data.coordinators.forEach(function(coordinator, index) { %>
+                                    <p style="margin-bottom: <%= index === data.coordinators.length - 1 ? '0' : '10px' %>;"><strong style="color: #220000;"><%= coordinator.name %>:</strong> <%= coordinator.phone %></p>
+                                    <% }); %>
+                                </td>
+                            </tr>
+                        </table>
+                        <% } %>
+                        
+                        <!-- Important Note Section -->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #fff8e9; margin-bottom: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(251, 191, 36, 0.1);">
+                            <tr>
+                                <td style="border-left: 4px solid #fbbf24; padding: 20px;">
+                                    <p style="margin: 0;"><strong style="color: #92400e;">Important:</strong> Your registration is currently pending verification, which will be completed within <%= data.verificationDays || 2 %> days. We appreciate your patience during this process as our team ensures everything is in order. For urgent inquiries, please contact us at <a href="mailto:<%= data.contactEmail || 'swc-gs@rcciit.org.in' %>" style="color: #220000; text-decoration: underline; font-weight: 500;"><%= data.contactEmail || 'swc-gs@rcciit.org.in' %></a>.</p>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- Final Message -->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-bottom: 30px;">
+                                    <p style="margin: 0; line-height: 1.7;">
+                                        Thank you for choosing to be a part of <strong><%= data.eventName %></strong>. We're excited to witness your talents and make this event memorable for everyone involved!
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <!-- Signature -->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-top: 20px; padding-bottom: 20px;">
+                                    <p style="font-family: 'Times New Roman', Times, serif; font-style: italic; font-size: 18px; color: #333333; margin-bottom: 5px; margin-top: 0;">Warm regards,</p>
+                                    <p style="font-family: Arial, sans-serif; font-weight: 700; font-size: 16px; color: #220000; margin-top: 0;"><%= data.festName || 'Regalia' %> <%= data.year || '2025' %> Team</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            
+            <!-- EMAIL FOOTER -->
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 0 auto; border-radius: 0 0 16px 16px; overflow: hidden;">
+                <tr>
+                    <td background="https://i.ibb.co/DryVRyd/dark-maroon-bg.png" bgcolor="#2b0000" align="center" valign="top" style="background: linear-gradient(135deg, #2b0000 0%, #400000 100%); padding: 30px; text-align: center; color: #fef08a;">
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td align="center" valign="top">
+                                    <h3 style="font-family: Arial, sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 1px; margin-bottom: 15px; margin-top: 0; color: #fef08a;">CONNECT WITH US</h3>
+                                    
+                                    <!-- Social Icons -->
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 300px; margin: 20px auto;">
+                                        <tr>
+                                            <td align="center" valign="top" width="33.33%" style="padding: 0 10px;">
+                                                <a href="https://www.instagram.com/regalia_rcciit/" target="_blank" style="text-decoration: none;">
+                                                    <img src="https://i.postimg.cc/DwLzVwLQ/insta.png" width="50" height="50" alt="Instagram" style="border-radius: 50%; border: 2px solid rgba(254, 240, 138, 0.3); display: block; margin: 0 auto;">
+                                                </a>
+                                            </td>
+                                            <td align="center" valign="top" width="33.33%" style="padding: 0 10px;">
+                                                <a href="https://www.regalia.rcciit.org.in/" target="_blank" style="text-decoration: none;">
+                                                    <img src="https://png.pngtree.com/png-vector/20190321/ourmid/pngtree-vector-globe-icon-png-image_855070.jpg" width="50" height="50" alt="Website" style="border-radius: 50%; border: 2px solid rgba(254, 240, 138, 0.3); display: block; margin: 0 auto;">
+                                                </a>
+                                            </td>
+                                            <td align="center" valign="top" width="33.33%" style="padding: 0 10px;">
+                                                <a href="https://rcciit.org.in/" target="_blank" style="text-decoration: none;">
+                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6Mr3yP27qjYesvFvbyOq0gcCrVu70ePAKr01KlyOjAQ&s" width="50" height="50" alt="College" style="border-radius: 50%; border: 2px solid rgba(254, 240, 138, 0.3); display: block; margin: 0 auto;">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <!-- Divider Line -->
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 20px 0;">
+                                        <tr>
+                                            <td style="height: 1px; background: linear-gradient(90deg, transparent, rgba(254, 240, 138, 0.3), transparent);">&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <!-- Footer Text -->
+                                    <p style="margin-top: 15px; font-size: 14px; opacity: 0.8; color: #fef08a;">
+                                        © <%= data.year || '2025' %> <%= data.festName || 'Regalia' %>. All rights reserved.<br>
+                                        <small>This is an automated email. Please do not reply.</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </center>
+</body>
+</html>

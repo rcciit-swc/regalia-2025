@@ -23,17 +23,23 @@ import Image from 'next/image';
 import { getRoles } from '@/utils/functions';
 import { userDataType } from '@/lib/types';
 
-const Logo = () => (
-  <span className="relative flex items-center justify-center">
-    <Image
-      src="/logo.svg"
-      alt="Fest Logo"
-      width={56}
-      height={56}
-      className="h-10 w-auto sm:h-12 md:h-14 lg:h-16 drop-shadow-glow"
-    />
-  </span>
-);
+const Logo = () => {
+  const router = useRouter();
+  return (
+    <span
+      onClick={() => router.push('/')}
+      className="relative flex items-center justify-center cursor-pointer"
+    >
+      <Image
+        src="/logo.svg"
+        alt="Fest Logo"
+        width={56}
+        height={56}
+        className="h-10 w-auto sm:h-12 md:h-14 lg:h-16 drop-shadow-glow"
+      />
+    </span>
+  );
+};
 
 const GlassNavigation = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -432,7 +438,9 @@ const MobileMenu = ({
                   <motion.div variants={itemVariants}>
                     <MobileMenuItem
                       inActiveColor={inactiveColor}
-                      icon={<FiUser color={pathname === '/' ? 'black' : 'white'} />}
+                      icon={
+                        <FiUser color={pathname === '/' ? 'black' : 'white'} />
+                      }
                       text="Profile"
                       onClick={() => {
                         router.push('/profile');
@@ -444,7 +452,11 @@ const MobileMenu = ({
                   <motion.div variants={itemVariants}>
                     <MobileMenuItem
                       inActiveColor={inactiveColor}
-                      icon={<FiLogOut color={pathname === '/' ? 'black' : 'white'} />}
+                      icon={
+                        <FiLogOut
+                          color={pathname === '/' ? 'black' : 'white'}
+                        />
+                      }
                       text="Logout"
                       onClick={() => {
                         logout();
@@ -459,7 +471,7 @@ const MobileMenu = ({
                     login();
                     setMenuOpen(false);
                   }}
-                  className={`w-full relative rounded-full py-3 text-lg font-semibold ${pathname==='/' ? 'text-black' : 'text-white'} border border-pink-200/50 bg-white/10 backdrop-blur-md transition-all shadow-lg drop-shadow-text`}
+                  className={`w-full relative rounded-full py-3 text-lg font-semibold ${pathname === '/' ? 'text-black' : 'text-white'} border border-pink-200/50 bg-white/10 backdrop-blur-md transition-all shadow-lg drop-shadow-text`}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   variants={itemVariants}

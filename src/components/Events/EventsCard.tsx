@@ -170,7 +170,7 @@ const EventCard = ({
           <div className="flex items-center mt-2">
             <Award size={16} className="mr-2 text-yellow-300" />
             <span className="text-lg font-bold text-yellow-300">
-              ₹{registration_fees}
+              {registration_fees > 0 ? "₹ " + registration_fees : 'Free'}
             </span>
           </div>
         </div>
