@@ -203,7 +203,7 @@ export function TeamMembersDialog({
           <div className="flex justify-center mt-6">
             <Button
               onClick={() => setIsOpen(false)}
-              className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-medium flex items-center gap-2 px-6 py-2 rounded-md border-0 transition-all duration-300"
+              className="bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-medium flex items-center gap-2 px-6 py-2 rounded-md border-0 transition-all duration-300 z-10"
             >
               <X size={18} />
               <span>Close</span>
