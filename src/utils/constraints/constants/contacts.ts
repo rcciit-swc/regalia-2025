@@ -49,17 +49,15 @@ export const contactData = [
     name: 'Technical Enquiry',
     contacts: [
       {
-        name: 'Arghya Dutta',
-        role: 'Tech Team Lead',
-        image:
-          'https://i.postimg.cc/v8CZRWMc/PSX-20231022-195203-Arghya-Dutta.jpg',
-        phone: '+91 9051244326',
-      },
-      {
         name: 'Soumyaraj Bag',
-        role: 'Tech Team Co-Lead',
+        role: 'Tech Team Member',
         image: 'https://i.postimg.cc/G2WNsQVc/Shin-0084.jpg',
         phone: '+91 8337045160',
+      },
+      {
+        name: 'Arnab Mondal',
+        role: 'Tech Team Member',
+        image: 'https://i.postimg.cc/7Y2yc7kh/IMG-20231016-215431-1.jpg',
       },
     ],
   },

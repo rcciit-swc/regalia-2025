@@ -219,18 +219,21 @@ export function TeamEventRegistration({
   const onPaymentSubmit = async (data: PaymentFormValues) => {
     setIsRegistering(true);
     let screenshotUrl = '';
-    try {
-      // Upload the payment screenshot using the integrated Supabase function.
-      screenshotUrl = await uploadPaymentScreenshot(
-        data.paymentScreenshot,
-        eventName
-      );
-    } catch (error) {
-      console.error('Failed to upload screenshot:', error);
-      toast.error('Failed to upload screenshot. Please try again.');
-      setIsRegistering(false);
-      return;
+    if (eventFees > 0) {
+      try {
+        // Upload the payment screenshot using the integrated Supabase function.
+        screenshotUrl = await uploadPaymentScreenshot(
+          data.paymentScreenshot,
+          eventName
+        );
+      } catch (error) {
+        console.error('Failed to upload screenshot:', error);
+        toast.error('Failed to upload screenshot. Please try again.');
+        setIsRegistering(false);
+        return;
+      }
     }
+
     const eventData = eventsData?.find((event) => event.id === eventID);
     // Combine all registration data.
     const registrationParams: RegisterTeamParams = {
@@ -244,7 +247,7 @@ export function TeamEventRegistration({
       teamLeadPhone: teamLeadData!.phone,
       teamLeadEmail: teamLeadData!.email,
       teamMembers: teamMembers,
-      ref: userData?.referral_code || 'TECHTRIX2025',
+      ref: userData?.referral_code || 'REGALIA2025',
     };
     const emailData = {
       eventName: eventData?.name,
@@ -258,15 +261,16 @@ export function TeamEventRegistration({
       coordinators: eventData?.coordinators || [],
       contactEmail: 'regalia.rcciit.official@gmail.com',
       logoUrl: 'https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png',
-      transactionId: data.transactionId, 
-      college: teamLeadData!.collegeName, 
-      verificationDays: 2, 
+      transactionId: data.transactionId,
+      college: teamLeadData!.collegeName,
+      verificationDays: 2,
     };
     try {
+      const isFree = eventFees === 0;
       // Call the registerTeamWithParticipants function.
       const result = await registerTeamWithParticipants(
         registrationParams,
-        false
+        isFree
       );
       const emailResponse = await fetch('/api/sendMail', {
         method: 'POST',
@@ -298,7 +302,74 @@ export function TeamEventRegistration({
       return;
     }
   };
-
+  const registerForSWCPaid = async () => {
+    setIsRegistering(true);
+    setRegisterLoading(true);
+    const registrationParams: RegisterTeamParams = {
+      userId: userData?.id!, // non-null assertion since we expect this to be set
+      eventId: eventID,
+      transactionId: null,
+      teamName: teamLeadData!.teamName,
+      college: teamLeadData!.collegeName,
+      transactionScreenshot: '',
+      teamLeadName: teamLeadData!.name,
+      teamLeadPhone: teamLeadData!.phone,
+      teamLeadEmail: teamLeadData!.email,
+      teamMembers: teamMembers,
+      ref: userData?.referral_code || 'REGALIA2025',
+    };
+    try {
+      // Call the registerTeamWithParticipants function.
+      const result = await registerTeamWithParticipants(
+        registrationParams,
+        eventFees === 0
+      );
+      const eventData = eventsData?.find((event) => event.id === eventID);
+      const emailData = {
+        eventName: eventData?.name,
+        year: '2025',
+        festName: 'Regalia',
+        teamName: teamLeadData!.teamName,
+        leaderName: teamLeadData!.name,
+        leaderPhone: teamLeadData!.phone,
+        email: teamLeadData!.email,
+        teamMembers: teamMembers,
+        coordinators: eventData?.coordinators || [],
+        contactEmail: 'regalia.rcciit.official@gmail.com',
+        logoUrl: 'https://i.postimg.cc/dQZZWTRd/regalia-2025-2.png',
+        college: teamLeadData!.collegeName,
+        verificationDays: 2,
+      };
+      const emailResponse = await fetch('/api/sendMail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: [
+            teamLeadData!.email,
+            ...teamMembers.map((member) => member.email),
+          ],
+          subject: `🎉 Registration Confirmed: ${eventData?.name.charAt(0).toUpperCase()}${eventData?.name.slice(1).toLowerCase()} - REGALIA 2025`,
+          fileName: 'verify-email.ejs',
+          data: emailData,
+        }),
+      });
+      markEventAsRegistered(eventID);
+      setShowSuccess(true);
+      toast.success('Registered successfully');
+      triggerConfetti();
+      setTimeout(() => {
+        handleDialogClose();
+      }, 3000);
+    } catch (error) {
+      console.error('Failed to register team:', error);
+      setIsRegistering(false);
+      return;
+    } finally {
+      setRegisterLoading(false);
+    }
+  };
   const [registerLoading, setRegisterLoading] = useState(false);
 
   // Reset all internal state and forms
@@ -642,9 +713,12 @@ export function TeamEventRegistration({
                 showConfirmTeam={showConfirmTeam}
                 registerLoading={registerLoading}
                 onRemoveMember={onRemoveMember}
+                isFree={eventFees === 0}
                 confirmTeam={async () => {
                   setIsConfirmedTeam(true);
-                  setStep(3);
+                  eventFees === 0 && setRegisterLoading(true);
+                  eventFees === 0 ? await registerForSWCPaid() : setStep(3);
+                  setRegisterLoading(false);
                   setIsSheetOpen(false);
                 }}
                 onEditTeamLead={() => {
@@ -916,7 +990,7 @@ export function TeamEventRegistration({
                               totalTeamCount > maxTeamSize
                             }
                           >
-                            <span>Next</span>
+                            <span> {eventFees === 0 ? 'Register' : 'Make Payment'}</span>
                             <ArrowRight size={18} />
                           </Button>
                         </div>
