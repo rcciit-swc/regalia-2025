@@ -281,7 +281,7 @@ export default function Music() {
 
           <div className="flex flex-col items-center justify-center text-center">
             <motion.h2
-              className="font-['Cogley'] font-normal text-xl sm:text-2xl md:text-4xl lg:text-[60px] leading-none text-center flex-1 bg-gradient-to-r from-amber-200 to-white bg-clip-text text-transparent"
+              className="font-['Cogley'] font-normal text-xl sm:text-2xl md:text-4xl lg:text-[60px] leading-none text-center flex-1 bg-gradient-to-r from-amber-200 to-white bg-clip-text text-transparent lg:pt-10"
               animate={{
                 textShadow: [
                   '0 0 5px rgba(255,255,255,0.3)',
