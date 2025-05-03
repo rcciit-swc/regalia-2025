@@ -382,9 +382,9 @@ const EventSection = () => {
             animate={
               isVisible
                 ? {
-                    scale: [0, 1.2, 1],
-                    opacity: [0, 0.2, 0.1],
-                  }
+                  scale: [0, 1.2, 1],
+                  opacity: [0, 0.2, 0.1],
+                }
                 : { scale: 0, opacity: 0 }
             }
             transition={{
@@ -451,8 +451,8 @@ const EventSection = () => {
           animate={
             isVisible
               ? {
-                  backgroundPosition: ['200% 0', '0% 0', '200% 0'],
-                }
+                backgroundPosition: ['200% 0', '0% 0', '200% 0'],
+              }
               : 'hidden'
           }
           transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
@@ -467,6 +467,24 @@ const EventSection = () => {
       </motion.div>
 
       <div className="relative h-[100vh] md:h-[150vh] w-full">
+        {/* Brochure link with animation - button on desktop, compact link on mobile */}
+        <motion.div
+          className="absolute z-30 right-6 top-5 md:right-20 md:top-10"
+          initial={{ opacity: 0, y: -20 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          <a
+            href="https://drive.google.com/file/d/1KdiEjyAEOG0yUSARaGTBmRiFJj2CET62/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 md:px-4 md:py-2 px-2 py-1 rounded-lg md:border-2 border border-yellow-300/50 bg-[#210000]/80 backdrop-blur-md hover:border-yellow-300 transition-all duration-300 group"
+          >
+            <Award className="text-yellow-300 h-4 w-4 md:h-5 md:w-5 group-hover:scale-110 transition-transform" />
+            <span className="text-yellow-200 font-antolia text-sm md:text-lg">Event Brochure</span>
+          </a>
+        </motion.div>
+
         {/* Button with animation */}
         <motion.div
           className="absolute z-30"
@@ -544,16 +562,16 @@ const EventSection = () => {
                   animate={
                     isScattered
                       ? {
-                          x,
-                          y,
-                          rotate: isHovered ? 0 : rotation,
-                          scale: isHovered ? 1.15 : 1,
-                          opacity: 1,
-                          zIndex: isHovered ? 50 : 10,
-                          boxShadow: isHovered
-                            ? `0 0 25px 3px ${glowColors[index][0]}, 0 0 10px ${glowColors[index][1]}`
-                            : '0 5px 15px rgba(0,0,0,0.3)',
-                        }
+                        x,
+                        y,
+                        rotate: isHovered ? 0 : rotation,
+                        scale: isHovered ? 1.15 : 1,
+                        opacity: 1,
+                        zIndex: isHovered ? 50 : 10,
+                        boxShadow: isHovered
+                          ? `0 0 25px 3px ${glowColors[index][0]}, 0 0 10px ${glowColors[index][1]}`
+                          : '0 5px 15px rgba(0,0,0,0.3)',
+                      }
                       : { x: 0, y: 0, rotate: 0, scale: 0.7, opacity: 0 }
                   }
                   transition={{
