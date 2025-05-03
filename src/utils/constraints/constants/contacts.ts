@@ -58,6 +58,7 @@ export const contactData = [
         name: 'Arnab Mondal',
         role: 'Tech Team Member',
         image: 'https://i.postimg.cc/7Y2yc7kh/IMG-20231016-215431-1.jpg',
+        phone: '+91 6291912672',
       },
     ],
   },

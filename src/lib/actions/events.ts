@@ -62,12 +62,7 @@ export const populateApprovalDashboard = async (
   try {
     set({ approvalDashboardLoading: true });
     const res = await getApprovalDashboardData(rangeStart, rangeEnd);
-    const res2 = await getApprovalDashboardData(
-      rangeStart + 1000,
-      rangeEnd + 1000
-    );
-    const finalRes = res && res2 && res.concat(res2);
-    set({ approvalDashboardData: finalRes, approvalDashboardLoading: false });
+    set({ approvalDashboardData: res, approvalDashboardLoading: false });
     // if (!res) {
     //   set({ approvalDashboardData: [], approvalDashboardLoading: false });
     // } else {

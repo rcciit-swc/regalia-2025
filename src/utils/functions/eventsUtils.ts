@@ -215,7 +215,11 @@ export const getApprovalDashboardData = async (
   rangeEnd: number
 ): Promise<EventData[] | null> => {
   try {
-    // const rolesData = await getRoles();
+    const rolesData = await getRoles();
+    const isAdmin = rolesData?.find((role) => role.role === 'super_admin');
+    const isCoordinator = rolesData?.find(
+      (role) => role.role === 'coordinator'
+    );
     // const roleCategory = rolesData?.map((roles: { event_category_id: string | null }) =>
     //   roles.event_category_id !== null ? roles.event_category_id : null
     // )[0];
@@ -223,11 +227,18 @@ export const getApprovalDashboardData = async (
     //   ?.map((role: { event_id: string | null }) => (role.event_id !== null ? role.event_id : null))
     //   .filter((id: string | null) => id !== null);
     // const finalEventIds = eventIds!.length > 0 ? eventIds : null;
+
     const { data, error } = await supabase
       .rpc('get_registrations_by_event_ids', {
         p_fest_id: '9b890292-2425-4c61-8753-9a1fcdd37acc',
-        p_event_category_id: 'bc21d159-b6f4-4f1d-9c4a-45b67e9971b3',
-        // p_event_id: finalEventIds || null,
+        p_event_category_id:
+          isAdmin?.role === 'super_admin'
+            ? 'bc21d159-b6f4-4f1d-9c4a-45b67e9971b3'
+            : null,
+        p_event_id:
+          isCoordinator?.role === 'coordinator'
+            ? [isCoordinator?.event_id]
+            : null,
       })
       .range(rangeStart, rangeEnd);
 

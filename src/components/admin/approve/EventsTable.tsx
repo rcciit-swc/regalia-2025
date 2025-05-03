@@ -52,6 +52,7 @@ export default function EventsTable() {
   const refreshData = async () => {
     getApprovalDashboardData(0, 1000);
   };
+  const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
     refreshData();
 
@@ -59,6 +60,7 @@ export default function EventsTable() {
       const roles: any = await getRoles();
       const roles2 = roles.find((role: any) => role.role === 'super_admin');
       setRolesData(roles2);
+      setIsAdmin(roles2?.role === 'super_admin');
     };
     getRolesData();
   }, []);
@@ -200,7 +202,6 @@ export default function EventsTable() {
     style: React.CSSProperties;
   }) => {
     const item = filteredData[index];
-    console.log(item);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     return (
       <div
@@ -227,7 +228,7 @@ export default function EventsTable() {
                       }`}
                       onClick={() =>
                         // item.paymentstatus === 'Not Verified' &&
-                        setIsDialogOpen(true)
+                      isAdmin && setIsDialogOpen(true)
                       }
                     >
                       {item.paymentstatus}
