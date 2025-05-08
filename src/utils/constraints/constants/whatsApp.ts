@@ -16,16 +16,16 @@ export const whatsAppLinks = [
     link: 'https://chat.whatsapp.com/K0UFHbvmZKKKpNpmkJsSel',
   },
   {
-    event_id: '', // Wall of Wonders
-    link: '',
+    event_id: '961f5b81-9580-40c3-971e-0186e89fc4b5', // Wall of Wonders
+    link: 'https://chat.whatsapp.com/KCO39Uepb2eC3e7Eh03QYM',
   },
   {
     event_id: '', // Pixel Perfect
     link: ''
 },
 {
-    event_id: '', // Sargam
-    link: ''
+    event_id: '5478d6ad-fb0a-4e35-9e99-9e27340a08d9', // Sargam
+    link: 'https://chat.whatsapp.com/HFMELyhkIfgGjawY8Nuyvv',
 },
 {
     event_id: '5b52d163-3b88-43bc-ab66-14dbfd6cf428', // Carpe Diem

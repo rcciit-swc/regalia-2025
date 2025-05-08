@@ -22,7 +22,7 @@ export const contactData = [
       {
         name: 'Manish Biswas',
         role: 'Asst. General Secretary (Cultural)',
-        image: 'https://i.postimg.cc/SsynMHHh/image.png',
+        image: 'https://i.postimg.cc/j2NYLWhs/manish.jpg',
         phone: '+91 9876543210',
       },
       {
