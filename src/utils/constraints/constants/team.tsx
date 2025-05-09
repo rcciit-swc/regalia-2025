@@ -381,17 +381,17 @@ export const teams = [
     path: '/team/graphics',
     icon: <Paintbrush className="text-yellow-200" />,
     members: [
-      {
-        name: 'Debdatta Ray',
+       {
+        name: 'Hirak Sabui',
         role: 'Graphics Team Lead',
         image:
-          'https://i.postimg.cc/KvC7F119/IMG-20241212-131540-DEBDATTA-RAY.jpg',
+          'https://i.postimg.cc/VkNVcR8x/Whats-App-Image-2025-05-09-at-12-08-49-91b2a168.jpg',
       },
       {
-        name: 'Hirak Sabui',
+        name: 'Debdatta Ray',
         role: 'Graphics Team Member',
         image:
-          'https://i.postimg.cc/2Sm097bS/d7cfa9ad-72fb-40b9-a2fe-33be1eb9a4b8.jpg',
+          'https://i.postimg.cc/KvC7F119/IMG-20241212-131540-DEBDATTA-RAY.jpg',
       },
       {
         name: 'Tirtha Bhattacharyya',
