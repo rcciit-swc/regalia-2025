@@ -72,7 +72,7 @@ export const teams = [
       {
         name: 'Manish Biswas',
         role: 'Asst. General Secretary (Cultural)',
-        image: 'https://i.postimg.cc/j2NYLWhs/manish.jpg',
+        image: 'https://i.postimg.cc/sXJX7yNG/Whats-App-Image-2025-05-09-at-11-58-48-8b435271.jpg',
         phone: '+91 9876543210',
       },
       {
