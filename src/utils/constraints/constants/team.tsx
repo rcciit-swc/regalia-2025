@@ -295,7 +295,7 @@ export const teams = [
       },
       {
         name: 'Nasiruddin Thander',
-        role: 'Tech Team Member',
+        role: 'Tech Co-Lead',
         image:
           'https://i.postimg.cc/L6TNgZ5Y/Nasiruddin-Thander-NASIRUDDIN-THANDER.jpg',
       },
