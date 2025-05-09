@@ -113,7 +113,7 @@ export const teams = [
         name: 'Swapnil Chowdhury',
         role: 'Band Bash Convenor',
         image:
-          'https://i.postimg.cc/pLDjHqbT/IMG-20230502-WA0006-SWAPNIL-CHOWDHURY.jpg',
+          'https://i.postimg.cc/jdyxByTQ/Whats-App-Image-2025-05-09-at-13-34-09-cd361213.jpg',
       },
       {
         name: 'Harsh Jaiswal',
@@ -177,10 +177,10 @@ export const teams = [
         name: 'Purbasha Haldar',
         role: 'Kashish-E-Haya',
         image:
-          'https://i.postimg.cc/L5wPHW8q/IMG-20250415-112851970-HDR-PURBASHA-HALDER.jpg',
+          'https://i.postimg.cc/RZCkGtZ0/Whats-App-Image-2025-05-09-at-13-39-47-4d350bdd.jpg',
       },
       {
-        name: 'Purbasha Haldar',
+        name: 'Soham Mallick',
         role: 'Kashish-E-Haya',
         image:
           'https://i.postimg.cc/SRDZDkdB/6ef094db-085a-4195-afce-41928ec1c9cb-SOHAM-MALLICK.jpg',
@@ -242,6 +242,12 @@ export const teams = [
         role: 'Carpe Diem',
         image:
           'https://i.postimg.cc/j5vQrvfN/e2b0320ab9d7439ebf158e87668f91ef-AATREYEE-MISRA.jpg',
+      },
+      {
+        name: "Bidisha Das",
+        role: 'Carpe Diem',
+        image:
+          'https://i.postimg.cc/j2X8J8N4/Whats-App-Image-2025-05-09-at-14-12-52-9644c484.jpg',
       },
       {
         name: 'Omi Dhir',
@@ -381,7 +387,7 @@ export const teams = [
     path: '/team/graphics',
     icon: <Paintbrush className="text-yellow-200" />,
     members: [
-       {
+      {
         name: 'Hirak Sabui',
         role: 'Graphics Team Lead',
         image:
