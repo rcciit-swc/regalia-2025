@@ -263,7 +263,7 @@ export const teams = [
       },
       {
         name: 'Swapnanil Chakraborty',
-        role: 'Pixel Perfect',
+        role: 'Jhankar',
         image:
           'https://i.postimg.cc/HnV51mdD/IMG-20250502-073015-SWAPNANIL-CHAKRABORTY.jpg',
       },
