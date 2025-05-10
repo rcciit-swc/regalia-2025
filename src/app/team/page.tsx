@@ -51,7 +51,7 @@ export default function TeamPage() {
     },
   ];
 
-  const handleTabChange = (index) => {
+  const handleTabChange = (index: number) => {
     if (index === activeTab) return;
     
     setIsChangingTab(true);

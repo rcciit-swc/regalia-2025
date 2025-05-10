@@ -171,7 +171,7 @@ const TeamCard = ({ member, index }: { member: Member; index: number }) => {
         </div>
         
         {/* Image container */}
-        <div className="relative h-64 overflow-hidden">
+        <div className="relative h-72 overflow-hidden">
           {/* Image overlay gradients */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#220000] via-transparent to-black/40 z-10" />
           <div className="absolute inset-0 bg-gradient-radial from-transparent to-black/30 z-10" />
@@ -232,7 +232,7 @@ const TeamCard = ({ member, index }: { member: Member; index: number }) => {
               >
                 <Award size={16} />
               </motion.div>
-              <h3 className="text-xl font-kagitingan bg-gradient-to-r from-yellow-100 to-amber-200 bg-clip-text text-transparent">
+              <h3 className="text-lg font-kagitingan bg-gradient-to-r from-yellow-100 to-amber-200 bg-clip-text text-transparent">
                 {member.name}
               </h3>
             </motion.div>
