@@ -10,8 +10,17 @@ export const getUserData = async () => {
         .from('users')
         .select('*')
         .eq('id', data?.session?.user?.id);
+
       if (userdetails && userdetails.data && userdetails.data.length > 0) {
-        return userdetails.data[0];
+        const swcData = await supabase
+          .from('SWC-2025')
+          .select('*')
+          .eq('email', userdetails.data[0].email);
+          const returnValue = {
+            data: userdetails.data[0],
+            swcData: swcData.data && swcData.data.length > 0 ? swcData.data[0] : null,
+          }
+        return returnValue;
       }
     }
   } catch (err) {

@@ -14,8 +14,15 @@ export interface userDataType {
   gender: string;
 }
 
+export interface swcDataType {
+  roll: string;
+  name: string;
+  email: string;
+  phone: string;
+}
 export interface userStateType {
   userData: userDataType | null;
+  swcData: swcDataType | null;
   userLoading: boolean;
   isLoaded: boolean;
 }

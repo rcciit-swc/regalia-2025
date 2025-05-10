@@ -4,6 +4,7 @@ import { populateUserDetails, update_and_populate } from '../actions';
 
 const userState: userStateType = {
   userData: null,
+  swcData: null,
   userLoading: false,
   isLoaded: false,
 };

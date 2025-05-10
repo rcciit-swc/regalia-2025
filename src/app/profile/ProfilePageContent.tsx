@@ -15,7 +15,9 @@ import { handleSaveChanges } from '@/utils/functions/profile/functions';
 import ProfileSkeleton from './ProfileSkeleton';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { LogOut, Pencil, CalendarDays, UserCircle } from 'lucide-react';
+import { LogOut, Pencil, CalendarDays, UserCircle, Ticket } from 'lucide-react';
+import UserPassQRCode from './QRCode';
+import EventPassComponent from './QRCode';
 
 export default function ProfilePage() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -27,6 +29,7 @@ export default function ProfilePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [registeredEvents, setRegisteredEvents] = useState<events[]>([]);
+  const [activeTab, setActiveTab] = useState('events'); // 'events' or 'pass'
 
   useEffect(() => {
     const cb = searchParams.get('callback');
@@ -112,7 +115,7 @@ export default function ProfilePage() {
                 </h1>
                 <p className="text-white/80 text-lg">{userData?.email}</p>
               </div>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 <Button
                   variant="secondary"
                   onClick={() => setIsEditModalOpen(true)}
@@ -132,45 +135,89 @@ export default function ProfilePage() {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="mt-10"
-        >
-          <h2 className="text-2xl font-bold mb-4 text-white font-cogley tracking-widest flex items-center gap-2">
-            <CalendarDays className="w-6 h-6" /> Events Registered
-          </h2>
+        {/* Tab Navigation */}
+        <div className="mt-10 mb-6 flex space-x-6 border-b border-white/20 pb-4">
+          <button 
+            onClick={() => setActiveTab('events')}
+            className={`flex items-center gap-2 pb-2 transition-all duration-300 ${
+              activeTab === 'events' 
+                ? 'border-b-2 border-white text-white font-bold' 
+                : 'text-white/60 hover:text-white/80'
+            }`}
+          >
+            <CalendarDays className="w-5 h-5" /> My Events
+          </button>
+          {(userData?.email.includes('@rcciit.org.in') || userData?.email.includes('@rccinstitute.org')) && <button 
+            onClick={() => setActiveTab('pass')}
+            className={`flex items-center gap-2 pb-2 transition-all duration-300 ${
+              activeTab === 'pass' 
+                ? 'border-b-2 border-white text-white font-bold' 
+                : 'text-white/60 hover:text-white/80'
+            }`}
+          >
+            <Ticket className="w-5 h-5" /> Event Pass
+          </button>}
+        </div>
 
-          {registeredEvents.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {registeredEvents.map((event, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                  onClick={() => {
-                    // Optional: handle event click
-                  }}
+        {/* Tab Content */}
+        {activeTab === 'events' && (
+          <motion.div
+            key="events-tab"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <h2 className="text-2xl font-bold mb-4 text-white font-cogley tracking-widest flex items-center gap-2">
+              <CalendarDays className="w-6 h-6" /> Events Registered
+            </h2>
+
+            {registeredEvents.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {registeredEvents.map((event, index) => (
+                  <motion.div
+                    key={index}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                  >
+                    <EventsCard {...event} eventID={event.id!} />
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center text-white font-antolia tracking-widest mt-6">
+                <p className="text-lg mb-4">
+                  You have not registered for any event. Register now!
+                </p>
+                <InteractiveHoverButton
+                  className="mt-4"
+                  onClick={() => router.push('/events')}
                 >
-                  <EventsCard {...event} eventID={event.id!} />
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center text-white font-antolia tracking-widest mt-6">
-              <p className="text-lg mb-4">
-                You have not registered for any event. Register now!
-              </p>
-              <InteractiveHoverButton
-                className="mt-4"
-                onClick={() => router.push('/events')}
-              >
-                Browse Events
-              </InteractiveHoverButton>
-            </div>
-          )}
-        </motion.div>
+                  Browse Events
+                </InteractiveHoverButton>
+              </div>
+            )}
+          </motion.div>
+        )}
+
+        {activeTab === 'pass' && (
+          <motion.div
+            key="pass-tab"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="flex flex-col items-center justify-center"
+          >
+             <div className="w-full max-w-xl mx-auto">
+                <EventPassComponent />
+                {/* <p className="text-center text-white/70 mt-6">
+                  This pass grants you access to all your registered events.
+                  Keep it handy when attending!
+                </p> */}
+              </div>
+          </motion.div>
+        )}
       </main>
 
       <EditProfileDialog
