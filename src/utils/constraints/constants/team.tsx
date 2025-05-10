@@ -235,7 +235,7 @@ export const teams = [
       {
         name: 'Anubhab Das',
         role: 'Band Bash',
-        image: 'https://i.postimg.cc/yd7X52Ds/DSC01327-ANUBHAB-DAS.jpg',
+        image: 'https://i.postimg.cc/yxVcKdZs/Whats-App-Image-2025-05-09-at-20-08-24-b67912e4.jpg',
       },
       {
         name: 'Supratim Sen',
