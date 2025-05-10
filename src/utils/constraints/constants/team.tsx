@@ -580,7 +580,7 @@ export const teams = [
         name: 'Neelkantha Saha ',
         role: 'PR & Outreach Team',
         image:
-          'https://i.postimg.cc/tg50BvpJ/IMG-20250204-131529-112-RAMITA-BALA.webp',
+          'https://i.postimg.cc/zDQs2gZC/IMG-20241016-WA0038-Neelkantha-Saha.webp',
       },
       {
         name: 'Souvik Pratihar ',
