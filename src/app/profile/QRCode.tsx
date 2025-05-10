@@ -303,19 +303,19 @@ export default function EventPassComponent() {
   // 2. If swcData exists but pass is not available yet - show countdown
   // 3. Otherwise show the pass generation UI
 
-//   if (!swcData) {
-//     return <PaymentRequiredNotice />;
-//   }
-
-//   if (swcData && !isPassAvailable()) {
-//     return <CountdownTimer />;
-//   }
-  if (!swcData && isPassAvailable()) {
+  if (!swcData) {
     return <PaymentRequiredNotice />;
   }
-  if (!isPassAvailable()) {
+
+  if (swcData && !isPassAvailable()) {
     return <CountdownTimer />;
   }
+//   if (!swcData && isPassAvailable()) {
+//     return <PaymentRequiredNotice />;
+//   }
+//   if (!isPassAvailable()) {
+//     return <CountdownTimer />;
+//   }
   return (
     <div className="flex flex-col items-center relative">
       {/* Dynamic CSS for animations */}

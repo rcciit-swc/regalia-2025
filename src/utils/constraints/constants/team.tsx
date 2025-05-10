@@ -218,12 +218,6 @@ export const teams = [
         image:
           'https://i.postimg.cc/59TQQZfy/Screenshot-20250429-192042-Instagram-SOURAVI-SAMUI.jpg',
       },
-      {
-        name: 'Pritam Mondal',
-        role: 'Sponsorship Coordinator',
-        image:
-          'https://i.postimg.cc/xTtzSn53/IMG-20250202-201008-Pritam-Mondal.jpg',
-      },
     ],
   },
   {
@@ -680,9 +674,9 @@ export const teams = [
       },
       {
         name: 'Pritam Mondal',
-        role: 'Coordinator',
+        role: 'Sponsorship Coordinator',
         image:
-          'https://i.postimg.cc/W1d6WdVk/IMG-20250202-201008-Pritam-Mondal.webp',
+          'https://i.postimg.cc/xTtzSn53/IMG-20250202-201008-Pritam-Mondal.jpg',
       },
       {
         name: 'Sourodeep Paul',

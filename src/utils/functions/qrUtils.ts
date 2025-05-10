@@ -49,7 +49,7 @@ export async function generateQRCodeData(userData: QRUserData) {
  * @param {string} dataUrl - Base64 encoded QR code image
  * @param {string} fileName - Name for the downloaded file
  */
-export function downloadQRCode(dataUrl, fileName = 'event-pass') {
+export function downloadQRCode(dataUrl: string, fileName = 'event-pass') {
   const link = document.createElement('a');
   link.href = dataUrl;
   link.download = `${fileName}.png`;
