@@ -412,11 +412,18 @@ export const teams = [
     path: '/team/graphics',
     icon: <Paintbrush className="text-yellow-200" />,
     members: [
+      
       {
         name: 'Hirak Sabui',
         role: 'Graphics Team Lead',
         image:
           'https://i.postimg.cc/VkNVcR8x/Whats-App-Image-2025-05-09-at-12-08-49-91b2a168.jpg',
+      },
+      {
+        name: 'Ariyan Bhakat',
+        role: 'Graphics Team Lead',
+        image:
+          'https://i.postimg.cc/7PQ4vR7T/IMG-20250428-WA0003-ARIYAN-BHAKAT.webp',
       },
       {
         name: 'Debdatta Ray',
@@ -472,12 +479,7 @@ export const teams = [
         image:
           'https://i.postimg.cc/bJYkLb5v/IMG-20250407-140242-429-ANKUR-BAG.webp',
       },
-      {
-        name: 'Ariyan Bhakat',
-        role: 'Graphics Team Member',
-        image:
-          'https://i.postimg.cc/7PQ4vR7T/IMG-20250428-WA0003-ARIYAN-BHAKAT.webp',
-      },
+      
     ],
   },
   // coverage team completed
