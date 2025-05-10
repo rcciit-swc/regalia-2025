@@ -1,9 +1,8 @@
 'use client';
 
-import { useRef, useState, Dispatch, SetStateAction, useEffect } from 'react';
+import { useRef, useState, Dispatch, SetStateAction, useEffect, memo, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useMeasure } from 'react-use';
 import { useUser } from '@/lib/stores';
 import { login } from '@/utils/functions/auth/login';
 import { logout } from '@/utils/functions/auth/logout';
@@ -23,7 +22,8 @@ import Image from 'next/image';
 import { getRoles } from '@/utils/functions';
 import { userDataType } from '@/lib/types';
 
-const Logo = () => {
+// Memoized Logo component to prevent unnecessary re-renders
+const Logo = memo(() => {
   const router = useRouter();
   return (
     <span
@@ -36,10 +36,13 @@ const Logo = () => {
         width={56}
         height={56}
         className="h-10 w-auto sm:h-12 md:h-14 lg:h-16 drop-shadow-glow"
+        priority
       />
     </span>
   );
-};
+});
+
+Logo.displayName = 'Logo';
 
 const GlassNavigation = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -52,6 +55,7 @@ const GlassNavigation = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  // Fetch user session only once on mount
   useEffect(() => {
     const readUserSession = async () => {
       const { data } = await supabase.auth.getSession();
@@ -62,6 +66,7 @@ const GlassNavigation = () => {
     readUserSession();
   }, []);
 
+  // Delayed navigation display for homepage
   useEffect(() => {
     if (pathname === '/') {
       setShowNav(false);
@@ -74,17 +79,21 @@ const GlassNavigation = () => {
     }
   }, [pathname]);
 
+  // Admin role verification with memoization
   useEffect(() => {
     const verifyRoles = async () => {
       const rolesData = await getRoles();
       if (!rolesData) return;
       const roles = rolesData?.map((role) => role.role);
 
-      rolesData!.length > 0 &&
+      if (
+        rolesData.length > 0 &&
         (roles?.includes('super_admin') ||
-          roles?.includes('coordinator') ||
-          roles?.includes('convenor')) &&
+        roles?.includes('coordinator') ||
+        roles?.includes('convenor'))
+      ) {
         setIsAdmin(true);
+      }
     };
     verifyRoles();
   }, []);
@@ -101,6 +110,10 @@ const GlassNavigation = () => {
       document.body.style.overflow = 'auto';
     };
   }, [menuOpen]);
+
+  const toggleMenu = useCallback(() => {
+    setMenuOpen(prev => !prev);
+  }, []);
 
   if (!showNav) return null;
 
@@ -121,7 +134,7 @@ const GlassNavigation = () => {
         <div className="flex items-center gap-4 md:flex-1 justify-end">
           <Links isAdmin={isAdmin} first={false} />
           <Buttons
-            setMenuOpen={setMenuOpen}
+            setMenuOpen={toggleMenu}
             menuOpen={menuOpen}
             imageLoaded={imageLoaded}
             image={profileImage}
@@ -132,18 +145,22 @@ const GlassNavigation = () => {
         </div>
       </div>
 
-      <MobileMenu
-        isAdmin={isAdmin}
-        menuOpen={menuOpen}
-        setMenuOpen={setMenuOpen}
-        userData={userData}
-        image={profileImage}
-      />
+      {/* Only render MobileMenu when menuOpen is true for better performance */}
+      {menuOpen && (
+        <MobileMenu
+          isAdmin={isAdmin}
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+          userData={userData}
+          image={profileImage}
+        />
+      )}
     </nav>
   );
 };
 
-const Links = ({ isAdmin, first }: { isAdmin?: boolean; first?: boolean }) => (
+// Memoized Links component
+const Links = memo(({ isAdmin, first }: { isAdmin?: boolean; first?: boolean }) => (
   <div className="hidden items-center gap-3 md:gap-5 lg:gap-7 xl:gap-9 md:flex">
     {navRoutes
       ?.slice(first ? 0 : 4, first ? 4 : 8)
@@ -154,9 +171,12 @@ const Links = ({ isAdmin, first }: { isAdmin?: boolean; first?: boolean }) => (
       <GlassLink text="Admin" route="/admin/manage-events" />
     )}
   </div>
-);
+));
 
-const GlassLink = ({ text, route }: { text: string; route: string }) => (
+Links.displayName = 'Links';
+
+// Memoized GlassLink component
+const GlassLink = memo(({ text, route }: { text: string; route: string }) => (
   <Link
     href={route}
     className="group relative overflow-hidden rounded-lg px-3 py-1 sm:px-4 text-base md:text-lg font-bold text-white/90 transition-all duration-200 hover:scale-105 active:scale-95"
@@ -166,9 +186,12 @@ const GlassLink = ({ text, route }: { text: string; route: string }) => (
     </span>
     <span className="absolute inset-0 bg-gradient-to-tr from-pink-300/20 via-yellow-100/10 to-pink-100/10 opacity-0 transition-opacity group-hover:opacity-100 blur-sm rounded-lg" />
   </Link>
-);
+));
 
-const Buttons = ({
+GlassLink.displayName = 'GlassLink';
+
+// Memoized Buttons component
+const Buttons = memo(({
   userData,
   setMenuOpen,
   menuOpen,
@@ -178,7 +201,7 @@ const Buttons = ({
   setImageLoaded,
 }: {
   userData: userDataType | null;
-  setMenuOpen: Dispatch<SetStateAction<boolean>>;
+  setMenuOpen: () => void;
   imageLoaded: boolean;
   image: string | null;
   userLoading: boolean;
@@ -194,7 +217,7 @@ const Buttons = ({
       setImageLoaded={setImageLoaded}
     />
     <motion.button
-      onClick={() => setMenuOpen((prev) => !prev)}
+      onClick={setMenuOpen}
       className="ml-2 block text-3xl text-pink-200 transition-all hover:scale-110 active:scale-95 md:hidden drop-shadow-text"
       whileHover={{ rotate: menuOpen ? 0 : 15 }}
       whileTap={{ scale: 0.9 }}
@@ -224,9 +247,12 @@ const Buttons = ({
       </AnimatePresence>
     </motion.button>
   </div>
-);
+));
 
-const SignInButton = ({
+Buttons.displayName = 'Buttons';
+
+// Memoized SignInButton
+const SignInButton = memo(({
   userData,
   userLoading,
   imageLoaded,
@@ -307,9 +333,12 @@ const SignInButton = ({
       <span className="absolute -inset-[2px] rounded-full blur-md bg-pink-200/20 opacity-40"></span>
     </motion.button>
   );
-};
+});
 
-const MobileMenu = ({
+SignInButton.displayName = 'SignInButton';
+
+// Optimized MobileMenu with reduced animation complexity
+const MobileMenu = memo(({
   menuOpen,
   isAdmin,
   setMenuOpen,
@@ -323,172 +352,193 @@ const MobileMenu = ({
   image: string | null;
 }) => {
   const router = useRouter();
+  const pathname = usePathname();
 
+  // Simplified and optimized animation variants
   const menuVariants = {
     hidden: {
       height: 0,
       opacity: 0,
+      transition: {
+        opacity: { duration: 0.2 },
+        height: { duration: 0.3 }
+      }
     },
     visible: {
       height: 'auto',
       opacity: 1,
       transition: {
-        height: { type: 'spring', stiffness: 300, damping: 30 },
+        height: { duration: 0.3 },
         opacity: { duration: 0.2 },
-        staggerChildren: 0.05,
-        delayChildren: 0.1,
+        staggerChildren: 0.03,
+        delayChildren: 0.05,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0 },
+    hidden: { opacity: 0, x: -10 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.2 }
+    },
   };
 
   const dividerVariants = {
     hidden: { scaleX: 0 },
     visible: {
       scaleX: 1,
-      transition: { delay: 0.3, duration: 0.5 },
+      transition: { delay: 0.2, duration: 0.3 },
     },
   };
-  const pathname = usePathname();
+
   const inactiveColor = pathname === '/' ? 'text-black' : 'text-white/90';
+  const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
+  
+  const handleNavigation = useCallback((route: string) => {
+    return () => {
+      router.push(route);
+      closeMenu();
+    };
+  }, [router, closeMenu]);
+
+  const handleLogin = useCallback(() => {
+    login();
+    closeMenu();
+  }, [closeMenu]);
+
+  const handleLogout = useCallback(() => {
+    logout();
+    closeMenu();
+  }, [closeMenu]);
+
   return (
-    <AnimatePresence>
-      {menuOpen && (
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      variants={menuVariants}
+      className="block overflow-hidden md:hidden rounded-b-xl border-t border-pink-200/30 bg-gradient-to-b from-pink-100/20 to-yellow-100/15 backdrop-blur-xl"
+      layoutId="mobileMenu"
+    >
+      {/* Menu Items */}
+      <div className="flex flex-col items-start w-full justify-between px-6 py-6 gap-5">
+        {/* Main Navigation Links */}
+        <div className="w-full space-y-5">
+          {navRoutes.map((nav, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="w-full"
+              custom={index}
+            >
+              <TextLink
+                text={nav.title}
+                route={nav.route}
+                setMenuOpen={closeMenu}
+              />
+            </motion.div>
+          ))}
+
+          {isAdmin && (
+            <motion.div variants={itemVariants}>
+              <TextLink
+                text="Admin"
+                route="/admin/manage-events"
+                setMenuOpen={closeMenu}
+              />
+            </motion.div>
+          )}
+        </div>
+
+        {/* Divider */}
         <motion.div
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={menuVariants}
-          className="block overflow-hidden md:hidden rounded-b-xl border-t border-pink-200/30 bg-gradient-to-b from-pink-100/20 to-yellow-100/15 backdrop-blur-xl"
+          className="w-full h-px bg-gradient-to-r from-transparent via-pink-200/30 to-transparent my-2"
+          variants={dividerVariants}
+        />
+
+        {/* User Section with Profile/Login & Logout */}
+        <motion.div
+          className="w-full pt-2 space-y-5"
+          variants={itemVariants}
         >
-          {/* Menu Items */}
-          <motion.div className="flex flex-col items-start w-full justify-between px-6 py-6 gap-5">
-            {/* Main Navigation Links */}
-            <div className="w-full space-y-5">
-              {navRoutes.map((nav, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className="w-full"
-                >
-                  <TextLink
-                    text={nav.title}
-                    route={nav.route}
-                    setMenuOpen={setMenuOpen}
-                  />
-                </motion.div>
-              ))}
+          {userData ? (
+            <>
+              <motion.div
+                variants={itemVariants}
+                className="flex items-center gap-4 px-2"
+              >
+                <div className="flex-shrink-0">
+                  <Avatar className="h-12 w-12 ring-2 ring-pink-300/50">
+                    <AvatarImage src={image || ''} alt="Profile" />
+                    <AvatarFallback className="bg-gradient-to-br from-pink-200/40 to-yellow-100/30 text-white text-lg font-bold">
+                      {userData.name
+                        ? userData.name.charAt(0).toUpperCase()
+                        : 'U'}
+                    </AvatarFallback>
+                  </Avatar>
+                </div>
+                <div className="flex flex-col">
+                  <span
+                    className={`${inactiveColor} font-medium text-shadow`}
+                  >
+                    {userData.name || 'User'}
+                  </span>
+                  <span
+                    className={`${inactiveColor} text-sm truncate max-w-[180px]`}
+                  >
+                    {userData.email || ''}
+                  </span>
+                </div>
+              </motion.div>
 
-              {isAdmin && (
-                <motion.div variants={itemVariants}>
-                  <TextLink
-                    text="Admin"
-                    route="/admin/manage-events"
-                    setMenuOpen={setMenuOpen}
-                  />
-                </motion.div>
-              )}
-            </div>
+              <motion.div variants={itemVariants}>
+                <MobileMenuItem
+                  inActiveColor={inactiveColor}
+                  icon={
+                    <FiUser color={pathname === '/' ? 'black' : 'white'} />
+                  }
+                  text="Profile"
+                  onClick={handleNavigation('/profile')}
+                />
+              </motion.div>
 
-            {/* Divider */}
-            <motion.div
-              className="w-full h-px bg-gradient-to-r from-transparent via-pink-200/30 to-transparent my-2"
-              variants={dividerVariants}
-            />
-
-            {/* User Section with Profile/Login & Logout */}
-            <motion.div
-              className="w-full pt-2 space-y-5"
+              <motion.div variants={itemVariants}>
+                <MobileMenuItem
+                  inActiveColor={inactiveColor}
+                  icon={
+                    <FiLogOut
+                      color={pathname === '/' ? 'black' : 'white'}
+                    />
+                  }
+                  text="Logout"
+                  onClick={handleLogout}
+                />
+              </motion.div>
+            </>
+          ) : (
+            <motion.button
+              onClick={handleLogin}
+              className={`w-full relative rounded-full py-3 text-lg font-semibold ${pathname === '/' ? 'text-black' : 'text-white'} border border-pink-200/50 bg-white/10 backdrop-blur-md transition-all shadow-lg drop-shadow-text`}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               variants={itemVariants}
             >
-              {userData ? (
-                <>
-                  <motion.div
-                    variants={itemVariants}
-                    className="flex items-center gap-4 px-2"
-                  >
-                    <div className="flex-shrink-0">
-                      <Avatar className="h-12 w-12 ring-2 ring-pink-300/50">
-                        <AvatarImage src={image || ''} alt="Profile" />
-                        <AvatarFallback className="bg-gradient-to-br from-pink-200/40 to-yellow-100/30 text-white text-lg font-bold">
-                          {userData.name
-                            ? userData.name.charAt(0).toUpperCase()
-                            : 'U'}
-                        </AvatarFallback>
-                      </Avatar>
-                    </div>
-                    <div className="flex flex-col">
-                      <span
-                        className={`${inactiveColor} font-medium text-shadow`}
-                      >
-                        {userData.name || 'User'}
-                      </span>
-                      <span
-                        className={`${inactiveColor} text-sm truncate max-w-[180px]`}
-                      >
-                        {userData.email || ''}
-                      </span>
-                    </div>
-                  </motion.div>
-
-                  <motion.div variants={itemVariants}>
-                    <MobileMenuItem
-                      inActiveColor={inactiveColor}
-                      icon={
-                        <FiUser color={pathname === '/' ? 'black' : 'white'} />
-                      }
-                      text="Profile"
-                      onClick={() => {
-                        router.push('/profile');
-                        setMenuOpen(false);
-                      }}
-                    />
-                  </motion.div>
-
-                  <motion.div variants={itemVariants}>
-                    <MobileMenuItem
-                      inActiveColor={inactiveColor}
-                      icon={
-                        <FiLogOut
-                          color={pathname === '/' ? 'black' : 'white'}
-                        />
-                      }
-                      text="Logout"
-                      onClick={() => {
-                        logout();
-                        setMenuOpen(false);
-                      }}
-                    />
-                  </motion.div>
-                </>
-              ) : (
-                <motion.button
-                  onClick={() => {
-                    login();
-                    setMenuOpen(false);
-                  }}
-                  className={`w-full relative rounded-full py-3 text-lg font-semibold ${pathname === '/' ? 'text-black' : 'text-white'} border border-pink-200/50 bg-white/10 backdrop-blur-md transition-all shadow-lg drop-shadow-text`}
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  variants={itemVariants}
-                >
-                  Sign In
-                  <span className="absolute -inset-[2px] rounded-full blur-md bg-pink-200/20 opacity-40"></span>
-                </motion.button>
-              )}
-            </motion.div>
-          </motion.div>
+              Sign In
+              <span className="absolute -inset-[2px] rounded-full blur-md bg-pink-200/20 opacity-40"></span>
+            </motion.button>
+          )}
         </motion.div>
-      )}
-    </AnimatePresence>
+      </div>
+    </motion.div>
   );
-};
+});
 
-const MobileMenuItem = ({
+MobileMenu.displayName = 'MobileMenu';
+
+// Memoized MobileMenuItem for better performance
+const MobileMenuItem = memo(({
   icon,
   text,
   onClick,
@@ -510,22 +560,31 @@ const MobileMenuItem = ({
       {text}
     </motion.button>
   );
-};
+});
 
-const TextLink = ({
+MobileMenuItem.displayName = 'MobileMenuItem';
+
+// Memoized TextLink for better performance
+const TextLink = memo(({
   text,
   route,
   setMenuOpen,
 }: {
   text: string;
   route: string;
-  setMenuOpen: Dispatch<SetStateAction<boolean>>;
+  setMenuOpen: () => void;
 }) => {
   const pathname = usePathname();
+  const router = useRouter();
   const isActive =
     route === '/' ? pathname === '/' : pathname.startsWith(route);
   const activeColor = pathname === '/' ? 'text-orange-400' : 'text-yellow-300';
   const inactiveColor = pathname === '/' ? 'text-black' : 'text-white/90';
+
+  const handleClick = useCallback(() => {
+    router.push(route);
+    setMenuOpen();
+  }, [router, route, setMenuOpen]);
 
   return (
     <motion.div
@@ -533,10 +592,9 @@ const TextLink = ({
       whileHover={{ x: 8 }}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
     >
-      <Link
-        href={route}
-        onClick={() => setMenuOpen(false)}
-        className="block w-full"
+      <div
+        onClick={handleClick}
+        className="block w-full cursor-pointer"
       >
         <motion.div
           className="group relative flex items-center w-full"
@@ -572,9 +630,11 @@ const TextLink = ({
             />
           </span>
         </motion.div>
-      </Link>
+      </div>
     </motion.div>
   );
-};
+});
+
+TextLink.displayName = 'TextLink';
 
 export default GlassNavigation;

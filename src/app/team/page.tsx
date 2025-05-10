@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Users,
   Star,
@@ -13,15 +13,14 @@ import {
   HeartHandshake,
   Palette,
   Code,
-  ChevronDown,
-  ChevronUp
 } from 'lucide-react';
 import TeamCard from './TeamCard';
 import { teams } from '@/utils/constraints/constants/team';
 
 export default function TeamPage() {
   const [animateIn, setAnimateIn] = useState(false);
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState(0);
+  const [isChangingTab, setIsChangingTab] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,13 +51,14 @@ export default function TeamPage() {
     },
   ];
 
-  // Toggle category expansion
-  const toggleCategory = (category: string | null) => {
-    if (expandedCategory === category) {
-      setExpandedCategory(null);
-    } else {
-      setExpandedCategory(category);
-    }
+  const handleTabChange = (index) => {
+    if (index === activeTab) return;
+    
+    setIsChangingTab(true);
+    setTimeout(() => {
+      setActiveTab(index);
+      setIsChangingTab(false);
+    }, 300);
   };
 
   return (
@@ -132,51 +132,100 @@ export default function TeamPage() {
           </motion.p>
         </motion.div>
 
-        {/* Team categories accordion */}
-        <div className="space-y-8 mb-16">
-          {teams.map((team, teamIndex) => (
-            <motion.div
-              key={team.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: animateIn ? 1 : 0, y: animateIn ? 0 : 20 }}
-              transition={{ duration: 0.6, delay: 0.2 + teamIndex * 0.1 }}
-              className="bg-[#330000]/80 rounded-xl border border-yellow-200/10 overflow-hidden shadow-xl"
-            >
-              {/* Category header - clickable */}
-              <div 
-                className="flex items-center justify-between p-4 cursor-pointer"
-                onClick={() => toggleCategory(team.category)}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[#220000] border border-yellow-200/30">
-                    {team.icon}
-                  </div>
-                  <h2 className="text-2xl font-antolia text-yellow-200">{team.category}</h2>
-                </div>
-                <div className="text-yellow-200">
-                  {expandedCategory === team.category ? <ChevronUp /> : <ChevronDown />}
-                </div>
-              </div>
-
-              {/* Team members grid - conditionally rendered */}
-              {expandedCategory === team.category && (
+        {/* Tab-based system */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: animateIn ? 1 : 0, y: animateIn ? 0 : 20 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-16"
+        >
+          {/* Tabs Navigation */}
+          <div className="relative mb-12 overflow-hidden">
+            <div className="flex flex-nowrap overflow-x-auto pb-4 scrollbar-hide gap-3 md:gap-4 px-2">
+              {teams.map((team, index) => (
                 <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="p-4"
+                  key={team.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: animateIn ? 1 : 0, y: animateIn ? 0 : 20 }}
+                  transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+                  onClick={() => handleTabChange(index)}
+                  className={`relative flex-shrink-0 cursor-pointer group`}
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {team.members.map((member, index) => (
-                      <TeamCard key={`${team.id}-${index}`} member={member} index={index} />
-                    ))}
+                  <div 
+                    className={`relative z-10 flex flex-col items-center px-4 py-3 rounded-xl transition-all duration-300 
+                    ${activeTab === index 
+                      ? 'bg-gradient-to-b from-yellow-200/20 to-yellow-200/5 text-yellow-200 scale-105 shadow-lg shadow-yellow-900/20' 
+                      : 'bg-[#330000]/40 text-yellow-200/60 hover:bg-[#330000]/60'}`}
+                  >
+                    <div className={`w-12 h-12 mb-2 rounded-full flex items-center justify-center ${activeTab === index ? 'bg-[#220000]/80 border border-yellow-200/30' : 'bg-[#220000]/40'}`}>
+                      {team.icon}
+                    </div>
+                    <span className="font-antolia text-sm whitespace-nowrap transition-all duration-300">
+                      {team.category}
+                    </span>
+                    
+                    {/* Active indicator */}
+                    {activeTab === index && (
+                      <motion.div 
+                        layoutId="activeIndicator"
+                        className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-yellow-200"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
                   </div>
+                  
+                  {/* Hover glow effect */}
+                  <motion.div 
+                    className="absolute inset-0 -z-10 bg-yellow-200/5 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    initial={false}
+                    animate={activeTab === index ? { opacity: 0.5 } : { opacity: 0 }}
+                  />
                 </motion.div>
-              )}
-            </motion.div>
-          ))}
-        </div>
+              ))}
+            </div>
+            
+            {/* Shadow indicators for scrolling */}
+            <div className="absolute top-0 left-0 h-full w-8 bg-gradient-to-r from-[#220000] to-transparent pointer-events-none"></div>
+            <div className="absolute top-0 right-0 h-full w-8 bg-gradient-to-l from-[#220000] to-transparent pointer-events-none"></div>
+          </div>
+
+          {/* Team members content panels */}
+          <div className="relative bg-[#330000]/40 rounded-2xl border border-yellow-200/10 p-6 min-h-[300px] shadow-xl overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
+              <div className="absolute -right-24 -top-24 w-64 h-64 bg-yellow-200/10 rounded-full blur-3xl"></div>
+              <div className="absolute -left-24 -bottom-24 w-64 h-64 bg-yellow-200/5 rounded-full blur-3xl"></div>
+            </div>
+            
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="relative z-10"
+              >
+                <motion.div
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="h-px bg-gradient-to-r from-transparent via-yellow-200/40 to-transparent mb-8"
+                />
+                
+                {/* Category title */}
+                <h3 className="text-2xl font-antolia text-yellow-200 mb-6">{teams[activeTab].category}</h3>
+                
+                {/* Team members grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {teams[activeTab].members.map((member, index) => (
+                    <TeamCard key={`${teams[activeTab].id}-${index}`} member={member} index={index} />
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </motion.div>
 
         {/* Decorative footer element */}
         <motion.div
@@ -248,6 +297,17 @@ export default function TeamPage() {
 
         .animate-pulse-slow {
           animation: pulse-slow 5s ease-in-out infinite;
+        }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-hide {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
         }
       `}</style>
     </div>
