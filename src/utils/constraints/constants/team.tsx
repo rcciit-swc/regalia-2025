@@ -374,10 +374,17 @@ export const teams = [
         image:
           'https://i.postimg.cc/zBVyKZny/7be2c20b-8d97-4bc2-9d98-c17432dcae92.jpg',
       },
+      
       {
         name: 'Aditi Ghosh',
         role: 'Tech Team Member',
         image: 'https://i.postimg.cc/LX29XZ6Y/IMG-20240804-WA0021-ADITI-GHOSH.jpg',
+      },
+      {
+        name: 'Shreya Shaw',
+        role: 'Tech Team Member',
+        image:
+          'https://i.postimg.cc/W1nbcK2z/SHREYA-20250510-134135.jpg',
       },
     ],
   },
