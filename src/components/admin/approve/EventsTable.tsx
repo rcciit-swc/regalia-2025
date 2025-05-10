@@ -25,6 +25,7 @@ import { approveRegistration } from '@/utils/functions/register-services';
 import { Filter } from './EventFilters';
 import { getRoles } from '@/utils/functions';
 import { dateTime } from '@/utils/functions/dateUtils';
+import { whatsAppLinks } from '@/utils/constraints/constants/whatsApp';
 
 const COLUMN_WIDTHS = [
   100, 180, 400, 240, 220, 240, 240, 240, 360, 240, 320, 280,
@@ -202,6 +203,9 @@ export default function EventsTable() {
     style: React.CSSProperties;
   }) => {
     const item = filteredData[index];
+    const eventId = eventsData?.find(
+      (event) => event.name === item.eventname
+    )?.id;
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     return (
       <div
@@ -313,7 +317,7 @@ export default function EventsTable() {
                         leaderName: item.teamlead,
                         leaderPhone: item.teamleadphone,
                         email: item.teamleademail,
-                        whatsappLink: '#',
+                        whatsappLink: whatsAppLinks?.find((link)=>link.event_id === eventId)?.link,
                         teamMembers: item.teammembers,
                         coordinators: eventCoordinators,
                         contactEmail: 'regalia.rcciit.official@gmail.com',

@@ -384,7 +384,7 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
                         }
                         disabled={eventData.registered}
                       >
-                        Register Soon
+                        Register Closed
                       </InteractiveHoverButton>
                     </motion.div>
                   )}
