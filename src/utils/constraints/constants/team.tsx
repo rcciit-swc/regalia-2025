@@ -708,12 +708,7 @@ export const teams = [
         image:
           'https://i.postimg.cc/JzxFck2B/IMG-20250125-WA0068-1-BHUMIKA-DAS.jpg',
       },
-      {
-        name: 'Tilak Sidhukan',
-        role: 'Sponsorship Team Member',
-        image:
-          'https://i.postimg.cc/52rpbwgg/IMG-20241129-164947-805-TILAK-SADHUKHAN.webp',
-      },
+      
       
     ],
   },
