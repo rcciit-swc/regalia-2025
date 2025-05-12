@@ -674,7 +674,7 @@ export const teams = [
       },
       {
         name: 'Pritam Mondal',
-        role: 'Sponsorship Coordinator',
+        role: 'Sponsorship Team Member',
         image:
           'https://i.postimg.cc/xTtzSn53/IMG-20250202-201008-Pritam-Mondal.jpg',
       },
