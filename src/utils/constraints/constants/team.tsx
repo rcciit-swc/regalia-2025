@@ -541,12 +541,7 @@ export const teams = [
         image:
           'https://i.postimg.cc/Jndhvk7D/PSX-20240308-115804-Soumya-Das.jpg',
       },
-      {
-        name: 'Bhumika Das',
-        role: 'Coverage Team Member',
-        image:
-          'https://i.postimg.cc/v8N1SpDq/IMG-20250125-WA0068-1-BHUMIKA-DAS.jpg',
-      },
+      
       {
         name: 'Nirmalya Karmakar',
         role: 'Coverage Team Member',
