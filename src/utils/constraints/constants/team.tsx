@@ -10,6 +10,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { FaMoneyCheck } from 'react-icons/fa';
+import { MdManageHistory } from 'react-icons/md';
 
 export const teams = [
   {
@@ -314,7 +315,7 @@ export const teams = [
       },
       {
         name: 'Nasiruddin Thander',
-        role: 'Tech Co-Lead',
+        role: 'Tech Team Co-Lead',
         image:
           'https://i.postimg.cc/L6TNgZ5Y/Nasiruddin-Thander-NASIRUDDIN-THANDER.jpg',
       },
@@ -382,31 +383,19 @@ export const teams = [
       },
     ],
   },
-  // {
-  //   category: 'Management',
-  //   id: 'management',
-  //   path: '/team/management',
-  //   icon: <Code className="text-yellow-200" />,
-  //   members: [
-  //     // {
-  //     //   name: 'Joydeep Das',
-  //     //   role: 'Artist Management Team',
-  //     //   image: 'https://i.postimg.cc/sfMTwqxz/bag.jpg',
-  //     // },
-  //     {
-  //       name: 'Dibakar Banerjee',
-  //       role: 'Convenor',
-  //       image:
-  //         'https://i.postimg.cc/3RX1g4ZN/Whats-App-Image-2025-07-19-at-18-29-51.jpg',
-  //     },
-  //     {
-  //       name: 'Rwitam Ray',
-  //       role: 'Robotics POC',
-  //       image:
-  //         'https://i.postimg.cc/MpYBwCYc/IMG-20240401-WA0013-1-Rwitam-Ray.jpg',
-  //     },
-  //   ],
-  // },
+  {
+    category: 'Management',
+    id: 'management',
+    path: '/team/management',
+    icon: <MdManageHistory className="text-yellow-200" />,
+    members: [
+      {
+        name: 'Joydeep Das',
+        role: 'Artist Management Team',
+        image: 'https://i.postimg.cc/8zN68759/joydeep.jpg',
+      },
+    ],
+  },
   {
     category: 'Graphics Team',
     id: 'graphics',
@@ -428,7 +417,7 @@ export const teams = [
       },
       {
         name: 'Debdatta Ray',
-        role: 'Graphics Team Member',
+        role: 'Graphics Team Supervisor',
         image:
           'https://i.postimg.cc/KvC7F119/IMG-20241212-131540-DEBDATTA-RAY.jpg',
       },

@@ -29,7 +29,7 @@ export const whatsAppLinks = [
 },
 {
     event_id: '5b52d163-3b88-43bc-ab66-14dbfd6cf428', // Carpe Diem
-    link: 'https://chat.whatsapp.com/DqRRg1hcID0LHKqPsR8wfd'
+    link: 'https://chat.whatsapp.com/G45mmsEXT0nA9HgwcJEfgD'
 },
 {
     event_id: 'b4c2e3e8-8081-4dfc-aa1b-0a3f9d83da4a', // Jhankar

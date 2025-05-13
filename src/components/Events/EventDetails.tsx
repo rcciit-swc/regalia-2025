@@ -28,6 +28,7 @@ import {
   Volume2,
   VolumeX,
 } from 'lucide-react';
+import { whatsAppLinks } from '@/utils/constraints/constants/whatsApp';
 
 interface EventDetailsProps {
   eventId: string;
@@ -360,15 +361,21 @@ const EventDetails = ({ eventId }: EventDetailsProps) => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 }}
                     >
-                      <InteractiveHoverButton
+                      {eventData.registered ? <InteractiveHoverButton
+                        className="w-full py-3 border-yellow-200 border font-cogley tracking-wider text-lg flex items-center justify-center gap-2"
+                        disabled={eventData.registered}
+                      >
+                        <Link
+                        href={whatsAppLinks?.find((link) => link.event_id === eventData.id)?.link || ''}
+                        target="_blank"
+                        >Join WhatsApp Group</Link>
+                      </InteractiveHoverButton> : <InteractiveHoverButton
                         className="w-full py-3 border-yellow-200 border font-cogley tracking-wider text-lg flex items-center justify-center gap-2"
                         onClick={handleRegister}
                         disabled={eventData.registered}
-                      >
-                        {eventData.registered
-                          ? 'Already Registered'
-                          : 'REGISTER NOW'}
-                      </InteractiveHoverButton>
+                      >REGISTER NOW</InteractiveHoverButton>
+
+                      }
                     </motion.div>
                   ) : (
                     <motion.div
