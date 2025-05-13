@@ -297,6 +297,13 @@ export const teams = [
         image:
           'https://i.postimg.cc/kXpgc4wz/FB-IMG-1746147121058-SHUVOJYOTI-BISWAS.jpg',
       },
+      
+      {
+        name: 'Subhradeep Baidya',
+        role: 'PR & Outreach Team Member',
+        image:
+          'https://i.postimg.cc/mDmRrbKq/IMG-8593-Subhradeep-Baidya.jpg',
+      },
 
     ],
   },
@@ -314,7 +321,7 @@ export const teams = [
       },
       {
         name: 'Nasiruddin Thander',
-        role: 'Tech Co-Lead',
+        role: 'Tech Team Co-Lead',
         image:
           'https://i.postimg.cc/L6TNgZ5Y/Nasiruddin-Thander-NASIRUDDIN-THANDER.jpg',
       },
@@ -380,6 +387,12 @@ export const teams = [
         image:
           'https://i.postimg.cc/W1nbcK2z/SHREYA-20250510-134135.jpg',
       },
+      {
+        name: 'Archisha Upadhyaya',
+        role: 'Tech Team Member',
+        image:
+          'https://i.postimg.cc/mZVhc4QT/Whats-App-Image-2025-05-13-at-21-12-41-1e7be764.jpg',
+      },
     ],
   },
   // {
@@ -427,13 +440,31 @@ export const teams = [
           'https://i.postimg.cc/7PQ4vR7T/IMG-20250428-WA0003-ARIYAN-BHAKAT.webp',
       },
       {
+        name: 'Anirban Kar',
+        role: 'Graphics Team Member',
+        image:
+          'https://techtrix.rcciit.org.in/_next/image?url=https%3A%2F%2Fi.postimg.cc%2FJ735kWgs%2F24ea2a33-9cea-49f5-9b4c-c08902a9ef8e.jpg&w=640&q=100',
+      },
+      {
         name: 'Debdatta Ray',
         role: 'Graphics Team Member',
         image:
           'https://i.postimg.cc/KvC7F119/IMG-20241212-131540-DEBDATTA-RAY.jpg',
       },
       {
+        name: 'Sayandeep Sen',
+        role: 'Graphics Team Member',
+        image:
+          'https://i.postimg.cc/mrcgJ1qD/IMG-20250513-WA0107-1.jpg',
+      },
+      {
         name: 'Tirtha Bhattacharyya',
+        role: 'Graphics Team Member',
+        image:
+          'https://i.postimg.cc/BQxkby5p/Whats-App-Image-2025-02-22-at-9-37-01-PM-TIRTHA-BHATTACHARYYA.jpg',
+      },
+      {
+        name: 'Ankit Chattopadhyay',
         role: 'Graphics Team Member',
         image:
           'https://i.postimg.cc/BQxkby5p/Whats-App-Image-2025-02-22-at-9-37-01-PM-TIRTHA-BHATTACHARYYA.jpg',
@@ -451,10 +482,10 @@ export const teams = [
           'https://i.postimg.cc/vBSgzK9P/IMG-20240921-WA0002-SANTANU-SRIVASTAVA.jpg',
       },
       {
-        name: 'Poulami Saha',
+        name: 'Ankur Bag',
         role: 'Graphics Team Member',
         image:
-          'https://i.postimg.cc/HkGMRFNR/IMG-20250507-083309-POULAMI-SAHA.jpg',
+          'https://i.postimg.cc/bJYkLb5v/IMG-20250407-140242-429-ANKUR-BAG.webp',
       },
       {
         name: 'Soumi Khanra',
@@ -462,6 +493,13 @@ export const teams = [
         image:
           'https://i.postimg.cc/8zN36HtS/IMG-20230511-WA0023-SOUMI-KHANRA.jpg',
       },
+      {
+        name: 'Poulami Saha',
+        role: 'Graphics Team Member',
+        image:
+          'https://i.postimg.cc/HkGMRFNR/IMG-20250507-083309-POULAMI-SAHA.jpg',
+      },
+     
       // {
       //   name: 'Bhumika Das',
       //   role: 'Graphics Team Member',
@@ -474,12 +512,7 @@ export const teams = [
         image:
           'https://i.postimg.cc/yNzBQSRQ/IMG-20250508-WA0073-1-SAYANI-HALDER.jpg',
       },
-      {
-        name: 'Ankur Bag',
-        role: 'Graphics Team Member',
-        image:
-          'https://i.postimg.cc/bJYkLb5v/IMG-20250407-140242-429-ANKUR-BAG.webp',
-      },
+      
       
     ],
   },
@@ -585,6 +618,12 @@ export const teams = [
         role: 'PR & Outreach Team',
         image:
           'https://i.postimg.cc/XqgQbm1B/IMG-20250502-195002-SOUVIK-PRATIHAR.webp',
+      },
+      {
+        name: 'Prithwisha Biswas',
+        role: 'PR & Outreach Team Member',
+        image:
+          'https://i.postimg.cc/SNVFGtJ7/IMG-20250510-113125-Prithwisha-Biswas.jpg',
       },
 
     ],
