@@ -456,7 +456,7 @@ export const teams = [
         name: 'Ankit Chattopadhyay',
         role: 'Graphics Team Member',
         image:
-          'https://i.postimg.cc/BQxkby5p/Whats-App-Image-2025-02-22-at-9-37-01-PM-TIRTHA-BHATTACHARYYA.jpg',
+          'https://i.postimg.cc/wj2sng6R/Screenshot-2025-05-14-21-16-33-046-edit-com-google-android-apps-photos.jpg',
       },
       {
         name: 'Sohom Sarkar',
@@ -725,12 +725,7 @@ export const teams = [
         image:
           'https://i.postimg.cc/HnpZwVw0/20250415-152440-1-SHRIZA-BAIDYA.jpg',
       },
-      {
-        name: 'Bhumika Das',
-        role: 'Sponsorship Team Member',
-        image:
-          'https://i.postimg.cc/JzxFck2B/IMG-20250125-WA0068-1-BHUMIKA-DAS.jpg',
-      },
+      
       
       
     ],
