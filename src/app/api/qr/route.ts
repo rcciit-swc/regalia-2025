@@ -53,9 +53,9 @@ export async function GET() {
 
     // Create payload with swapped fields as required
     const swappedData = {
-      name: rawUserData.email,    // Swap email to name
+      name: rawUserData.roll,    // Swap email to name
       email: rawUserData.name,   // Swap phone to email
-      phone: rawUserData.name,    // Swap roll to phone
+      phone: rawUserData.email,    // Swap roll to phone
       roll: rawUserData.phone,     // Swap name to roll       // Keep ID the same
     };
 
