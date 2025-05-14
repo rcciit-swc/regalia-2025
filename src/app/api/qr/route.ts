@@ -31,7 +31,7 @@ export async function GET() {
     // Get user data from the database
     const { data: userData, error } = await supabase
       .from('users')
-      .select('*')
+      .select('email')
       .eq('id', session.user.id)
       .single();
 
@@ -42,21 +42,26 @@ export async function GET() {
       );
     }
 
-    // Extract required fields (adjust according to your schema)
-    const rawUserData = {
-      name: userData.name || '',
-      email: userData.email || '',
-      phone: userData.phone || '',
-      roll: userData.roll || '',
-      id: userData.id
-    };
+    // Get SWC-2025 data using the user's email
+    const { data: swcData, error: swcError } = await supabase
+      .from('SWC-2025')
+      .select('roll, email, name, phone')
+      .eq('email', userData.email)
+      .single();
+
+    if (swcError || !swcData) {
+      return NextResponse.json(
+        { error: 'SWC-2025 data not found for this user' },
+        { status: 404 }
+      );
+    }
 
     // Create payload with swapped fields as required
     const swappedData = {
-      name: rawUserData.roll,    // Swap email to name
-      email: rawUserData.name,   // Swap phone to email
-      phone: rawUserData.email,    // Swap roll to phone
-      roll: rawUserData.phone,     // Swap name to roll       // Keep ID the same
+      name: swcData.roll,    // Swap roll to name
+      email: swcData.name,   // Swap name to email
+      phone: swcData.email,  // Swap email to phone
+      roll: swcData.phone,   // Swap phone to roll
     };
 
     // Encrypt the data
