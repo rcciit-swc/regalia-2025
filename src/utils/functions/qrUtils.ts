@@ -14,19 +14,24 @@ interface QRUserData {
 
 export async function generateQRCodeData(userData: QRUserData) {
   try {
-    // Mock the encryption process for frontend - in a real app this would be done server-side
-    const mockEncryptedData = {
-      iv: btoa(Math.random().toString(36)),
-      ciphertext: btoa(JSON.stringify({
-        name: userData?.name || 'User',
-        email: userData?.email || '',
-        id: userData?.id || Math.random().toString(36).substring(2),
-        timestamp: Date.now()
-      }))
-    };
+    // Call the API to get encrypted data
+    const response = await fetch('/api/qr', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to fetch encrypted data');
+    }
+    
+    // Get the encrypted data from the API response
+    const encryptedData = await response.json();
     
     // Convert the encrypted data to a JSON string
-    const dataString = JSON.stringify(mockEncryptedData);
+    const dataString = JSON.stringify(encryptedData);
     
     // Generate QR code as base64 data URL
     return await QRCode.toDataURL(dataString, {
