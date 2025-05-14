@@ -28,6 +28,14 @@ export async function middleware(req: NextRequest) {
       .select(`role`)
       .eq('user_id', session.user?.id);
     const roles = userRoles!.map((role) => role.role);
+    const isSecurityAdmin = roles.includes('security_admin');
+        if (url.pathname.includes('/admin/manage-events/approve-security')) {
+      if (isSecurityAdmin) {
+        return NextResponse.next();
+      } else {
+        return NextResponse.redirect(new URL('/unauthorized', req.url));
+      }
+    }
     if (url.pathname.includes('/admin/manage-events/add-event')) {
       if (roles.includes('super_admin') || roles.includes('coordinator')) {
         return NextResponse.next();

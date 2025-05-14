@@ -70,6 +70,8 @@ export interface EventsStateType {
   eventsLoading: boolean;
   approvalDashboardData: any[];
   approvalDashboardLoading: boolean;
+  securitiesLoading: boolean;
+  securitiesData: any[];
 }
 
 export interface EventsActionsType {
@@ -81,4 +83,5 @@ export interface EventsActionsType {
   updateRegisterStatus: (id: string, status: boolean) => void;
   updateEventsData: (id: string, data: any) => void;
   getApprovalDashboardData: (rangeStart: number, rangeEnd: number) => void;
+  getSecuritiesData: (userId: string) => void;
 }

@@ -4,6 +4,7 @@ import {
   getEventByID,
   getEventCategories,
   getEventsData,
+  getSecurity,
   updateEventById,
   updateRegisterStatusDb,
 } from '@/utils/functions';
@@ -84,5 +85,15 @@ export const populateEventDetailsByID = async (set: any, id: string) => {
     }
   } catch (error: any) {
     set({ eventData: {}, eventDetailsLoading: false });
+  }
+};
+
+export const getSecuritiesData = async (set: any, userId: string) => {
+  set({ securitiesLoading: true });
+  const data = await getSecurity(userId);
+  if (!data) {
+    set({ securitiesData: [], securitiesLoading: false });
+  } else {
+    set({ securitiesData: data, securitiesLoading: false });
   }
 };

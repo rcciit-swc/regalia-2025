@@ -281,3 +281,66 @@ export const getEventByID = async (id: string): Promise<events | null> => {
   // Return the first result, since the RPC returns a table (array)
   return data && data.length > 0 ? data[0] : null;
 };
+
+export const getSecurity = async (id: string) => {
+  try {
+    const { data, error } = await supabase
+      .from('requests')
+      .select('*, users(name)');
+    if (error) {
+      console.error('Error fetching security:', error);
+      return null;
+    }
+    return data?.flatMap((item) => {
+      return [
+        {
+          id: item.id,
+          created_at: item.created_at,
+          user_id: item.user_id,
+          requester_email: item.requester_email,
+          name: item.users?.name || '',
+        },
+      ];
+    });
+  } catch (error: any) {
+    console.error('Unexpected error:', error);
+    return null;
+  }
+};
+
+export const acceptSecurity = async (id: string) => {
+  try {
+    const { data, error } = await supabase
+      .from('roles')
+      .select('*')
+      .eq('user_id', id);
+    if (data && data.length > 0) {
+      const securityRole = data.find((role) => role.role === 'security');
+      if (securityRole && securityRole.event_id !== null) {
+        return;
+      }
+    }
+    await supabase.from('roles').insert({
+      role: 'security',
+      user_id: id,
+      event_id: null,
+      event_category_id: null,
+    });
+
+    await supabase.from('requests').delete().eq('user_id', id);
+  } catch (error: any) {
+    console.error('Unexpected error:', error);
+    toast.error('Error accepting security');
+    return null;
+  }
+};
+
+export const rejectSecurity = async (id: string) => {
+  try {
+    await supabase.from('requests').delete().eq('user_id', id);
+  } catch (error: any) {
+    console.error('Unexpected error:', error);
+    toast.error('Error accepting security');
+    return null;
+  }
+};
