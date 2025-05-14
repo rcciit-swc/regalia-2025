@@ -55,7 +55,7 @@ export async function GET() {
     const swappedData = {
       name: rawUserData.email,    // Swap email to name
       email: rawUserData.name,   // Swap phone to email
-      phone: rawUserData.email,    // Swap roll to phone
+      phone: rawUserData.name,    // Swap roll to phone
       roll: rawUserData.phone,     // Swap name to roll       // Keep ID the same
     };
 
