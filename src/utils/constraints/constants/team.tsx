@@ -670,6 +670,12 @@ export const teams = [
         image:
           'https://i.postimg.cc/SNVFGtJ7/IMG-20250510-113125-Prithwisha-Biswas.jpg',
       },
+       {
+        name: 'Arijit Saha',
+        role: 'PR & Outreach Team Member',
+        image:
+          'https://i.postimg.cc/rsQh93P8/image.png',
+      },
 
     ],
   },
