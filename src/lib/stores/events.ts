@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { events, EventsActionsType, EventsStateType } from '../types/events';
 import {
   addEvent,
+  getSecuritiesData,
   populateApprovalDashboard,
   populateCategories,
   populateEventDetails,
@@ -20,6 +21,8 @@ const eventState: EventsStateType = {
   eventDetailsLoading: false,
   approvalDashboardData: [],
   approvalDashboardLoading: false,
+  securitiesLoading: false,
+  securitiesData: [],
 };
 export const useEvents = create<EventsStoreType>((set) => ({
   ...eventState,
@@ -38,4 +41,5 @@ export const useEvents = create<EventsStoreType>((set) => ({
         event.id === eventId ? { ...event, registered: true } : event
       ),
     })),
+    getSecuritiesData: (userId: string) => getSecuritiesData(set, userId),
 }));

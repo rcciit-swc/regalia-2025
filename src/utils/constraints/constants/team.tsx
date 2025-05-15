@@ -9,7 +9,7 @@ import {
   Star,
   Zap,
 } from 'lucide-react';
-import { FaMoneyCheck } from 'react-icons/fa';
+import { FaMicrophone, FaMoneyCheck } from 'react-icons/fa';
 import { MdManageHistory } from 'react-icons/md';
 
 export const teams = [
@@ -144,6 +144,16 @@ export const teams = [
         name: 'Debjit Sarkar',
         role: 'Voice of Emotions Convenor',
         image: 'https://i.postimg.cc/vTNr4B3Z/IMG-0544-DEBJIT-SARKAR-1.jpg',
+      },
+      {
+        name: 'Shreya Sarkar',
+        role: ' Convenor',
+        image: 'https://i.postimg.cc/1R2NBfG5/IMG-20250513-WA0043-SHREYA-SARKAR.jpg',
+      },
+      {
+        name: 'Debopom Bannerjee',
+        role: ' Convenor',
+        image: 'https://i.postimg.cc/ZKjCWHTg/download.webp',
       },
     ],
   },
@@ -305,6 +315,41 @@ export const teams = [
         image:
           'https://i.postimg.cc/mDmRrbKq/IMG-8593-Subhradeep-Baidya.jpg',
       },
+      {
+              name: 'Aditya Chakraborty',
+              role: 'Logistics Team Member',
+              image:
+                'https://i.postimg.cc/rsjNBTZY/IMG-20231128-WA0006-ADITYA-CHAKRABORTY.jpg',
+            },
+            {
+              name: 'DeepMalya Ghosh Dastidar',
+              role: 'Security Team Member',
+              image:
+                'https://i.postimg.cc/BZz1pMWK/IMG-20250425-001838-Deepmalya-Ghosh-Dastider-Official.webp',
+            },
+            {
+              name: 'Soumyadeep Sardar',
+              role: 'Security Team Member',
+              image:
+                'https://i.postimg.cc/fThS1kLz/IMG-2869-SOUMYADEEP-SARDAR.webp',
+            },
+            {
+              name: 'Shree kant pathak ',
+              role: 'Logistics Team Member',
+              image:
+                'https://i.postimg.cc/c4w1ycz2/IMG-20250322-211321-211-SHREE-KANT-PATHAK.webp',
+            },
+            {
+                    name: 'Mohit Chowdhury',
+                    role: 'Logistics Team Member',
+                    image: 'https://i.postimg.cc/h4Xxg9zt/IMG-9828-MOHIT-CHOWDHURY.jpg',
+                  },
+                  {
+                          name: 'Sagar Raj Yadav',
+                          role: 'Logistics Team Member',
+                          image:
+                            'https://i.postimg.cc/nr9n5VLn/IMG20240710105920-SAGAR-RAJYADAV.jpg',
+                        },
 
     ],
   },
@@ -407,6 +452,11 @@ export const teams = [
         role: 'Artist Management Team',
         image: 'https://i.postimg.cc/8zN68759/joydeep.jpg',
       },
+      {
+        name: 'Srijit Bose',
+        role: 'Console Management Team',
+        image: 'https://i.postimg.cc/Jz5VrYMD/Pass-QR-SRIJIT-BOSE.png',
+      },
     ],
   },
   {
@@ -441,6 +491,12 @@ export const teams = [
           'https://i.postimg.cc/KvC7F119/IMG-20241212-131540-DEBDATTA-RAY.jpg',
       },
       {
+        name: 'Swastika Bose',
+        role: 'Graphics Team Member',
+        image:
+          'https://i.postimg.cc/nLmFGGJn/IMG-20250509-024558-SWASTIKA-BOSE.webp',
+      },
+      {
         name: 'Sayandeep Sen',
         role: 'Graphics Team Member',
         image:
@@ -450,7 +506,7 @@ export const teams = [
         name: 'Tirtha Bhattacharyya',
         role: 'Graphics Team Member',
         image:
-          'https://i.postimg.cc/BQxkby5p/Whats-App-Image-2025-02-22-at-9-37-01-PM-TIRTHA-BHATTACHARYYA.jpg',
+          'https://i.postimg.cc/3w49wdHy/Whats-App-Image-2025-05-15-at-01-23-53-2f0aca27.jpg',
       },
       {
         name: 'Ankit Chattopadhyay',
@@ -838,4 +894,19 @@ export const teams = [
   //     },
   //   ],
   // },
+  {
+    category: 'EMMC Team',
+    id: 'emmc',
+    path: '/team/emmc',
+    icon: <FaMicrophone className="text-yellow-200" />,
+    members: [
+      {
+        name: 'Kasturi Bhattacharya',
+        role: 'Anchor Team',
+        image:
+          'https://i.postimg.cc/bJV5BK8b/Whats-App-Image-2025-05-15-at-01-21-31-b7752756.jpg',
+      },
+    ],
+  },
+
 ];
