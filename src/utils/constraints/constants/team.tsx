@@ -469,6 +469,11 @@ export const teams = [
         image: 'https://i.postimg.cc/ZKjCWHTg/download.webp',
       },
       {
+        name: 'Palas Saha',
+        role: 'Band Bash',
+        image: 'https://i.postimg.cc/76rQLBbW/123-PALAS-SAHA-1.jpg',
+      },
+      {
         name: 'Shreya Sarkar',
         role: ' Convenor',
         image: 'https://i.postimg.cc/1R2NBfG5/IMG-20250513-WA0043-SHREYA-SARKAR.jpg',
