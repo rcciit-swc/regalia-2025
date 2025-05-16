@@ -459,24 +459,24 @@ export const teams = [
       },
       {
         name: 'Swastika Bose',
-        role: 'Graphics Team Member',
+        role: 'Console Management Team',
         image:
           'https://i.postimg.cc/nLmFGGJn/IMG-20250509-024558-SWASTIKA-BOSE.webp',
       },
       {
-        name: 'Debopom Bannerjee',
-        role: ' Convenor',
-        image: 'https://i.postimg.cc/ZKjCWHTg/download.webp',
-      },
-      {
         name: 'Palas Saha',
-        role: 'Band Bash',
+        role: 'Event Management Team',
         image: 'https://i.postimg.cc/76rQLBbW/123-PALAS-SAHA-1.jpg',
       },
       {
         name: 'Shreya Sarkar',
-        role: ' Convenor',
+        role: 'Back Stage Management',
         image: 'https://i.postimg.cc/1R2NBfG5/IMG-20250513-WA0043-SHREYA-SARKAR.jpg',
+      },
+      {
+        name: 'Debopom Bannerjee',
+        role: ' Security Team',
+        image: 'https://i.postimg.cc/ZKjCWHTg/download.webp',
       },
     ],
   },
