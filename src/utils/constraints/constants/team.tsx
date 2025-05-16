@@ -457,6 +457,22 @@ export const teams = [
         role: 'Console Management Team',
         image: 'https://i.postimg.cc/Jz5VrYMD/Pass-QR-SRIJIT-BOSE.png',
       },
+      {
+        name: 'Swastika Bose',
+        role: 'Graphics Team Member',
+        image:
+          'https://i.postimg.cc/nLmFGGJn/IMG-20250509-024558-SWASTIKA-BOSE.webp',
+      },
+      {
+        name: 'Debopom Bannerjee',
+        role: ' Convenor',
+        image: 'https://i.postimg.cc/ZKjCWHTg/download.webp',
+      },
+      {
+        name: 'Shreya Sarkar',
+        role: ' Convenor',
+        image: 'https://i.postimg.cc/1R2NBfG5/IMG-20250513-WA0043-SHREYA-SARKAR.jpg',
+      },
     ],
   },
   {
