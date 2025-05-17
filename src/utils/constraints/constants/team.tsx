@@ -697,6 +697,12 @@ export const teams = [
         image:
           'https://i.postimg.cc/rsQh93P8/image.png',
       },
+      {
+        name: 'Arijit Ghosh',
+        role: 'PR & Outreach Team Member',
+        image:
+          'https://i.postimg.cc/zfXDFbJR/Whats-App-Image-2025-05-17-at-00-04-04-df2d67dd.jpg',
+      },
 
     ],
   },
